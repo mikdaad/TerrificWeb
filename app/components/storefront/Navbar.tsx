@@ -21,9 +21,9 @@ export async function Navbar() {
   const total = cart?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   return (
-    <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-end top-50">
+    <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-end top-36">
       <div className="flex items-center">
-      <Link href="/" className="absolute top-5 left-40">
+      <Link href="/" className="absolute top-3 left-20">
       <Image
         src="/logo.svg"
         alt="Company Logo"
@@ -37,7 +37,7 @@ export async function Navbar() {
     
       </div>
 
-      <div className="flex items-center mt-7">
+      <div className="flex items-center mt-0">
         {user ? (
           <>
             <Link href="/bag" className="group p-2 flex items-center mr-2">
@@ -56,13 +56,15 @@ export async function Navbar() {
             />
           </>
         ) : (
-          <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-2">
-            <Button variant="ghost" asChild>
-              <LoginLink>Sign in</LoginLink>
+          <div className=" hidden md:flex justify-end items-center gap-x-5  mr-8 mt-0">
+            <Button variant="ghost"  asChild>
+              <LoginLink className="text-white hover:bg-white hover:bg-opacity-25 hover:text-white text-[1.000rem]
+                      group p-2 font-medium rounded-md transition duration-200">Sign in</LoginLink>
             </Button>
-            <span className="h-6 w-px bg-gray-200"></span>
+          
             <Button variant="ghost" asChild>
-              <RegisterLink>Create Account</RegisterLink>
+              <RegisterLink className="text-white hover:bg-white hover:bg-opacity-25 hover:text-white text-[1.000rem]
+                      group p-2 font-medium rounded-md transition duration-200" >Create Account</RegisterLink>
             </Button>
           </div>
         )}
