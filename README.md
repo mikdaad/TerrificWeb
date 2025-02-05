@@ -9,8 +9,7 @@
 - 👨🏻‍💻 GitHub Repository: https://janmarshal.com/courses/build-an-e-commerce-store-using-next-js-kinde-auth-neon-upstache-prisma-stripe-and-tailwind
 - 🌍 My Website: https://www.janmarshal.com
 - ✅ Follow me on X: https://x.com/janmarshaldev
-- 📧 Business ONLY: jan@alenix.de 
-
+- 📧 Business ONLY: terrificmaile@gmail.com
 
 Features: 
 - 🌐 Next.js App Router
