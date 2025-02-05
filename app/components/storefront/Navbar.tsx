@@ -10,6 +10,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { redis } from "@/app/lib/redis";
 import { Cart } from "@/app/lib/interfaces";
+import Image from "next/image";
 
 export async function Navbar() {
   const { getUser } = getKindeServerSession();
@@ -20,17 +21,23 @@ export async function Navbar() {
   const total = cart?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   return (
-    <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+    <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-end top-50">
       <div className="flex items-center">
-        <Link href="/">
-          <h1 className="text-black font-bold text-xl lg:text-3xl">
-            Shoe<span className="text-primary">Marshal</span>
-          </h1>
-        </Link>
+      <Link href="/" className="absolute top-5 left-40">
+      <Image
+        src="/logo.svg"
+        alt="Company Logo"
+        width={161.23} // Adjust size as needed
+        height={72.87}
+        priority
+      />
+    </Link>
+   
         <NavbarLinks />
+    
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center mt-7">
         {user ? (
           <>
             <Link href="/bag" className="group p-2 flex items-center mr-2">

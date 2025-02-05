@@ -35,21 +35,23 @@ export const navbarLinks = [
 export function NavbarLinks() {
   const location = usePathname();
   return (
-    <div className="hidden md:flex justify-center items-center gap-x-2 ml-8">
-      {navbarLinks.map((item) => (
-        <Link
-          href={item.href}
-          key={item.id}
-          className={cn(
-            location === item.href
-              ? "bg-muted"
-              : "hover:bg-muted hover:bg-opacity-75",
-            "group p-2 font-medium rounded-md"
-          )}
-        >
-          {item.name}
-        </Link>
-      ))}
-    </div>
+    <div className=" hidden md:flex justify-end items-center gap-x-10  mr-8 mt-7">
+  {navbarLinks.map((item) => (
+    <Link
+      href={item.href}
+      key={item.id}
+      className={cn(
+        location === item.href
+          ? "text-white bg-opacity-100 border-b-2 border-white font-semibold text-[1.200rem]"
+          : "text-white hover:bg-white hover:bg-opacity-25 text-[1.200rem]",
+        "group p-2 font-medium rounded-md transition duration-200"
+      )}
+      
+    >
+      {item.name}
+    </Link>
+  ))}
+</div>
+
   );
 }

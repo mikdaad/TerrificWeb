@@ -57,3 +57,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@font-face {
+  font-family: 'Glancyr';
+  src: url('/fonts/glancyr-glancyr-regular-400.ttf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Glancyr';
+  src: url('/fonts/glancyr-glancyr-medium-500.ttf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Glancyr';
+  src: url('/fonts/glancyr-glancyr-bold-700.ttf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
