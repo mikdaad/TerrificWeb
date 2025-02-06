@@ -77,6 +77,23 @@ const Carousel = React.forwardRef<
       setCanScrollNext(api.canScrollNext())
     }, [])
 
+        // ✅ Auto-slide effect (Insert after scrollNext function)
+        React.useEffect(() => {
+          if (!api) return;
+    
+          const interval = setInterval(() => {
+            if (api.canScrollNext()) {
+              api.scrollNext();
+            } else {
+              api.scrollTo(0); // Reset to first slide if at the end
+            }
+          }, 2300); // Change slide every 3 seconds
+    
+          return () => clearInterval(interval); // Cleanup on unmount
+        }, [api]);
+
+        
+
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev()
     }, [api])

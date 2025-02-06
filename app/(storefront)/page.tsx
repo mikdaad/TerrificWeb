@@ -37,10 +37,16 @@ export default function IndexPage() {
   timelessly chic. Step into a world of confidence, innovation, and unparalleled style with <span className="font-bold">TERRIFIC</span>.
 </h1>
 
+<div  className="relative  w-[30%]  flex items-center justify-center" >
+<Hero />
+</div>
+
+
          
      
      
     </div>
+    
     
   );
 }

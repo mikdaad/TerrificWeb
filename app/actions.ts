@@ -122,6 +122,7 @@ export async function createBanner(prevState: any, formData: FormData) {
     data: {
       title: submission.value.title,
       imageString: submission.value.imageString,
+      pricing: submission.value.pricing,
     },
   });
 
