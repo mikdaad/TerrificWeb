@@ -13,6 +13,7 @@ type Banner = {
   id: string; // or `number` if your ID is a number
   title: string;
   imageString: string;
+  pricing: string;
 };
 async function getData(): Promise<Banner[]> {
   const data = await prisma.banner.findMany({
