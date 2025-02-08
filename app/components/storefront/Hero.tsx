@@ -29,7 +29,7 @@ export async function Hero() {
   const data = await getData();
 
   return (
-    <div className="relative w-full flex flex-col items-center top-[340px] left-[780px]">
+    <div className="">
       {/* Timeline SVG */}
       <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 z-10">
       <svg width="466" height="7" viewBox="0 0 466 7" fill="none" xmlns="http://www.w3.org/2000/svg">

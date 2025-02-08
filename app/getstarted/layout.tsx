@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import React,{ type ReactNode } from "react";
 import { Navbar } from "../components/storefront/Navbar";
 import { Footer } from "../components/storefront/Footer";
 import background from "@/public/background.png"; // Ensure this path is correct
@@ -23,12 +23,12 @@ export default function StoreFrontLayout({
 
   
     <div
-    className="relative min-h-screen bg-cover bg-center"
+    className="relative min-h-screen bg-cover  bg-left"
     style={{ backgroundImage: 'url("/background.png")' }} // ✅ Correct syntax
   >
     {/* SVG Overlay */}
     <svg
-      className="absolute top-0 left-0 w-full h-full pointer-events-none"
+      className="hidden lg:block absolute top-0 left-0 w-full h-full pointer-events-none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 909 900"
       fill="none"
