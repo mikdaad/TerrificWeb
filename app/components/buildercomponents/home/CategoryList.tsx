@@ -21,6 +21,8 @@ export function CategoryList({ categories }: CategoryListProps) {
             src={category.image}
             alt={category.title}
             className="w-14 h-14 rounded-full"
+            width={40} // Set width
+      height={40} // Set height
             loading="lazy"
           />
           <span className="text-sm font-medium">{category.title}</span>

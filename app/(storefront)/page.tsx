@@ -19,7 +19,7 @@ const categories = [
 
 const products = [
   {
-    image: "https://placehold.co/170x124/d1d1d1/d1d1d1",
+    image: "https://picsum.photos/200/300",
     title: "Premium T-shirts",
     description: "Lorem Ipsum is simply dummy text of the printing",
     currentPrice: "₹1500",
@@ -29,7 +29,7 @@ const products = [
     reviews: 56890,
   },
   {
-    image: "https://placehold.co/170x124/d2d2d2/d2d2d2",
+    image: "https://picsum.photos/200/300",
     title: "RIPPED JEANS",
     description: "Lorem Ipsum is simply dummy text of the printing",
     currentPrice: "₹2499",
@@ -39,7 +39,7 @@ const products = [
     reviews: 344567,
   },
   {
-    image: "https://placehold.co/170x124/d1d1d1/d1d1d1",
+    image: "https://picsum.photos/200/300",
     title: "Premium T-shirts",
     description: "Lorem Ipsum is simply dummy text of the printing",
     currentPrice: "₹1500",
@@ -49,7 +49,7 @@ const products = [
     reviews: 56890,
   },
   {
-    image: "https://placehold.co/170x124/d2d2d2/d2d2d2",
+    image: "https://picsum.photos/200/300",
     title: "RIPPED JEANS",
     description: "Lorem Ipsum is simply dummy text of the printing",
     currentPrice: "₹2499",
@@ -105,8 +105,10 @@ const focusSearchInput = () => {
     />
   </Link>
         <Image
-          src="https://placehold.co/40x40/f0f0f0/f0f0f0"
+          src="https://picsum.photos/200/300"
           alt="Profile"
+          width={40} // Set width
+      height={40} // Set height 
           className="w-10 h-10 rounded-full  mt-4"
         />
       </header>
@@ -196,9 +198,12 @@ const focusSearchInput = () => {
       <section className="p-4">
         <div className="relative rounded-lg overflow-hidden">
           <Image
-            src="https://placehold.co/343x200/d5d5d5/d5d5d5"
+            src="https://picsum.photos/200/300"
             alt="New Arrivals"
+            
             className="w-full h-[200px] object-cover"
+            width={40} // Set width
+      height={40} // Set height
           />
           <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
             <div className="text-white">

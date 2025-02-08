@@ -33,7 +33,9 @@ export function ProductCard({
       <Image
         src={image}
         alt={title}
-        className="w-full h-32 object-cover rounded-lg"
+        className="w-full  object-cover rounded-lg"
+        width={80} // Set width
+      height={100} // Set height
         loading="lazy"
       />
       <h3 className="font-semibold text-lg">{title}</h3>
