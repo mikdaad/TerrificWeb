@@ -2,7 +2,6 @@
 import { Button } from "../components/ui/button";
 import React,{useState,useEffect,useRef } from "react";
 import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown } from "lucide-react";
-import { Input } from "../components/buildercomponents/ui/input";
 import { ProductCard } from "../components//buildercomponents/home/ProductCard";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
 import { Banner } from "../components/buildercomponents/home/Banner";
@@ -117,7 +116,7 @@ const focusSearchInput = () => {
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
           
-          <Input className="pl-10" placeholder="Search any Product.."  ref={searchInputRef}  type="text" />
+          <input className="pl-10" placeholder="Search any Product.."  ref={searchInputRef}  type="text" />
           <Mic className="absolute h-4 w-4 text-gray-500 left-[90%] top-1/3" />
           
          
