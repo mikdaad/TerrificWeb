@@ -105,7 +105,7 @@ const focusSearchInput = () => {
       priority
     />
   </Link>
-        <img
+        <Image
           src="https://placehold.co/40x40/f0f0f0/f0f0f0"
           alt="Profile"
           className="w-10 h-10 rounded-full  mt-4"
@@ -196,7 +196,7 @@ const focusSearchInput = () => {
       {/* New Arrivals */}
       <section className="p-4">
         <div className="relative rounded-lg overflow-hidden">
-          <img
+          <Image
             src="https://placehold.co/343x200/d5d5d5/d5d5d5"
             alt="New Arrivals"
             className="w-full h-[200px] object-cover"
@@ -204,7 +204,7 @@ const focusSearchInput = () => {
           <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
             <div className="text-white">
               <h2 className="text-2xl font-bold">New Arrivals</h2>
-              <p className="text-lg">Winter's 24 Collections</p>
+              <p className="text-lg">Winter&apos;s 24 Collections</p>
             </div>
             <Button variant="secondary">
               View all

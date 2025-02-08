@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface CategoryItem {
   image: string;
   title: string;
@@ -15,7 +17,7 @@ export function CategoryList({ categories }: CategoryListProps) {
           key={index}
           className="flex flex-col items-center gap-2 min-w-[80px]"
         >
-          <img
+          <Image
             src={category.image}
             alt={category.title}
             className="w-14 h-14 rounded-full"

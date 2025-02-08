@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +27,7 @@ export function ProductCard({
 }: ProductCardProps) {
   return (
     <div className={cn("flex flex-col gap-2 p-4 rounded-lg bg-white", className)}>
-      <img
+      <Image
         src={image}
         alt={title}
         className="w-full h-32 object-cover rounded-lg"
