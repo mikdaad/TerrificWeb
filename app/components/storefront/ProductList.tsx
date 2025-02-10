@@ -40,7 +40,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
       try {
         const res = await prisma.product.findMany({
           where: {
-            gender: gender || undefined,
+            gender: Gender.Men,
             category: Category.Fashion,
             status: Status.Dealoftheday,
           },
