@@ -43,6 +43,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       isFeatured: submission.value.isFeatured === true ? true : false,
       stars: submission.value.stars,
       reviews: submission.value.reviews,
+      status:submission.value.status
 
     },
   });
@@ -382,6 +383,37 @@ export async function updatediscount(prevState: any, formData: FormData) {
       },
     });
   }
+  redirect("/dashboard/products");
+}
+
+
+export async function updatevariables(prevState: any, formData: FormData) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || user.email !== "terrificmaile@gmail.com") {
+    return redirect("/");
+  }
+
+  const submission = parseWithZod(formData, {
+    schema: variablesschema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const daytime = parseInt(formData.get("daytime") as string, 10); // Ensure it's an integer
+  const lastdate = formData.get("lastdate") as string; // Keep as string
+
+  // Update the single row in the `variables` table
+  await prisma.variables.updateMany({
+    data: {
+      daytime: daytime, 
+      lastdate: lastdate,
+    },
+  });
+
   redirect("/dashboard/products");
 }
 

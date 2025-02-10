@@ -2,12 +2,14 @@
 import { Button } from "../components/ui/button";
 import React,{useState,useEffect,useRef } from "react";
 import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown } from "lucide-react";
-import { ProductCard } from "../components//buildercomponents/home/ProductCard";
+import { ProductCard } from "../components/buildercomponents/home/ProductCard";
+import  ProductList  from "../components/storefront/ProductList";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
 import { Banner } from "../components/buildercomponents/home/Banner";
 import { BottomNav } from "../components/buildercomponents/home/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
+import prisma from "../lib/db";
 
 const categories = [
   { image: "/categories/luxury.png", title: "Luxury" },
@@ -17,48 +19,8 @@ const categories = [
   { image: "/categories/women.png", title: "Womens" },
 ];
 
-const products = [
-  {
-    image: "https://picsum.photos/200/300",
-    title: "Premium T-shirts",
-    description: "Lorem Ipsum is simply dummy text of the printing",
-    currentPrice: "₹1500",
-    originalPrice: "₹2499",
-    discount: "40%Off",
-    rating: 4,
-    reviews: 56890,
-  },
-  {
-    image: "https://picsum.photos/200/300",
-    title: "RIPPED JEANS",
-    description: "Lorem Ipsum is simply dummy text of the printing",
-    currentPrice: "₹2499",
-    originalPrice: "₹4999",
-    discount: "50%Off",
-    rating: 5,
-    reviews: 344567,
-  },
-  {
-    image: "https://picsum.photos/200/300",
-    title: "Premium T-shirts",
-    description: "Lorem Ipsum is simply dummy text of the printing",
-    currentPrice: "₹1500",
-    originalPrice: "₹2499",
-    discount: "40%Off",
-    rating: 4,
-    reviews: 56890,
-  },
-  {
-    image: "https://picsum.photos/200/300",
-    title: "RIPPED JEANS",
-    description: "Lorem Ipsum is simply dummy text of the printing",
-    currentPrice: "₹2499",
-    originalPrice: "₹4999",
-    discount: "50%Off",
-    rating: 5,
-    reviews: 344567,
-  },
-];
+
+
 
 
 
@@ -69,6 +31,9 @@ const Index = () => {
 const [currentTime, setCurrentTime] = useState(new Date());
 const [remainingTime, setRemainingTime] = useState(null);
 const searchInputRef = useRef<HTMLInputElement>(null);
+const [category, setcategory] = useState("");
+
+
 
 
 useEffect(() => {
@@ -166,9 +131,7 @@ const focusSearchInput = () => {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
-          ))}
+        <ProductList status="Dealoftheday"/>
         </div>
       </section>
 
@@ -188,9 +151,7 @@ const focusSearchInput = () => {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
-          ))}
+        <ProductList/>
         </div>
       </section>
 

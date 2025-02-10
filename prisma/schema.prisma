@@ -92,7 +92,7 @@ model BottomBanner {
 model variables {
   id       String @id @default(uuid()) 
   daytime   Int  @default(24)
-  lastdate  DateTime    @default(now())  
+  lastdate  String 
 
 }
 

@@ -36,7 +36,7 @@ export const bottombannerSchema = z.object({
 
 export const variablesschema = z.object({
   daytime: z.number(),
-  lastdate: z.date(),
+  lastdate: z.string(),
 });
 
 export const discountschema = z.object({
