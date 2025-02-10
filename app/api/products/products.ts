@@ -1,20 +1,24 @@
 // pages/api/products.ts (or .js depending on your setup)
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient ,Gender, Category, Status} from '@prisma/client';
 import { Decimal } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
+    if (req.method !== "POST") {
+        return res.status(405).json({ error: "Method Not Allowed" });
+    }
+
     const { gender, category, status } = req.query;
 
   try {
     const products = await prisma.product.findMany({
       where: {
-        gender: typeof gender === "string" ? (gender as any) : undefined, // Ensure it's a string
-        category: typeof category === "string" ? category as any : undefined,
-        status: typeof status === "string" ? status as any : undefined,
+        gender: typeof gender === "string" ? (gender as Gender) : undefined, // Ensure it's a string
+        category: typeof category === "string" ? category as Category : undefined,
+        status: typeof status === "string" ? status as Status : undefined,
       },
       orderBy: { createdAt: 'desc' },
     });
