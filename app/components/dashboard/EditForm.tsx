@@ -39,8 +39,8 @@ interface iAppProps {
     id: string;
     name: string;
     description: string;
-    status: $Enums.ProductStatus;
-    price: number;
+    status: $Enums.Status;
+    discountprice: number;
     images: string[];
     category: $Enums.Category;
     isFeatured: boolean;
@@ -110,15 +110,15 @@ export function EditForm({ data }: iAppProps) {
               <p className="text-red-500">{fields.description.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
-              <Label>Price</Label>
+              <Label>discountprice</Label>
               <Input
-                key={fields.price.key}
-                name={fields.price.name}
-                defaultValue={data.price}
+                key={fields.discountprice.key}
+                name={fields.discountprice.name}
+                defaultValue={data.discountprice}
                 type="number"
                 placeholder="$55"
               />
-              <p className="text-red-500">{fields.price.errors}</p>
+              <p className="text-red-500">{fields.discountprice.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">
