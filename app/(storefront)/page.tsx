@@ -151,7 +151,7 @@ const focusSearchInput = () => {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4">
-        <ProductList/>
+        <ProductList status="None"/>
         </div>
       </section>
 

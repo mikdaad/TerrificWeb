@@ -6,7 +6,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { bannerSchema, productSchema,topbannerSchema,bottombannerSchema,variablesschema,discountschema } from "./lib/zodSchemas";
 import prisma from "./lib/db";
 import { redis } from "./lib/redis";
-import { Cart } from "./lib/interfaces";
+import { Cart,Wishlist } from "./lib/interfaces";
 import { revalidatePath } from "next/cache";
 import { stripe } from "./lib/stripe";
 import Stripe from "stripe";
@@ -274,6 +274,67 @@ export async function addItem(productId: string) {
   revalidatePath("/", "layout");
 }
 
+export async function addToWishlist(productId: string) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    return redirect("/");
+  }
+
+  let wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
+
+  const selectedProduct = await prisma.product.findUnique({
+    select: {
+      id: true,
+      name: true,
+      originalprice: true,
+      images: true,
+    },
+    where: {
+      id: productId as string,
+    },
+  });
+
+  if (!selectedProduct) {
+    throw new Error("No product with this id");
+  }
+
+  let myWishlist = {} as Wishlist;
+
+  if (!wishlist || !wishlist.items) {
+    myWishlist = {
+      userId: user.id,
+      items: [
+        {
+          id: selectedProduct.id,
+          name: selectedProduct.name,
+          originalprice: selectedProduct.originalprice,
+          imageString: selectedProduct.images[0],
+        },
+      ],
+    };
+  } else {
+    const itemExists = wishlist.items.some((item) => item.id === productId);
+
+    if (!itemExists) {
+      wishlist.items.push({
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        originalprice: selectedProduct.originalprice,
+        imageString: selectedProduct.images[0],
+      });
+    }
+
+    myWishlist = wishlist;
+  }
+
+  await redis.set(`wishlist-${user.id}`, myWishlist);
+
+  revalidatePath("/", "layout");
+}
+
+
 export async function delItem(formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -296,6 +357,100 @@ export async function delItem(formData: FormData) {
   }
 
   revalidatePath("/bag");
+}
+
+export async function moveToCart(formData: FormData) {
+  "use server";
+  
+  const productId = formData.get("productId") as string; // Extract productId
+  if (!productId) {
+    throw new Error("Product ID is missing from form data.");
+  }
+
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    return redirect("/");
+  }
+
+  console.log("Fetching wishlist for:", `wishlist-${user.id}`);
+  
+  let wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
+  console.log("Fetched wishlist:", wishlist);
+
+  if (!wishlist || !wishlist.items) {
+    throw new Error("Wishlist is empty.");
+  }
+
+  console.log("Looking for product:", productId);
+  
+  const selectedProduct = wishlist.items.find((item) => item.id === productId);
+  console.log("Found product:", selectedProduct);
+
+  if (!selectedProduct) {
+    throw new Error(`Product not found in wishlist: ${productId}`);
+  }
+
+  // Remove the product from the wishlist
+  wishlist.items = wishlist.items.filter((item) => item.id !== productId);
+  await redis.set(`wishlist-${user.id}`, wishlist);
+
+  // Add the product to the cart
+  let cart: Cart | null = await redis.get(`cart-${user.id}`);
+  let myCart: Cart = cart ?? { userId: user.id, items: [] };
+  const existingCartItem = myCart.items.find((item) => item.id === productId);
+
+  if (existingCartItem) {
+    existingCartItem.quantity += 1;
+  } else {
+    myCart.items.push({
+      id: selectedProduct.id,
+      name: selectedProduct.name,
+      originalprice: selectedProduct.originalprice,
+      imageString: selectedProduct.imageString,
+      quantity: 1,
+    });
+  }
+
+  await redis.set(`cart-${user.id}`, myCart);
+  revalidatePath("/", "layout");
+}
+
+
+export async function delWishlistItem(formData: FormData) {
+  "use server";
+  
+  const productId = formData.get("productId") as string; // Extract productId
+  if (!productId) {
+    throw new Error("Product ID is missing from form data.");
+  }
+
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    return redirect("/");
+  }
+
+  let wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
+
+  if (!wishlist || !wishlist.items?.length) {
+    throw new Error("Your wishlist is empty.");
+  }
+
+  const itemIndex = wishlist.items.findIndex((item) => item.id === productId);
+
+  if (itemIndex === -1) {
+    throw new Error(`Product not found in wishlist: ${productId}`);
+  }
+
+  // Remove the product from the wishlist
+  wishlist.items.splice(itemIndex, 1);
+  await redis.set(`wishlist-${user.id}`, wishlist);
+
+  // Revalidate the wishlist page
+  revalidatePath("/wishlist");
 }
 
 export async function checkOut() {

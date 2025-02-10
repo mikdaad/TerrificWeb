@@ -21,6 +21,7 @@ model User {
   profileImage String
 
   orders Order[]
+  wishlists    Wishlist[] 
 
   createdAt DateTime @default(now())
 }
@@ -54,6 +55,16 @@ model Order {
 
   createdAt DateTime @default(now())
 }
+
+model Wishlist {
+  id        String  @id @default(uuid())
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id])
+  items     Json    // Storing wishlist items as JSON (can be an array of product IDs or objects)
+  
+  createdAt DateTime @default(now())
+}
+
 
 
 model Banner {
@@ -101,6 +112,8 @@ model discount {
   id       String @id @default(uuid()) 
   discount  Int    
 }
+
+
 
 
 enum Gender {
