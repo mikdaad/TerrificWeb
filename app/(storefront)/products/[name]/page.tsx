@@ -1,9 +1,10 @@
 import { ProductCard } from "@/app/components/storefront/ProductCard";
+import  ProductList from "@/app/components/storefront/ProductList";
 import prisma from "@/app/lib/db";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
+import { PrismaClient, Gender, Category, Status } from "@prisma/client";
 
-/*
 async function getData(productCategory: string) {
   switch (productCategory) {
     case "all": {
@@ -11,12 +12,12 @@ async function getData(productCategory: string) {
         select: {
           name: true,
           images: true,
-          price: true,
+          discountprice: true,
           id: true,
           description: true,
         },
         where: {
-          status: "published",
+          status: Status.Dealoftheday,
         },
       });
 
@@ -28,13 +29,13 @@ async function getData(productCategory: string) {
     case "men": {
       const data = await prisma.product.findMany({
         where: {
-          status: "published",
-          category: "men",
+          status: Status.None,
+          gender:Gender.Men ,
         },
         select: {
           name: true,
           images: true,
-          price: true,
+          discountprice: true,
           id: true,
           description: true,
         },
@@ -48,13 +49,13 @@ async function getData(productCategory: string) {
     case "women": {
       const data = await prisma.product.findMany({
         where: {
-          status: "published",
-          category: "women",
+          status: Status.None,
+          gender:Gender.Women ,
         },
         select: {
           name: true,
           images: true,
-          price: true,
+          discountprice: true,
           id: true,
           description: true,
         },
@@ -68,13 +69,13 @@ async function getData(productCategory: string) {
     case "kids": {
       const data = await prisma.product.findMany({
         where: {
-          status: "published",
-          category: "kids",
+          status: Status.None,
+          gender:Gender.Kids ,
         },
         select: {
           name: true,
           images: true,
-          price: true,
+          discountprice: true,
           id: true,
           description: true,
         },
@@ -103,10 +104,9 @@ export default async function CategoriesPage({
       <h1 className="font-semibold text-3xl my-5">{title}</h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {data.map((item) => (
-          <ProductCard item={item} key={item.id} />
+          <ProductList/>
         ))}
       </div>
     </section>
   );
 }
-  */
