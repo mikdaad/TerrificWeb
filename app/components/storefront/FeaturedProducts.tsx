@@ -1,12 +1,14 @@
 import prisma from "@/app/lib/db";
 import { LoadingProductCard, ProductCard } from "./ProductCard";
+import ProductList from "./ProductList";
 import { Suspense } from "react";
 import { unstable_noStore as noStore } from "next/cache";
+import { type $Enums } from "@prisma/client";
 
 async function getData() {
   const data = await prisma.product.findMany({
     where: {
-      status: "published",
+      status: "None",
       isFeatured: true,
     },
     select: {
@@ -14,7 +16,7 @@ async function getData() {
       name: true,
       description: true,
       images: true,
-      price: true,
+      discountprice: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -43,7 +45,7 @@ async function LoadFeaturedproducts() {
   return (
     <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {data.map((item) => (
-        <ProductCard key={item.id} item={item} />
+        <ProductList key={item.id}  />
       ))}
     </div>
   );
