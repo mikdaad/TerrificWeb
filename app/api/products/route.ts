@@ -1,37 +1,32 @@
-// pages/api/products.ts (or .js depending on your setup)
-import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient ,Gender, Category, Status} from '@prisma/client';
+import { NextResponse } from "next/server";
+import { PrismaClient, Gender, Category, Status } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// ✅ Use "POST" function instead of default export
+export async function POST(req: Request) {
+    try {
+        const body = await req.json();
+        const { gender, category, status } = body;
 
-    if (req.method !== "POST") {
-        return res.status(405).json({ error: "Method Not Allowed" });
+        const products = await prisma.product.findMany({
+            where: {
+                gender: gender ? gender as Gender : undefined,
+                category: category ? category as Category : undefined,
+                status: status ? status as Status : undefined,
+            },
+            orderBy: { createdAt: "desc" },
+        });
+
+        const formattedProducts = products.map((product) => ({
+            ...product,
+            stars: product.stars instanceof Decimal ? product.stars.toNumber() : product.stars,
+        }));
+
+        return NextResponse.json(formattedProducts, { status: 200 });
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 });
     }
-
-    const { gender, category, status } = req.body;
-
-  try {
-    const products = await prisma.product.findMany({
-      where: {
-        gender: typeof gender === "string" ? (gender as Gender) : undefined, // Ensure it's a string
-        category: typeof category === "string" ? category as Category : undefined,
-        status: typeof status === "string" ? status as Status : undefined,
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    // Format the products if needed (e.g., convert Decimal to number)
-    const formattedProducts = products.map((product) => ({
-      ...product,
-      stars: (product.stars as Decimal).toNumber(),
-    }));
-
-    res.status(200).json(formattedProducts);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' });
-  }
 }
- 
