@@ -51,9 +51,11 @@ export default function ProductList({ gender, category, status }: ProductListPro
 
         // Convert Decimal fields to number if necessary
         const formattedProducts: Product[] = res.map((product) => ({
-          ...product,
-          stars: (product.stars as unknown as Decimal).toNumber(),
+            ...product,
+            stars: (product.stars as any)?.toNumber ? (product.stars as any).toNumber() : product.stars, 
         }));
+        
+        
 
         setProducts(formattedProducts);
       } catch (error) {
