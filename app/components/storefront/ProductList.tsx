@@ -1,12 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ProductCard } from "../buildercomponents/home/ProductCard"; // Ensure correct path
-import { PrismaClient, Gender, Category, Status } from "@prisma/client";
+import { ProductCard } from "../buildercomponents/home/ProductCard";
+import { Gender, Category, Status } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
-
-
-const prisma = new PrismaClient(); // Ensure Prisma is initialized properly
 
 // Define Product Type (Based on Prisma Model)
 interface Product {
@@ -26,9 +23,9 @@ interface Product {
 
 // Props Interface for the Component
 interface ProductListProps {
-  gender?: Gender; // Must match Prisma enum
-  category?: Category; // Must match Prisma enum
-  status?: Status; // Must match Prisma enum
+  gender?: Gender;
+  category?: Category;
+  status?: Status;
 }
 
 export default function ProductList({ gender, category, status }: ProductListProps) {
@@ -38,20 +35,24 @@ export default function ProductList({ gender, category, status }: ProductListPro
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await prisma.product.findMany({
-          where: {
-            gender: Gender.Men,
-            category: Category.Fashion,
-            status: Status.Dealoftheday,
+        const response = await fetch("/api/products", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-          orderBy: { createdAt: "desc" },
+          body: JSON.stringify({ gender, category, status }),
         });
 
-        // Convert Decimal fields to number
-        console.log("res" + res);
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const res: Product[] = await response.json();
+
+        // Convert Decimal fields to number if necessary
         const formattedProducts: Product[] = res.map((product) => ({
           ...product,
-          stars: (product.stars as Decimal).toNumber(), // Convert Decimal to number
+          stars: (product.stars as unknown as Decimal).toNumber(),
         }));
 
         setProducts(formattedProducts);
@@ -77,14 +78,11 @@ export default function ProductList({ gender, category, status }: ProductListPro
               id: product.id,
               name: product.name,
               description: product.description,
-              discountprice: product.discountprice, // Use discounted price
+              discountprice: product.discountprice,
               images: product.images,
-              originalprice:product.originalprice,
-              stars:product.stars,
-              reviews:product.reviews,
-
-
-
+              originalprice: product.originalprice,
+              stars: product.stars,
+              reviews: product.reviews,
             }}
           />
         ))
