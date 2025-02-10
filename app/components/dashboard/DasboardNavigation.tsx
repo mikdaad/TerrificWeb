@@ -18,9 +18,23 @@ const links = [
     href: "/dashboard/products",
   },
   {
-    name: "Banner Picture",
+    name: "Large screen Banner",
     href: "/dashboard/banner",
   },
+  {
+    name: "Top Banner",
+    href: "/dashboard/topbanner",
+  },
+  {
+    name: "Bottom Banner",
+    href: "/dashboard/bottombanner",
+  },
+  {
+    name: "Variables",
+    href: "/dashboard/variables",
+  },
+
+  
 ];
 
 export function DashboardNavigation() {

@@ -96,16 +96,53 @@ export default function ProductCreateRoute() {
               />
               <p className="text-red-500">{fields.description.errors}</p>
             </div>
+
             <div className="flex flex-col gap-3">
-              <Label>Price</Label>
+              <Label>original price</Label>
               <Input
-                key={fields.price.key}
-                name={fields.price.name}
-                defaultValue={fields.price.initialValue}
+                key={fields.originalprice.key}
+                name={fields.originalprice.name}
+                defaultValue={fields.originalprice.initialValue}
                 type="number"
                 placeholder="$55"
               />
-              <p className="text-red-500">{fields.price.errors}</p>
+              <p className="text-red-500">{fields.originalprice.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>discountedprice</Label>
+              <Input
+                key={fields.discountprice.key}
+                name={fields.discountprice.name}
+                defaultValue={fields.discountprice.initialValue}
+                type="number"
+                placeholder="$55"
+              />
+              <p className="text-red-500">{fields.discountprice.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>stars</Label>
+              <Input
+                key={fields.stars.key}
+                name={fields.stars.name}
+                defaultValue={fields.stars.initialValue}
+                type="number"
+                placeholder="$55"
+              />
+              <p className="text-red-500">{fields.stars.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>reviews</Label>
+              <Input
+                key={fields.reviews.key}
+                name={fields.reviews.name}
+                defaultValue={fields.reviews.initialValue}
+                type="number"
+                placeholder="$55"
+              />
+              <p className="text-red-500">{fields.reviews.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -119,26 +156,27 @@ export default function ProductCreateRoute() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <Label>Status</Label>
+              <Label>gender</Label>
               <Select
-                key={fields.status.key}
-                name={fields.status.name}
-                defaultValue={fields.status.initialValue}
+                key={fields.gender.key}
+                name={fields.gender.name}
+                defaultValue={fields.gender.initialValue}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select Status" />
+                  <SelectValue placeholder="Select gender" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                  <SelectItem value="archived">Archived</SelectItem>
+                  <SelectItem value="Men">Men</SelectItem>
+                  <SelectItem value="Women">Women</SelectItem>
+                  <SelectItem value="Kids">Kids</SelectItem>
+                  <SelectItem value="Unisex">Unisex</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-red-500">{fields.status.errors}</p>
+              <p className="text-red-500">{fields.gender.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">
-              <Label>Category</Label>
+              <Label>category</Label>
               <Select
                 key={fields.category.key}
                 name={fields.category.name}
@@ -148,14 +186,31 @@ export default function ProductCreateRoute() {
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.name}>
-                      {category.title}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="Fashion">Fashion</SelectItem>
+                  <SelectItem value="Luxury">Luxury</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-red-500">{fields.category.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Status of the product</Label>
+              <Select
+                key={fields.status.key}
+                name={fields.status.name}
+                defaultValue={fields.status.initialValue}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Status of product" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Dealoftheday">Deal of  the day</SelectItem>
+                  <SelectItem value="TrendingProduct">Trending Product</SelectItem>
+                  <SelectItem value="NewArrival">New Arrival</SelectItem>
+                  <SelectItem value="None">None</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-red-500">{fields.status.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">

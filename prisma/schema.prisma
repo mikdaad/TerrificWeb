@@ -29,24 +29,20 @@ model Product {
   id          String        @id @default(uuid())
   name        String
   description String
-  status      ProductStatus
-  price       Int
+  gender      Gender
+  originalprice       Int
+  discountprice       Int
   images      String[]
   category    Category
   isFeatured  Boolean       @default(false)
-
-  createdAt DateTime @default(now())
-}
-
-model Banner {
-  id          String @id @default(uuid())
-  title       String
-  imageString String
-  pricing       String  
+  stars       Decimal
+  reviews     Int
+  status      Status
   
 
   createdAt DateTime @default(now())
 }
+
 
 model Order {
   id     String @id @default(uuid())
@@ -59,14 +55,70 @@ model Order {
   createdAt DateTime @default(now())
 }
 
-enum ProductStatus {
-  draft
-  published
-  archived
+
+model Banner {
+  id          String @id @default(uuid())
+  title       String
+  imageString String
+  pricing       String  
+  
+
+  createdAt DateTime @default(now())
+}
+
+model TopBanner {
+  id          String @id @default(uuid())
+  title       String
+  imageString String
+  description       String
+  subtext       String
+
+  
+
+  createdAt DateTime @default(now())
+}
+
+
+model BottomBanner {
+  id          String @id @default(uuid())
+  title       String
+  imageString String
+  subtext       String  
+  
+
+  createdAt DateTime @default(now())
+}
+
+model variables {
+  id       String @id @default(uuid()) 
+  daytime   Int  @default(24)
+  lastdate  DateTime    @default(now())  
+
+}
+
+
+model discount {
+  id       String @id @default(uuid()) 
+  discount  Int    
+}
+
+
+enum Gender {
+  Men
+  Women
+  Kids
+  Unisex
+  
 }
 
 enum Category {
-  men
-  women
-  kids
+  Fashion
+  Luxury
+}
+
+enum Status {
+  Dealoftheday
+  TrendingProduct
+  NewArrival
+  None
 }

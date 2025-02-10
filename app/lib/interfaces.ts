@@ -3,7 +3,7 @@ export type Cart = {
   items: Array<{
     id: string;
     name: string;
-    price: number;
+    originalprice: number;
     quantity: number;
     imageString: string;
   }>;
