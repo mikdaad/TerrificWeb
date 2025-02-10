@@ -35,7 +35,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("/api/products", {
+        const response = await fetch("/api/products/products", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
