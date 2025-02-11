@@ -12,11 +12,18 @@ async function getData() {
       isFeatured: true,
     },
     select: {
-      id: true,
       name: true,
-      description: true,
-      images: true,
-      discountprice: true,
+          images: true,
+          discountprice: true,
+          id: true,
+          description: true,
+          originalprice: true,
+          category: true,
+          isFeatured: true,
+          stars: true,
+          reviews: true,
+          status: true,
+          createdAt: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -44,10 +51,10 @@ async function LoadFeaturedproducts() {
 
   return (
     <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {data.map((item) => (
-        <ProductList key={item.id}  />
-      ))}
-    </div>
+      
+        <ProductList products={data}/> 
+        </div>
+     
   );
 }
 
