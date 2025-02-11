@@ -33,7 +33,7 @@ export default async function WishlistRoute() {
             Your Wishlist is Empty
           </h2>
           <p className="mb-8 mt-2 text-center text-sm leading-6 text-muted-foreground max-w-sm mx-auto">
-            You haven't added any products to your wishlist. Browse our store to
+            You have not added any products to your wishlist. Browse our store to
             add items you love.
           </p>
 
