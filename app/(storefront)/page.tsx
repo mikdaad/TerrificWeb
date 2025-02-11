@@ -9,6 +9,7 @@ import { Banner } from "../components/buildercomponents/home/Banner";
 import { BottomNav } from "../components/buildercomponents/home/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
+import SortFilter from "../components/storefront/sortfilter";
 
 const categories = [
   { image: "/categories/luxury.png", title: "Luxury" },
@@ -44,37 +45,38 @@ const [isQueryActive, setIsQueryActive] = useState(false);
 
 
 useEffect(() => {
-  if (!searchQuery && !selectedCategory) {
+  if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption ) {
     setIsQueryActive(false);
     return;
   }
 
-  setIsQueryActive(true); // Switch to dynamic product display when searching
+  setIsQueryActive(true);
 
   const fetchProducts = async () => {
     try {
-        const response = await fetch("/api/products", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                search: searchQuery,  // ✅ Include search term
-                category: selectedCategory,
-                gender: selectedgender,
-                status: selectedstatus,
-            }),
-        });
+      const response = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          search: searchQuery,
+          category: selectedCategory,
+          gender: selectedgender, // Ensure gender is sent
+          status: selectedstatus,
+        }),
+      });
 
-        const data = await response.json();
-        setProducts(data);
+      const data = await response.json();
+      setProducts(data);
     } catch (error) {
-        console.error("Error fetching products:", error);
+      console.error("Error fetching products:", error);
     }
-};
+  };
 
   fetchProducts();
-}, [searchQuery, selectedCategory, sortOption, filterOption,selectedgender]); 
+}, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption]); 
+ 
 
 
 
@@ -90,6 +92,18 @@ const handleCategorySelect = (category: string) => {
 const handleGenderSelect = (gender: string) => {
   setSelectedgender(gender);
   setIsQueryActive(true);
+};
+
+const handleSortSelect = (sortOption: string) => {
+  console.log("Selected Sort:", sortOption);
+  setSortOption(sortOption);
+  // Call your API or sort function here
+};
+
+const handleFilterSelect = (filterOption: string) => {
+  console.log("Selected Filter:", filterOption);
+  setFilterOption(filterOption);
+  // Call your API or filter function here
 };
 
 
@@ -150,7 +164,7 @@ const focusSearchInput = () => {
           
          
         </div>
-        
+        <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect}/>
         
       </div>
 
@@ -168,19 +182,12 @@ const focusSearchInput = () => {
       <section className="p-4 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">All Featured</h2>
-          <div className="flex gap-2  ">
-            <Button variant="outline" size="sm">
-              <ArrowUpDown className="h-4 w-4 mr-2 font-thin" />
-              Sort
-            </Button>
-            <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-          </div>
+         
         </div>
+        <div className="flex gap-4 items-center w-full" >
         <CategoryList categories={categories}  onCategorySelect={handleCategorySelect} />
         <Genderlist categories={genders}  onCategorySelect={handleGenderSelect} />
+        </div>
       </section>
 
       {/* Banner */}
