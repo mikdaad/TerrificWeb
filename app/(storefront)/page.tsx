@@ -2,23 +2,24 @@
 import { Button } from "../components/ui/button";
 import React,{useState,useEffect,useRef } from "react";
 import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown } from "lucide-react";
-import { ProductCard } from "../components/buildercomponents/home/ProductCard";
 import  ProductList  from "../components/storefront/ProductList";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
+import { Genderlist } from "../components/buildercomponents/home/Genderlist";
 import { Banner } from "../components/buildercomponents/home/Banner";
 import { BottomNav } from "../components/buildercomponents/home/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
-import prisma from "../lib/db";
 
 const categories = [
   { image: "/categories/luxury.png", title: "Luxury" },
   { image: "/categories/fashion.png", title: "Fashion" },
-  { image: "/categories/kid.png", title: "Kids" },
-  { image: "/categories/men.png", title: "Mens" },
-  { image: "/categories/women.png", title: "Womens" },
 ];
 
+const genders = [
+  { image: "/categories/kid.png", title: "Kids" },
+  { image: "/categories/men.png", title: "Men" },
+  { image: "/categories/women.png", title: "Women" },
+];
 
 
 
@@ -31,9 +32,65 @@ const Index = () => {
 const [currentTime, setCurrentTime] = useState(new Date());
 const [remainingTime, setRemainingTime] = useState(null);
 const searchInputRef = useRef<HTMLInputElement>(null);
-const [category, setcategory] = useState("");
+
+const [products, setProducts] = useState([]);
+const [searchQuery, setSearchQuery] = useState("");
+const [selectedCategory, setSelectedCategory] = useState("");
+const [selectedgender, setSelectedgender] = useState("");
+const [selectedstatus, setSelectedstatus] = useState("");
+const [sortOption, setSortOption] = useState(""); // Example: "price-asc", "price-desc"
+const [filterOption, setFilterOption] = useState(""); // Example: "in-stock", "discounted"
+const [isQueryActive, setIsQueryActive] = useState(false);
 
 
+useEffect(() => {
+  if (!searchQuery && !selectedCategory) {
+    setIsQueryActive(false);
+    return;
+  }
+
+  setIsQueryActive(true); // Switch to dynamic product display when searching
+
+  const fetchProducts = async () => {
+    try {
+        const response = await fetch("/api/products", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                search: searchQuery,  // ✅ Include search term
+                category: selectedCategory,
+                gender: selectedgender,
+                status: selectedstatus,
+            }),
+        });
+
+        const data = await response.json();
+        setProducts(data);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    }
+};
+
+  fetchProducts();
+}, [searchQuery, selectedCategory, sortOption, filterOption,selectedgender]); 
+
+
+
+const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setSearchQuery(e.target.value);
+};
+
+const handleCategorySelect = (category: string) => {
+  setSelectedCategory(category);
+  setIsQueryActive(true);
+};
+
+const handleGenderSelect = (gender: string) => {
+  setSelectedgender(gender);
+  setIsQueryActive(true);
+};
 
 
 useEffect(() => {
@@ -52,6 +109,8 @@ const focusSearchInput = () => {
 };
 
   return (
+
+    
     <div className="pb-24 font-glancyr">
       {/* Header */}
       <header className="p-4 flex items-center justify-between  ">
@@ -78,12 +137,15 @@ const focusSearchInput = () => {
         />
       </header>
 
+
       {/* Search Bar */}
-      <div className="p-4 flex gap-4">
-        <div className="flex-1 relative">
+      <div className="p-2 flex w-full gap-4">
+        <div className="flex-1 relative ">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
           
-          <input className="pl-10" placeholder="Search any Product.."  ref={searchInputRef}  type="text" />
+          <input className="pl-10 w-full" placeholder="Search any Product.."  
+          ref={searchInputRef}  type="text"
+           value={searchQuery}  onChange={handleSearchChange} />
           <Mic className="absolute h-4 w-4 text-gray-500 left-[90%] top-1/3" />
           
          
@@ -91,6 +153,16 @@ const focusSearchInput = () => {
         
         
       </div>
+
+      {isQueryActive ? (
+      /* Show Dynamic Product List */
+      <section className="p-4 space-y-4">
+        <h2 className="text-xl font-semibold">Search Results</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <ProductList products={products} />
+        </div>
+      </section>
+    ) : (<>
 
       {/* Featured Section */}
       <section className="p-4 space-y-4">
@@ -107,7 +179,8 @@ const focusSearchInput = () => {
             </Button>
           </div>
         </div>
-        <CategoryList categories={categories} />
+        <CategoryList categories={categories}  onCategorySelect={handleCategorySelect} />
+        <Genderlist categories={genders}  onCategorySelect={handleGenderSelect} />
       </section>
 
       {/* Banner */}
@@ -131,7 +204,7 @@ const focusSearchInput = () => {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4">
-        <ProductList status="Dealoftheday"/>
+        <ProductList products={products}/>
         </div>
       </section>
 
@@ -142,7 +215,7 @@ const focusSearchInput = () => {
             <h2 className="text-xl font-semibold  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
-              <span>Last Date 25/10/24</span>
+              <span> Last Date 25/10/24 </span>
             </div>
           </div>
           <Button variant="ghost" size="sm">
@@ -151,7 +224,7 @@ const focusSearchInput = () => {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4">
-        <ProductList status="None"/>
+        <ProductList products={products}/>
         </div>
       </section>
 
@@ -181,6 +254,9 @@ const focusSearchInput = () => {
 
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
+
+      </>
+    )}
     </div>
   );
 };

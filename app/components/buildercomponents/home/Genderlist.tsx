@@ -10,7 +10,7 @@ interface CategoryListProps {
   onCategorySelect: (category: string) => void;
 }
 
-export function CategoryList({ categories,onCategorySelect }: CategoryListProps ) {
+export function Genderlist({ categories,onCategorySelect }: CategoryListProps ) {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
       {categories.map((category, index) => (
