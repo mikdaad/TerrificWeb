@@ -13,7 +13,7 @@ interface Product {
   images: string[];
   category: Category;
   isFeatured: boolean;
-  stars: number;
+  stars: number | { toNumber: () => number }; // Handle possible Prisma Decimal
   reviews: number;
   status: string;
   createdAt: Date;
@@ -29,8 +29,8 @@ export default function ProductList({ products }: ProductListProps) {
     <div className="grid grid-cols-2 gap-4">
       {products.length > 0 ? (
         products.map((product) => (
-          <ProductCard 
-            key={product.id} 
+          <ProductCard
+            key={product.id}
             item={{
               id: product.id,
               name: product.name,
@@ -38,13 +38,15 @@ export default function ProductList({ products }: ProductListProps) {
               discountprice: product.discountprice,
               images: product.images,
               originalprice: product.originalprice,
-              stars: (product.stars as any)?.toNumber ? (product.stars as any).toNumber() : product.stars, 
+              stars: typeof product.stars === "object" && "toNumber" in product.stars
+                ? product.stars.toNumber()
+                : product.stars,
               reviews: product.reviews,
             }}
           />
         ))
       ) : (
-        <p>No products found.</p>
+        <p className="col-span-2 text-center text-gray-500 text-lg">No products found.</p>
       )}
     </div>
   );
