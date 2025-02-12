@@ -34,6 +34,8 @@ import Image from "next/image";
 import { categories } from "@/app/lib/categories";
 import { SubmitButton } from "@/app/components/SubmitButtons";
 
+import { AvatarUploader } from "../../../components/dashboard/imageuploader";
+
 export default function ProductCreateRoute() {
   const [images, setImages] = useState<string[]>([]);
   const [lastResult, action] = useFormState(createProduct, undefined);
@@ -244,17 +246,16 @@ export default function ProductCreateRoute() {
                     </div>
                   ))}
                 </div>
-              ) : (
-                <UploadDropzone
-                  endpoint="imageUploader"
-                  onClientUploadComplete={(res) => {
-                    setImages(res.map((r) => r.url));
-                  }}
-                  onUploadError={() => {
-                    alert("Something went wrong");
-                  }}
-                />
-              )}
+              ) : (<div> <h2 className="text-lg font-bold">Upload Your Avatar</h2>
+
+<AvatarUploader
+      onUploadSuccess={(url) => {
+        console.log("Uploaded URL:", url); // Debugging
+        setImages((prevImages) => [...prevImages, url]);
+      }}
+    />
+                </div>
+                )}
 
               <p className="text-red-500">{fields.images.errors}</p>
             </div>
