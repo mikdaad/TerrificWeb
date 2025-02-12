@@ -39,6 +39,7 @@ model Product {
   stars       Decimal
   reviews     Int
   status      Status
+  size        sizes
   
 
   createdAt DateTime @default(now())
@@ -134,4 +135,16 @@ enum Status {
   TrendingProduct
   NewArrival
   None
+}
+
+enum sizes{
+  sm
+  md
+  lg
+  xl
+  xxl
+   }
+enum color{
+  
+
 }

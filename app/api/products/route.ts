@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient, Gender, Category, Status,Product } from "@prisma/client";
+import { PrismaClient, Gender, Category, Status, Product } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { search, gender, category, status } = body;
+        const { search, gender, category, status, sortFilter } = body;
 
         let products: Product[] = [];
 
@@ -21,21 +21,24 @@ export async function POST(req: Request) {
               LIMIT 10;
             `;
         } else {
-            // Prisma Query for filtering
+            // Prisma Query for filtering with sorting
             products = await prisma.product.findMany({
                 where: {
-                    gender: gender ? gender as Gender : undefined,
-                    category: category ? category as Category : undefined,
-                    status: status ? status as Status : undefined,
+                    gender: gender ? (gender as Gender) : undefined,
+                    category: category ? (category as Category) : undefined,
+                    status: status ? (status as Status) : undefined,
                 },
-                orderBy: { createdAt: "desc" },
+                orderBy: {
+                    discountprice: sortFilter === "asc" ? "asc" : sortFilter === "desc" ? "desc" : "desc", // Default to descending
+                },
             });
         }
 
-        // Convert Decimal fields to numbers
+        // Convert Decimal fields to numbers safely
         const formattedProducts = products.map((product) => ({
             ...product,
-            stars: product.stars instanceof Decimal ? product.stars.toNumber() : product.stars,
+            stars: Decimal.isDecimal(product.stars) ? product.stars.toNumber() : product.stars,
+            discountprice: Decimal.isDecimal(product.discountprice) ? product.discountprice.toNumber() : product.discountprice,
         }));
 
         return NextResponse.json(formattedProducts, { status: 200 });
@@ -44,6 +47,3 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 });
     }
 }
-
-
-

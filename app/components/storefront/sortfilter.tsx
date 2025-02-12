@@ -36,16 +36,16 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
         <PopoverContent className="w-40">
           <div className="flex flex-col">
             <button
-              onClick={() => handleSortSelect("price-asc")}
-              className={`p-2 hover:bg-gray-100 ${
+              onClick={() => handleSortSelect("asc")}
+              className={`p-2 hover:bg-gray-100 font-glancyr ${
                 selectedSort === "price-asc" ? "bg-gray-200" : ""
               }`}
             >
               Price: Low to High
             </button>
             <button
-              onClick={() => handleSortSelect("price-desc")}
-              className={`p-2 hover:bg-gray-100 ${
+              onClick={() => handleSortSelect("desc")}
+              className={`p-2 hover:bg-gray-100 font-glancyr ${
                 selectedSort === "price-desc" ? "bg-gray-200" : ""
               }`}
             >
@@ -64,7 +64,7 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-40">
-          <div className="flex flex-col">
+          <div className="flex flex-col font-glancyr">
           {["Men", "Women", "Kids", "Unisex"].map((filterOption) => (
   <button
     key={filterOption}
