@@ -12,6 +12,8 @@ export const productSchema = z.object({
   stars:  z.number().multipleOf(0.01),
   reviews: z.number().min(1),
   status: z.enum(["Dealoftheday", "TrendingProduct", "NewArrival","None"]),
+  sizes:z.array(z.string()).min(1, "At least one size is required"),
+  colors:z.array(z.string()).min(1, "At least one color is required"),
 
 });
 

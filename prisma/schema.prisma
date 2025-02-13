@@ -39,7 +39,8 @@ model Product {
   stars       Decimal
   reviews     Int
   status      Status
-  size        sizes
+  sizes       String[]
+  colors      String[]
   
 
   createdAt DateTime @default(now())
@@ -137,14 +138,3 @@ enum Status {
   None
 }
 
-enum sizes{
-  sm
-  md
-  lg
-  xl
-  xxl
-   }
-enum color{
-  
-
-}

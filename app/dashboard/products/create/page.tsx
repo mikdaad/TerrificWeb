@@ -3,6 +3,8 @@
 import { createProduct } from "@/app/actions";
 import { UploadDropzone } from "@/app/lib/uplaodthing";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverTrigger, PopoverContent } from "../../../components/ui/popover";
+import {Checkbox } from "../../../components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -28,7 +30,7 @@ import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { productSchema } from "@/app/lib/zodSchemas";
-import { useState } from "react";
+import { useState,FormEvent } from "react";
 
 import Image from "next/image";
 import { categories } from "@/app/lib/categories";
@@ -54,8 +56,51 @@ export default function ProductCreateRoute() {
     setImages(images.filter((_, i) => i !== index));
   };
 
+  const handleSizeChange = (size: string) => {
+    setSelectedSizes((prevSizes) =>
+      prevSizes.includes(size)
+        ? prevSizes.filter((s) => s !== size) // Remove if already selected
+        : [...prevSizes, size] // Add if not selected
+    );
+  };
+
+  const availableColors = [
+    "Red", "Blue", "Green", "Black", "White", "Yellow", "Pink", "Purple", "Orange",
+    "Teal", "Brown", "Gray", "Cyan", "Magenta", "Gold", "Silver", "Maroon", "Olive",
+    "Navy", "Lime", "Indigo", "Turquoise", "Beige", "Coral"
+  ];
+   const toggleColor = (color: string) => {
+    setSelectedColors((prev) =>
+      prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
+    );
+  };
+  const addCustomColor = () => {
+    if (customColor && !selectedColors.includes(customColor)) {
+      setSelectedColors([...selectedColors, customColor]);
+      setCustomColor(""); // Reset input
+    }
+  };
+  const [customColor, setCustomColor] = useState<string>("");
+
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+const [selectedColors, setSelectedColors] = useState<string[]>([]);
+
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+
+  // ✅ Append sizes & colors as individual values, NOT JSON strings
+  selectedSizes.forEach((size) => formData.append("sizes", size));
+  selectedColors.forEach((color) => formData.append("colors", color));
+
+  await createProduct(null, formData);
+};
+
+
+
   return (
-    <form id={form.id} onSubmit={form.onSubmit} action={action}>
+    <form id={form.id} onSubmit={handleSubmit} action={action}>
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" asChild>
           <Link href="/dashboard/products">
@@ -214,6 +259,63 @@ export default function ProductCreateRoute() {
               </Select>
               <p className="text-red-500">{fields.status.errors}</p>
             </div>
+
+        {/* Sizes Selection */}
+<div className="flex flex-col gap-3">
+  <Label>Available Sizes</Label>
+  <div className="flex gap-4">
+    {["S", "M", "L", "XL", "XXL"].map((size) => (
+      <label key={size} className="flex items-center gap-2">
+        <Input
+          type="checkbox"
+          value={size}
+          checked={selectedSizes.includes(size)}
+          onChange={() => handleSizeChange(size)}
+          className="form-checkbox"
+        />
+        {size}
+      </label>
+    ))}
+  </div>
+</div>
+
+
+
+{/* Colors Selection */}
+<div className="flex flex-col gap-3">
+  <Label>Available Colors</Label>
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button variant="outline">
+        {selectedColors.length > 0 ? selectedColors.join(", ") : "Select Colors"}
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-56 max-h-64 overflow-y-auto">
+      {availableColors.map((color) => (
+        <div key={color} className="flex items-center gap-2">
+          <Checkbox
+            name="colors" // ✅ Corrected: All checkboxes should have the same name
+            checked={selectedColors.includes(color)}
+            onCheckedChange={() => toggleColor(color)}
+          />
+          <span>{color}</span>
+        </div>
+      ))}
+      {/* Custom Color Picker */}
+      <div className="mt-2 flex items-center gap-2">
+        <Input
+          type="text"
+          placeholder="Enter custom color"
+          name="customColor" // ✅ Corrected: Properly named input field
+          value={customColor}
+          onChange={(e) => setCustomColor(e.target.value)}
+        />
+        <Button size="sm" onClick={addCustomColor}>Add</Button>
+      </div>
+    </PopoverContent>
+  </Popover>
+</div>
+
 
             <div className="flex flex-col gap-3">
               <Label>Images</Label>

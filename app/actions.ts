@@ -31,6 +31,27 @@ export async function createProduct(prevState: unknown, formData: FormData) {
     urlString.split(",").map((url) => url.trim())
   );
 
+  const normalizeArray = (value: any) => {
+    try {
+      if (Array.isArray(value)) {
+        return value.map((item) => item.trim());
+      } else if (typeof value === "string") {
+        const parsed = JSON.parse(value);
+        return Array.isArray(parsed) ? parsed.map((item: string) => item.trim()) : [];
+      }
+    } catch (error) {
+      console.error("Invalid JSON:", value);
+      return [];
+    }
+  };
+  
+  const flattensizes = normalizeArray(submission.value.sizes);
+  const flattencolors = normalizeArray(submission.value.colors);
+
+  
+  
+
+
   await prisma.product.create({
     data: {
       name: submission.value.name,
@@ -43,7 +64,11 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       isFeatured: submission.value.isFeatured === true ? true : false,
       stars: submission.value.stars,
       reviews: submission.value.reviews,
-      status:submission.value.status
+      status:submission.value.status,
+      sizes: flattensizes,
+
+    // ✅ Ensure colors are always stored as an array
+    colors:flattencolors,
 
     },
   });
