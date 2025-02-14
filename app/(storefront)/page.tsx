@@ -3,6 +3,7 @@ import { Button } from "../components/ui/button";
 import React,{useState,useEffect,useRef } from "react";
 import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown } from "lucide-react";
 import  ProductList  from "../components/storefront/ProductList";
+import  ProductList2  from "../components/storefront/Productlist2";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
 import { Genderlist } from "../components/buildercomponents/home/Genderlist";
 import { Banner } from "../components/buildercomponents/home/Banner";
@@ -45,7 +46,7 @@ const [isQueryActive, setIsQueryActive] = useState(false);
 
 
 useEffect(() => {
-  if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption ) {
+  if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption && !selectedstatus) {
     setIsQueryActive(false);
     return;
   }
@@ -122,6 +123,8 @@ const focusSearchInput = () => {
   }
 };
 
+
+
   return (
 
     
@@ -172,7 +175,7 @@ const focusSearchInput = () => {
       /* Show Dynamic Product List */
       <section className="p-4 space-y-4">
         <h2 className="text-xl font-semibold">Search Results</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="">
           <ProductList products={products} />
         </div>
       </section>
@@ -205,13 +208,13 @@ const focusSearchInput = () => {
               <span>22h 55m 20s remaining</span>
             </div>
           </div>
-          <Button variant="ghost" size="sm">
+          <Button onClick={()=> setSelectedstatus("Dealoftheday")}  variant="ghost" size="sm">
             View all
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-        <ProductList products={products}/>
+        <div className="">
+        <ProductList2 status="Dealoftheday"/>
         </div>
       </section>
 
@@ -225,13 +228,13 @@ const focusSearchInput = () => {
               <span> Last Date 25/10/24 </span>
             </div>
           </div>
-          <Button variant="ghost" size="sm">
+          <Button  onClick={()=> setSelectedstatus("TrendingProduct")} variant="ghost" size="sm">
             View all
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-        <ProductList products={products}/>
+        <div className="">
+        <ProductList2 status="TrendingProduct"/>
         </div>
       </section>
 
@@ -251,7 +254,7 @@ const focusSearchInput = () => {
               <h2 className="text-2xl font-bold">New Arrivals</h2>
               <p className="text-lg">Winter&apos;s 24 Collections</p>
             </div>
-            <Button variant="secondary">
+            <Button  onClick={()=> setSelectedstatus("NewArrival")} variant="secondary">
               View all
               <ChevronRight className="h-4 w-4" />
             </Button>

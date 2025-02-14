@@ -29,54 +29,56 @@ export function ProductCard({ item, className }: ProductCardProps) {
   const discount = ((item.originalprice - item.discountprice) / item.originalprice) * 100;
   
   return (
-    <div className={cn("flex flex-col gap-2 p-4 rounded-lg bg-white", className)}>
-      <Carousel className="w-full mx-auto">
-        <CarouselContent>
-          {item.images.map((image, index) => (
-            <CarouselItem key={index}>
-              <div className="relative h-[250px] w-full">
-                <Image
-                  src={image}
-                  alt={item.name}
-                  fill
-                  className="object-cover object-center w-full h-full rounded-lg"
-                  loading="lazy"
-                />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="ml-16" />
-        <CarouselNext className="mr-16" />
-      </Carousel>
-
-      <h3 className="font-semibold text-lg mt-2">{item.name}</h3>
-      <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
+    <div className={cn("flex flex-col gap-1 p-0 rounded-lg bg-white", className)}>
       
-      <div className="flex items-center gap-2 mt-1">
-        <span className="text-lg font-bold">${item.discountprice}</span>
-        <span className="text-sm text-gray-500 line-through">${item.originalprice}</span>
-        <span className="text-sm text-green-600">{discount.toFixed(0)}% OFF</span>
-      </div>
-      
-      <div className="flex items-center gap-2 mt-1">
-        <div className="flex">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              className={cn(
-                "w-4 h-4",
-                i < item.stars ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-              )}
-            />
-          ))}
-        </div>
-        <span className="text-sm text-gray-600">({item.reviews})</span>
-      </div>
+  <Carousel className="">
+    <CarouselContent>
+      {item.images.map((image, index) => (
+        <CarouselItem key={index}>
+          <div className="relative ">
+            <div className=" min-w-[250px] sm:min-w-[250px] min-h-[200px] sm:min-h-[200px] aspect-square">
+              <Image
+                src={image}
+                alt={item.name}
+                className=" object-cover rounded-lg"
+                layout="fill"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+  </Carousel>
 
-      <Button asChild className="w-full mt-3">
-        <Link href={`/product/${item.id}`}>Learn More!</Link>
-      </Button>
+  <h3 className="font-semibold text-lg mt-0">{item.name}</h3>
+  <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
+
+  <div className="flex items-center gap-2 mt-0">
+    <span className="text-lg font-bold">${item.discountprice}</span>
+    <span className="text-sm text-gray-500 line-through">${item.originalprice}</span>
+    <span className="text-sm text-green-600">{discount.toFixed(0)}% OFF</span>
+  </div>
+
+  <div className="flex items-center gap-2 mt-0">
+    <div className="flex">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          className={cn(
+            "w-4 h-4",
+            i < item.stars ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+          )}
+        />
+      ))}
     </div>
+    <span className="text-sm text-gray-600">({item.reviews})</span>
+  </div>
+
+  <Button asChild className="w-[90%] ml-1">
+    <Link href={`/product/${item.id}`}>Learn More!</Link>
+  </Button>
+</div>
+
   );
 }

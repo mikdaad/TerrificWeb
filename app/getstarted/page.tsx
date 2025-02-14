@@ -5,8 +5,13 @@ import { Navbar } from "../components/storefront/Navbar";
 import { Button } from "../components/ui/button";
 import React from 'react';
 import Link from "next/link";
+import Image from "next/image";
 
-export default function IndexPage() {
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
+
+
+export default async function IndexPage() {
   return (
     /*<div>
          
@@ -18,16 +23,29 @@ export default function IndexPage() {
     </div>
     */
     <div>
-    <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left space-y-6 lg:space-y-0 lg:space-x-12  mt-12">
+    <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left space-y-6 lg:space-y-0 lg:space-x-12  mt-0">
+      
+    <div className="block lg:hidden ">
+  <Link href="/" className="flex items-center">
+    <Image
+      src="/logo.svg"
+      alt="Company Logo"
+      width={250}
+      height={170}
+      className="mt-44"
+      priority
+    />
+  </Link>
+  </div>
 
     {/* Left Side - Text Content */}
-    <div className="flex flex-col items-center mt-[22rem] lg:mt-[0rem] lg:items-start w-full lg:w-[100%] space-y-4">
+    <div className="flex flex-col items-center  lg:items-start w-full lg:w-[100%] space-y-8 ">
   
-      <h1 className="text-white font-glancyr font-medium text-sm lg:text-2xl">
+      <h1 className="text-white font-glancyr font-medium text-sm lg:text-2xl mt-32">
         W E L C O M E &nbsp; T O &nbsp; T E R R I F I C
       </h1>
   
-      <h1 className="text-white font-glancyr font-semibold text-3xl lg:text-5xl">
+      <h1 className="text-white font-glancyr font-weight-300 text-3xl lg:text-5xl">
         WHERE MODERN ELEGANCE
       </h1>
   
@@ -42,7 +60,7 @@ export default function IndexPage() {
       </p>
   
       {/* Mobile Button */}
-      <div className="lg:hidden w-full flex justify-center mt-4">
+      <div className="lg:hidden w-full flex justify-center  mb-10">
         <Button className="bg-white text-black hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-3/4">
         <Link href="/">
           Get Started

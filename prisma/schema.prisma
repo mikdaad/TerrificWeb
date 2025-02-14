@@ -14,16 +14,28 @@ datasource db {
 }
 
 model User {
-  id           String @id @unique
-  email        String
+  id           String @id @unique  @default(uuid())
+  email        String @unique
   firstName    String
   lastName     String
   profileImage String
+  address      Address?
 
   orders Order[]
   wishlists    Wishlist[] 
 
   createdAt DateTime @default(now())
+}
+
+model Address {
+  id        String  @id @unique
+  user      User?   @relation(fields: [userId], references: [id]) // ✅ Make User optional
+  userId    String? @unique // ✅ Make User ID optional
+  street    String
+  city      String
+  state     String
+  postalCode String
+  phoneno     String
 }
 
 model Product {

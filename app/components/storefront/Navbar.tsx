@@ -23,7 +23,7 @@ export async function Navbar() {
   return (
     <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-row items-center justify-between">
   {/* Left Section - Logo */}
-  <Link href="/" className="flex items-center">
+  <Link href="/" className="hidden  lg:block  items-center ">
     <Image
       src="/logo.svg"
       alt="Company Logo"

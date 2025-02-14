@@ -231,7 +231,7 @@ export async function deleteBanner(formData: FormData) {
   redirect("/dashboard/banner");
 }
 
-export async function addItem(productId: string) {
+export async function addItem(productId: string, size: string, color: string) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -256,6 +256,7 @@ export async function addItem(productId: string) {
   if (!selectedProduct) {
     throw new Error("No product with this id");
   }
+
   let myCart = {} as Cart;
 
   if (!cart || !cart.items) {
@@ -263,11 +264,13 @@ export async function addItem(productId: string) {
       userId: user.id,
       items: [
         {
-          originalprice: selectedProduct.originalprice,
           id: selectedProduct.id,
-          imageString: selectedProduct.images[0],
           name: selectedProduct.name,
+          originalprice: selectedProduct.originalprice,
+          imageString: selectedProduct.images[0],
           quantity: 1,
+          size: size,
+          color: color,
         },
       ],
     };
@@ -275,21 +278,22 @@ export async function addItem(productId: string) {
     let itemFound = false;
 
     myCart.items = cart.items.map((item) => {
-      if (item.id === productId) {
+      if (item.id === productId && item.size === size && item.color === color) {
         itemFound = true;
         item.quantity += 1;
       }
-
       return item;
     });
 
     if (!itemFound) {
       myCart.items.push({
         id: selectedProduct.id,
-        imageString: selectedProduct.images[0],
         name: selectedProduct.name,
         originalprice: selectedProduct.originalprice,
+        imageString: selectedProduct.images[0],
         quantity: 1,
+        size: size,
+        color: color,
       });
     }
   }
@@ -299,16 +303,17 @@ export async function addItem(productId: string) {
   revalidatePath("/", "layout");
 }
 
-export async function addToWishlist(productId: string) {
+export async function addToWishlist(productId: string, size: string, color: string) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
   if (!user) {
-    return redirect("/");
+    return { error: "User not authenticated" };
   }
 
   let wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
 
+  // Fetch product details
   const selectedProduct = await prisma.product.findUnique({
     select: {
       id: true,
@@ -317,46 +322,67 @@ export async function addToWishlist(productId: string) {
       images: true,
     },
     where: {
-      id: productId as string,
+      id: productId,
     },
   });
 
   if (!selectedProduct) {
-    throw new Error("No product with this id");
+    throw new Error("No product found with this ID");
   }
 
-  let myWishlist = {} as Wishlist;
+  // Ensure product has an image
+  const productImage = selectedProduct.images?.length > 0 ? selectedProduct.images[0] : "";
+
+  let myWishlist: Wishlist = {
+    userId: user.id,
+    items: [],
+  };
 
   if (!wishlist || !wishlist.items) {
-    myWishlist = {
-      userId: user.id,
-      items: [
-        {
-          id: selectedProduct.id,
-          name: selectedProduct.name,
-          originalprice: selectedProduct.originalprice,
-          imageString: selectedProduct.images[0],
-        },
-      ],
-    };
-  } else {
-    const itemExists = wishlist.items.some((item) => item.id === productId);
-
-    if (!itemExists) {
-      wishlist.items.push({
+    // Initialize wishlist if empty
+    myWishlist.items = [
+      {
         id: selectedProduct.id,
         name: selectedProduct.name,
         originalprice: selectedProduct.originalprice,
-        imageString: selectedProduct.images[0],
+        imageString: productImage,
+        size: size,
+        color: color,
+      },
+    ];
+  } else {
+    let itemExists = false;
+
+    myWishlist.items = wishlist.items.map((item) => {
+      if (item.id === productId) {
+        // Update size and color if product already exists
+        item.size = size;
+        item.color = color;
+        itemExists = true;
+      }
+      return item;
+    });
+
+    if (!itemExists) {
+      // Add new item if not found
+      myWishlist.items.push({
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        originalprice: selectedProduct.originalprice,
+        imageString: productImage,
+        size: size,
+        color: color,
       });
     }
-
-    myWishlist = wishlist;
   }
 
+  // Store updated wishlist in Redis
   await redis.set(`wishlist-${user.id}`, myWishlist);
 
+  // Revalidate cache for updates
   revalidatePath("/", "layout");
+
+  return { success: true, message: "Item added to wishlist with updated size and color" };
 }
 
 
@@ -435,6 +461,8 @@ export async function moveToCart(formData: FormData) {
       originalprice: selectedProduct.originalprice,
       imageString: selectedProduct.imageString,
       quantity: 1,
+      color: selectedProduct.color,
+      size: selectedProduct.size,
     });
   }
 
@@ -596,5 +624,8 @@ export async function updatevariables(prevState: any, formData: FormData) {
 
   redirect("/dashboard/products");
 }
+
+
+
 
 

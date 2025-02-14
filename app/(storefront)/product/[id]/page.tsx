@@ -19,6 +19,8 @@ async function getData(productId: string) {
       description: true,
       name: true,
       id: true,
+      sizes: true, // Ensure sizes are fetched from DB
+      colors: true, // Ensure colors are fetched from DB
     },
   });
 
@@ -40,7 +42,7 @@ export default async function ProductIdRoute({
   const addProducttowishlist = addToWishlist.bind(null, data.id);
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start lg:gap-x-24 py-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start px-5 lg:gap-x-24 py-6">
         <ImageSlider images={data.images} />
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
@@ -56,10 +58,53 @@ export default async function ProductIdRoute({
           </div>
           <p className="text-base text-gray-700 mt-6">{data.description}</p>
 
-          <form action={addProducttoShoppingCart}>
+           {/* Available Sizes */}
+           <div className="mt-4">
+            <label className="text-lg font-medium">Available Sizes:</label>
+            <select
+              name="size"
+              className="mt-2 block w-full border p-2 rounded"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled>Select Size</option>
+              {data.sizes.map((size: string) => (
+                <option key={size} value={size}>{size}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Available Colors */}
+          <div className="mt-4">
+            <label className="text-lg font-medium">Available Colors:</label>
+            <div className="flex gap-2 mt-2">
+              {data.colors.map((color: string) => (
+                <div
+                  key={color}
+                  className="w-8 h-8 rounded-full border"
+                  style={{ backgroundColor: color }}
+                />
+              ))}
+            </div>
+          </div>
+
+
+          <form action={async (formData) => {
+            "use server";
+            const size = formData.get("size") as string;
+            const color = formData.get("color") as string;
+            await addItem(data.id, size, color);
+          }}>
             <ShoppingBagButton />
           </form>
-          <form action={addProducttowishlist}>
+          
+
+          <form action={async (formData) => {
+            "use server";
+            const size = formData.get("size") as string;
+            const color = formData.get("color") as string;
+            await addToWishlist(data.id, size, color);
+          }}>
             <WishlistButton />
           </form>
         </div>

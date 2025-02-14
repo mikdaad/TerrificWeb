@@ -6,6 +6,8 @@ export type Cart = {
     originalprice: number;
     quantity: number;
     imageString: string;
+    size:string;
+    color:string;
   }>;
 };
 
@@ -16,5 +18,7 @@ export type Wishlist = {
     name: string;
     originalprice: number;
     imageString: string;
+    size:string;
+    color:string;
   }>;
 };

@@ -69,13 +69,14 @@ export default function ProductList({ gender, category, status }: ProductListPro
   }, [gender, category, status]);
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-3 gap-14">
       {loading ? (
         <p>Loading...</p>
       ) : products.length > 0 ? (
         products.map((product) => (
           <ProductCard 
             key={product.id} 
+             className="w-full"
             item={{
               id: product.id,
               name: product.name,

@@ -26,7 +26,7 @@ interface ProductListProps {
 
 export default function ProductList({ products }: ProductListProps) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-3 gap-14">
       {products.length > 0 ? (
         products.map((product) => (
           <ProductCard
