@@ -32,7 +32,7 @@ export default async function IndexPage() {
       alt="Company Logo"
       width={250}
       height={170}
-      className="mt-44"
+      className="mt-20"
       priority
     />
   </Link>
@@ -61,7 +61,7 @@ export default async function IndexPage() {
   
       {/* Mobile Button */}
       <div className="lg:hidden w-full flex justify-center  mb-10">
-        <Button className="bg-white text-black hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-3/4">
+        <Button className="bg-white text-black p-3 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-3/4">
         <Link href="/">
           Get Started
           </Link>

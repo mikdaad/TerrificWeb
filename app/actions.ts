@@ -303,6 +303,27 @@ export async function addItem(productId: string, size: string, color: string) {
   revalidatePath("/", "layout");
 }
 
+
+export async function getData(productId: string) {
+  const data = await prisma.product.findUnique({
+    where: { id: productId },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      originalprice: true,
+      images: true,
+      sizes: true,
+      colors: true,
+    },
+  });
+
+  if (!data) return null;
+
+  return data;
+}
+
+
 export async function addToWishlist(productId: string, size: string, color: string) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();

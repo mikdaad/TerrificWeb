@@ -90,6 +90,28 @@ export function DeleteItem() {
   );
 }
 
+
+
+export function MovetoCart() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <button disabled className="font-medium text-primary text-end">
+          moving...
+        </button>
+      ) : (
+        <button type="submit" className="font-medium text-primary text-end ">
+          Move to Cart
+        </button>
+      )}
+    </>
+  );
+}
+
+
+
 export function ChceckoutButton() {
   const { pending } = useFormStatus();
   return (

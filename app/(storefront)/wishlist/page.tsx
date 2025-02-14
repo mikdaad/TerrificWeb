@@ -1,5 +1,5 @@
 import { delWishlistItem, moveToCart } from "@/app/actions";
-import { DeleteItem } from "@/app/components/SubmitButtons";
+import { DeleteItem,MovetoCart } from "@/app/components/SubmitButtons";
 import { Wishlist } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ export default async function WishlistRoute() {
   const wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 min-h-[55vh]">
+    <div className="max-w-2xl p-10 mx-auto mt-8 min-h-[55vh]">
       {!wishlist || !wishlist.items.length ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center mt-20">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
@@ -53,16 +53,21 @@ export default async function WishlistRoute() {
                   alt="Product image"
                 />
               </div>
-              <div className="ml-5 flex justify-between w-full font-medium">
+              <div className="ml-5 flex  justify-between w-full font-medium">
+                <div className="space-y-3">
                 <p>{item.name}</p>
+                <p>selected color: {item.color}</p>
+                <p>selected size: {item.size}</p>
+                </div>
                 <div className="flex flex-col h-full justify-between">
-                  <p>${item.originalprice}</p>
+                  <p>₹{item.originalprice}</p>
+                  
 
-                  <div className="flex gap-x-2">
+                  <div className="flex gap-x-6">
                     {/* Move to Cart */}
                     <form action={moveToCart} className="text-end">
   <input type="hidden" name="productId" value={item.id} />
-  <DeleteItem />
+  <MovetoCart/>
 </form>
 
                     {/* Delete from Wishlist */}

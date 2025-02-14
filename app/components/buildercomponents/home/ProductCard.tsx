@@ -29,18 +29,19 @@ export function ProductCard({ item, className }: ProductCardProps) {
   const discount = ((item.originalprice - item.discountprice) / item.originalprice) * 100;
   
   return (
-    <div className={cn("flex flex-col gap-1 p-0 rounded-lg bg-white", className)}>
+    <Link href={`/product/${item.id}`}>
+    <div className={cn("flex flex-col gap-2 p-4 rounded-lg bg-white", className)}>
       
   <Carousel className="">
     <CarouselContent>
       {item.images.map((image, index) => (
         <CarouselItem key={index}>
           <div className="relative ">
-            <div className=" min-w-[250px] sm:min-w-[250px] min-h-[200px] sm:min-h-[200px] aspect-square">
+            <div className=" min-w-[300px] min-h-[300px]  aspect-square">
               <Image
                 src={image}
                 alt={item.name}
-                className=" object-cover rounded-lg"
+                className=" w-full h-32 object-cover rounded-lg"
                 layout="fill"
                 loading="lazy"
               />
@@ -60,7 +61,7 @@ export function ProductCard({ item, className }: ProductCardProps) {
     <span className="text-sm text-green-600">{discount.toFixed(0)}% OFF</span>
   </div>
 
-  <div className="flex items-center gap-2 mt-0">
+  <div className="flex items-center gap-0 mt-0">
     <div className="flex">
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
@@ -75,10 +76,12 @@ export function ProductCard({ item, className }: ProductCardProps) {
     <span className="text-sm text-gray-600">({item.reviews})</span>
   </div>
 
-  <Button asChild className="w-[90%] ml-1">
-    <Link href={`/product/${item.id}`}>Learn More!</Link>
-  </Button>
+  
 </div>
+</Link>
 
   );
 }
+
+
+

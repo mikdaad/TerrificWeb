@@ -353,7 +353,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 <AvatarUploader
       onUploadSuccess={(url) => {
         console.log("Uploaded URL:", url); // Debugging
-        setImages((prevImages) => [...prevImages, url]);
+
+        setTimeout(() => {
+          setImages((prevImages) => [...prevImages, ...url]);
+        }, 5000);
+
+        
       }}
     />
                 </div>

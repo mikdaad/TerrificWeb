@@ -131,10 +131,12 @@ const focusSearchInput = () => {
     <div className="pb-24 font-glancyr">
       {/* Header */}
       <header className="p-4 flex items-center justify-between  ">
+      <Link href="/dashboard" >
         <div className="flex items-center gap-2 mt-4">
           <Clock className="h-5 w-5 mb-1" />
           <span className="font-medium"> {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit"})}</span>
         </div>
+        </Link>
         <Link href="/" className="flex items-center">
     <Image
       src="/logo2.svg"

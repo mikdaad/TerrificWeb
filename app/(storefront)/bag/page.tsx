@@ -24,12 +24,12 @@ export default async function BagRoute() {
 
   let totalPrice = 0;
 
-  cart?.items.forEach((item) => {
-    totalPrice += item.originalprice * item.quantity;
-  });
+cart?.items.forEach((item) => {
+  totalPrice += item.originalprice * Number(item.quantity);
+});
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 min-h-[55vh]">
+    <div className="p-4 max-w-2xl mx-auto mt-10 min-h-[55vh]">
       {!cart || !cart.items ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center mt-20">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
@@ -62,6 +62,10 @@ export default async function BagRoute() {
               </div>
               <div className="ml-5 flex justify-between w-full font-medium">
                 <p>{item.name}</p>
+                <div className="space-y-3 justify-center">
+                <p>{item.color}</p>
+                <p> {item.size}</p>
+                </div>
                 <div className="flex flex-col h-full justify-between">
                   <div className="flex items-center gap-x-2">
                     <p>{item.quantity} x</p>
@@ -79,7 +83,7 @@ export default async function BagRoute() {
           <div className="mt-10">
             <div className="flex items-center justify-between font-medium">
               <p>Subtotal:</p>
-              <p>${new Intl.NumberFormat("en-US").format(totalPrice)}</p>
+              <p>${totalPrice}</p>
             </div>
 
             <form action={checkOut}>
