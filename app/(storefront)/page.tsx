@@ -196,15 +196,15 @@ const focusSearchInput = () => {
           <h2 className="text-xl font-semibold">All Featured</h2>
          
         </div>
-        <div className="w-full overflow-x-auto pb-4 hide-scrollbar">
+        <div className="w-full  pb-4 hide-scrollbar">
   <div className="flex ">
     {/* CategoryList takes more space (since it has 2 items) */}
-    <div className="flex-[2]">
+    <div >
       <CategoryList categories={categories} onCategorySelect={handleCategorySelect} />
     </div>
 
     {/* Genderlist takes less space (since it has 3 items) */}
-    <div className="flex-[3]">
+    <div className="flex-auto">
       <Genderlist categories={genders} onCategorySelect={handleGenderSelect} />
     </div>
   </div>
