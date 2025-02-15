@@ -8,16 +8,17 @@ const CheckoutPage: React.FC = () => {
 
   useEffect(() => {
     const transactionId: string = uuidv4();
-    const upiId: string = "cashwayclickd@okaxis"; // Replace with your UPI ID
-    const name: string = "Terrific";
-    const amount: string = "5"; // Replace with the actual amount
+    const upiId: string = "cashwayclicks@okaxis"; // Replace with your actual UPI ID
+    const name: string = "M. Mikdad";
+    const amount: string = "5.00"; // Replace with the actual amount
     const orderId: string = `ORDER-${transactionId}`;
     const note: string = "Payment for Order";
-    const callbackUrl: string = encodeURIComponent("https://terrific-web-git-main-mikdaads-projects.vercel.app/api/payment-callback");
+    const aid: string = "uGICAgMCNpa7WGQ"; // Replace with your actual AID
 
+    // UPI payment deep link (without callback)
     const generatedUpiUrl: string = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
       name
-    )}&am=${amount}&cu=INR&tr=${orderId}&tn=${encodeURIComponent(note)}&url=${callbackUrl}`;
+    )}&am=${amount}&cu=INR&tr=${orderId}&tn=${encodeURIComponent(note)}&aid=${aid}`;
 
     setUpiUrl(generatedUpiUrl); // Store the link for fallback
 
