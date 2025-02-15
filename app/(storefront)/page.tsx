@@ -148,13 +148,13 @@ const focusSearchInput = () => {
   return (
 
     
-    <div className="pb-20 p-4 font-glancyr">
+    <div className="pb-20 p-1 font-glancyr">
       {/* Header */}
       <header className="p-2 flex items-center justify-between relative">
   {/* Left Section: Time */}
   <Link href="/dashboard">
     <div className="flex items-center gap-2 mt-4">
-      <Clock className="h-5 w-5 mb-1" />
+      {/* <Clock className="h-5 w-5 mb-1" /> */}
       <span className="font-medium text-sm sm:text-base">
         {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
       </span>
@@ -186,7 +186,7 @@ const focusSearchInput = () => {
 </header>
 
 {/* Search Bar */}
-<div className="p-2 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
+<div className="p-2 mt-3 mr-2 ml-2 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
   {/* Search Input */}
   <div className="relative w-full">
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
@@ -211,7 +211,7 @@ const focusSearchInput = () => {
 
       {isQueryActive ? (
       /* Show Dynamic Product List */
-      <section className="p-4 space-y-4">
+      <section className="p-2 space-y-4">
         <h2 className="text-xl font-semibold">Search Results</h2>
         <div className="">
           <ProductList products={products} />
@@ -220,12 +220,12 @@ const focusSearchInput = () => {
     ) : (<>
 
       {/* Featured Section */}
-      <section className="p-4 space-y-4">
+      <section className=" p-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">All Featured</h2>
+          <h2 className="text-xl font-semibold p-1 ">All Featured</h2>
          
         </div>
-        <div className="w-full  pb-4 hide-scrollbar">
+        <div className="w-full  pb-1 hide-scrollbar">
   <div className="flex ">
     {/* CategoryList takes more space (since it has 2 items) */}
     <div >
@@ -247,9 +247,9 @@ const focusSearchInput = () => {
       </section>
 
       {/* Deals Section */}
-      <section className="p-4 space-y-4">
-        <div className="flex items-center justify-between text-white  bg-blue-500 rounded-lg p-3">
-          <div>
+      <section className="space-y-0">
+        <div className="flex ml-4 mr-4 items-center justify-between text-white  bg-blue-500 rounded-lg p-2">
+          <div >
             <h2 className="text-xl font-thin">Deal of the Day</h2>
             <CountdownTimer/>
           </div>
@@ -264,8 +264,8 @@ const focusSearchInput = () => {
       </section>
 
       {/* Trending Section */}
-      <section className="p-4 space-y-4">
-        <div className="flex items-center  text-white justify-between bg-blue-500 rounded-lg p-3">
+      <section className=" space-y-0">
+        <div className="flex items-center ml-4 mr-4 text-white justify-between bg-blue-500 rounded-lg p-2">
           <div >
             <h2 className="text-xl font-semibold  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">

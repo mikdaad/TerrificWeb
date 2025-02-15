@@ -12,12 +12,12 @@ interface CategoryListProps {
 
 export function CategoryList({ categories,onCategorySelect }: CategoryListProps ) {
   return (
-    <div className="flex  overflow-x-auto pb-4 hide-scrollbar">
+    <div className="flex  overflow-x-auto  hide-scrollbar">
       {categories.map((category, index) => (
          <button key={category.title} onClick={() => onCategorySelect(category.title)}>
         <div
           key={index}
-          className="flex flex-col items-center  min-w-[70px]"
+          className="flex flex-col items-center  gap-1 min-w-[60px]"
         >
           <Image
             src={category.image}

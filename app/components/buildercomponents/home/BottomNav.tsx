@@ -31,7 +31,7 @@ export function BottomNav({ onSearchClick }: BottomNavProps) {
   </button>
 </div>
 
-      <div className="grid grid-cols-4 gap-4 p-4 pt-6">
+      <div className="grid grid-cols-4 gap-4 p-1 pt-2">
         {navItems.map((item, index) => (
           <button
             key={index}
