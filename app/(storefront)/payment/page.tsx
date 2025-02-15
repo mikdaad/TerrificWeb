@@ -8,9 +8,9 @@ const CheckoutPage: React.FC = () => {
 
   useEffect(() => {
     const transactionId: string = uuidv4();
-    const upiId: string = "cashwayclicks@okaxis"; // Your UPI ID
+    const upiId: string = "cashwayclicks-1@okicici"; // Your UPI ID
     const name: string = "M. Mikdad"; // Business or user name
-    const amount: string = "5.00"; // Amount in INR
+    const amount: string = "1.00"; // Amount in INR
     const orderId: string = `ORDER-${transactionId}`;
     const note: string = "Payment for Order";
 
