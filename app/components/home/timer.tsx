@@ -36,9 +36,11 @@ export default function CountdownTimer() {
   if (!isMounted) return null;
 
   return (
-    <div className="flex items-center gap-2 text-sm">
+    <div className="flex items-center gap-2 text-sm font-thin font-glancyr">
       <Timer className="h-4 w-4" />
-      <span>{remainingTime} remaining</span>
+      
+      <span className="font-thin font-glancyr gap-x-1" >{remainingTime} remaining</span>
+     
     </div>
   );
 }

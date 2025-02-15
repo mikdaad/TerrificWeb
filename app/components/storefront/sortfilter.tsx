@@ -29,7 +29,7 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-lg">
-          <ArrowUpDown className="h-4 w-4 mr-2" />
+          <ArrowUpDown className="h-4 w-4 mr-2 font-thin opacity-60" />
           Sort
         </Button>
       </PopoverTrigger>

@@ -156,7 +156,7 @@ const focusSearchInput = () => {
   <Link href="/dashboard">
     <div className="flex items-center ml-2 gap-2 mt-4">
       {/* <Clock className="h-5 w-5 mb-1" /> */}
-      <span className="font-medium text-sm sm:text-base">
+      <span className="font-medium text-[0.650rem] sm:text-base">
         {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
       </span>
     </div>
@@ -180,8 +180,8 @@ const focusSearchInput = () => {
   <Image
     src="https://picsum.photos/200/300"
     alt="Profile"
-    width={40}
-    height={40}
+    width={15}
+    height={15}
     className="w-10 h-10 rounded-full mt-4"
   />
 </header>
