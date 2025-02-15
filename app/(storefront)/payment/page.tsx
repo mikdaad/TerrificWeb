@@ -1,28 +1,43 @@
-"use client"; // Ensure this is a Client Component
+"use client";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation"; // ❌ Don't use useRouter(), it's not needed here
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const CheckoutPage: React.FC = () => {
+  const [upiUrl, setUpiUrl] = useState<string>("");
+
   useEffect(() => {
     const transactionId: string = uuidv4();
     const upiId: string = "cashwayclickd@okaxis"; // Replace with your UPI ID
-const name: string = "Terrific";
-const amount: string = "5"; // Replace with the actual amount
-const orderId: string = `ORDER-${transactionId}`;
-const note: string = "Payment for Order";
-const callbackUrl: string = encodeURIComponent("https://localhost:3000/api/payment-callback");
+    const name: string = "Terrific";
+    const amount: string = "5"; // Replace with the actual amount
+    const orderId: string = `ORDER-${transactionId}`;
+    const note: string = "Payment for Order";
+    const callbackUrl: string = encodeURIComponent("https://terrific-web-git-main-mikdaads-projects.vercel.app/api/payment-callback");
 
-    const upiUrl: string = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tr=${orderId}&tn=${encodeURIComponent(note)}&url=${callbackUrl}`;
+    const generatedUpiUrl: string = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
+      name
+    )}&am=${amount}&cu=INR&tr=${orderId}&tn=${encodeURIComponent(note)}&url=${callbackUrl}`;
 
-    window.location.href = upiUrl; // Redirect to Google Pay
+    setUpiUrl(generatedUpiUrl); // Store the link for fallback
+
+    // Try opening the UPI link
+    window.location.href = generatedUpiUrl;
   }, []);
 
-  return <p>Redirecting to Google Pay...</p>;
+  return (
+    <div>
+      <p>Redirecting to Google Pay...</p>
+      {upiUrl && (
+        <p>
+          If nothing happens,{" "}
+          <a href={upiUrl} style={{ color: "blue", textDecoration: "underline" }}>
+            click here to pay manually
+          </a>
+        </p>
+      )}
+    </div>
+  );
 };
 
 export default CheckoutPage;
-
-
-
