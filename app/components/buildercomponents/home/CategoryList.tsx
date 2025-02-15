@@ -17,7 +17,7 @@ export function CategoryList({ categories,onCategorySelect }: CategoryListProps 
          <button key={category.title} onClick={() => onCategorySelect(category.title)}>
         <div
           key={index}
-          className="flex flex-col items-center  gap-1 min-w-[60px]"
+          className="flex flex-col items-center m-1  gap-2 min-w-[60px]"
         >
           <Image
             src={category.image}

@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SortFilter from "../components/storefront/sortfilter";
 import CountdownTimer from "../components/home/timer";
+import { Input } from "@/components/ui/input";
 
 const categories = [
   { image: "/categories/luxury.png", title: "Luxury" },
@@ -153,7 +154,7 @@ const focusSearchInput = () => {
       <header className="p-2 flex items-center justify-between relative">
   {/* Left Section: Time */}
   <Link href="/dashboard">
-    <div className="flex items-center gap-2 mt-4">
+    <div className="flex items-center ml-2 gap-2 mt-4">
       {/* <Clock className="h-5 w-5 mb-1" /> */}
       <span className="font-medium text-sm sm:text-base">
         {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
@@ -186,12 +187,12 @@ const focusSearchInput = () => {
 </header>
 
 {/* Search Bar */}
-<div className="p-2 mt-3 mr-2 ml-2 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
+<div className="p-2 mt-3 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
   {/* Search Input */}
   <div className="relative w-full">
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
 
-    <input
+    <Input
       className="pl-10 pr-10 w-full h-12 rounded-lg border border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
       placeholder="Search any Product..."
       ref={searchInputRef}
@@ -242,13 +243,13 @@ const focusSearchInput = () => {
       </section>
 
       {/* Banner */}
-      <section className="p-4">
+      <section className="p-2">
         <Banner />
       </section>
 
       {/* Deals Section */}
       <section className="space-y-0">
-        <div className="flex ml-4 mr-4 items-center justify-between text-white  bg-blue-500 rounded-lg p-2">
+        <div className="flex ml-2 mr-2 items-center justify-between text-white  bg-blue-500 rounded-lg p-2">
           <div >
             <h2 className="text-xl font-thin">Deal of the Day</h2>
             <CountdownTimer/>
@@ -265,7 +266,7 @@ const focusSearchInput = () => {
 
       {/* Trending Section */}
       <section className=" space-y-0">
-        <div className="flex items-center ml-4 mr-4 text-white justify-between bg-blue-500 rounded-lg p-2">
+        <div className="flex items-center ml-2 mr-2 text-white justify-between bg-blue-500 rounded-lg p-2">
           <div >
             <h2 className="text-xl font-semibold  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">

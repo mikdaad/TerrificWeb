@@ -30,7 +30,7 @@ export function ProductCard({ item, className }: ProductCardProps) {
   
   return (
     <Link href={`/product/${item.id}`}>
-    <div className={cn("flex flex-col  p-4 rounded-lg bg-white", className)}>
+    <div className={cn("flex flex-col  p-2 rounded-lg bg-white", className)}>
       
   <Carousel className="">
     <CarouselContent>

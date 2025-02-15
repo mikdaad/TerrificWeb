@@ -14,9 +14,10 @@ export default function ProductPage({ data }: { data: any }) {
   const addProductToWishlist = () => addToWishlist(data.id, selectedSize, selectedColor);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 font-glancyr gap-6 items-start px-4 lg:gap-x-24 py-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 font-glancyr gap-6 items-start px-0 lg:gap-x-24 py-6">
       {/* Image Slider */}
       <ImageSlider images={data.images} />
+      <div className="p-2">
 
       {/* Product Details */}
       <div>
@@ -101,6 +102,7 @@ export default function ProductPage({ data }: { data: any }) {
             <ShoppingBagButton />
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

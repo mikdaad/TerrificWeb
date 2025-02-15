@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface iAppProps {
   images: string[];
@@ -12,34 +12,57 @@ interface iAppProps {
 
 export function ImageSlider({ images }: iAppProps) {
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNextClick();
+    }, 3000); // Auto-scroll every 3 seconds
+    return () => clearInterval(interval);
+  }, [mainImageIndex]);
 
   function handlePreviousClick() {
     setMainImageIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
+    scrollToImage(mainImageIndex === 0 ? images.length - 1 : mainImageIndex - 1);
   }
 
   function handleNextClick() {
     setMainImageIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
+    scrollToImage(mainImageIndex === images.length - 1 ? 0 : mainImageIndex + 1);
   }
 
-  function handleImageClick(index: number) {
-    setMainImageIndex(index);
+  function scrollToImage(index: number) {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth * index;
+      scrollRef.current.scrollTo({ left: scrollAmount, behavior: "smooth" });
+    }
   }
 
   return (
-    <div className="grid gap-6 md:gap-3 items-start">
-      <div className="relative overflow-hidden rounded-lg">
-        <Image
-          width={400}
-          height={400}
-          src={images[mainImageIndex]}
-          alt="Product image"
-          className="object-cover w-[400px] h-[400px]"
-        />
-
+    <div className="flex flex-col items-center">
+      {/* Image Container */}
+      <div className="relative w-full max-w-2xl overflow-hidden">
+        <div
+          ref={scrollRef}
+          className="flex w-full overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 scroll-smooth"
+        >
+          {images.map((image, index) => (
+            <div key={index} className="flex-shrink-0 w-full snap-center">
+              <Image
+                width={400}
+                height={400}
+                src={image}
+                alt="Product image"
+                className="object-cover w-full h-[400px]"
+              />
+            </div>
+          ))}
+        </div>
+        {/* Navigation Buttons */}
         <div className="absolute inset-0 flex items-center justify-between px-4">
           <Button onClick={handlePreviousClick} variant="ghost" size="icon">
             <ChevronLeft className="w-6 h-6" />
@@ -49,27 +72,19 @@ export function ImageSlider({ images }: iAppProps) {
           </Button>
         </div>
       </div>
-
-      <div className="grid grid-cols-5 gap-4">
-        {images.map((image, index) => (
-          <div
-            className={cn(
-              index === mainImageIndex
-                ? "border-2 border-primary"
-                : "border border-gray-200",
-              "relative overflow-hidden rounded-lg cursor-pointer"
-            )}
+      {/* Navigation Dots */}
+      <div className="flex justify-center mt-4 space-x-2">
+        {images.map((_, index) => (
+          <button
             key={index}
-            onClick={() => handleImageClick(index)}
-          >
-            <Image
-              src={image}
-              alt="Product Image"
-              width={100}
-              height={100}
-              className="object-cover w-[100px] h-[100px]"
-            />
-          </div>
+            onClick={() => {
+              setMainImageIndex(index);
+              scrollToImage(index);
+            }}
+            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+              mainImageIndex === index ? "bg-black" : "bg-gray-400 opacity-50"
+            }`}
+          />
         ))}
       </div>
     </div>

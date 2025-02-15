@@ -21,7 +21,7 @@ export function BottomNav({ onSearchClick }: BottomNavProps) {
   const [active, setActive] = useState("Home");
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
+    <div className="fixed bottom-2 left-0 right-0 bg-white border-t">
       <div className="relative">
   <button 
     className="absolute -top-6 left-1/2 -translate-x-1/2 bg-white border border-gray-300 shadow-lg text-black p-4 rounded-full transition hover:shadow-xl"
