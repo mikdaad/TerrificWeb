@@ -221,12 +221,12 @@ const focusSearchInput = () => {
     ) : (<>
 
       {/* Featured Section */}
-      <section className=" p-4">
+      <section className=" m-2">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold p-1 ">All Featured</h2>
          
         </div>
-        <div className="w-full  pb-1 hide-scrollbar">
+        <div className="w-full  pb-0 hide-scrollbar">
   <div className="flex ">
     {/* CategoryList takes more space (since it has 2 items) */}
     <div >
