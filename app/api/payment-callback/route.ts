@@ -3,19 +3,22 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const txnId = searchParams.get("txnId");
+  const status = searchParams.get("Status");
   const responseCode = searchParams.get("responseCode");
-  const Status = searchParams.get("Status");
-  const approvalRefNo = searchParams.get("approvalRefNo");
-  const tr = searchParams.get("tr"); // Order ID
+  const orderId = searchParams.get("tr");
 
-  if (Status === "SUCCESS") {
-    console.log(`Payment Successful: ${txnId}, Order ID: ${tr}`);
+  if (status === "SUCCESS") {
+    console.log(`✅ Payment Successful: ${txnId}, Order ID: ${orderId}`);
 
-    return NextResponse.redirect(
-      new URL(`/payment/success?txnId=${txnId}&orderId=${tr}`, req.nextUrl)
-    );
+    // Store transaction in DB (MongoDB, PostgreSQL, etc.)
+    // await saveTransactionToDB({ txnId, orderId, status });
+
+    // Redirect to success page
+    return NextResponse.redirect(`https://terrific-web-git-main-mikdaads-projects.vercel.app/payment/success?txnId=${txnId}&orderId=${orderId}`);
   } else {
-    console.log("Payment Failed:", responseCode);
-    return NextResponse.redirect(new URL("/payment/cancel", req.nextUrl));
+    console.log(`❌ Payment Failed: ${responseCode}`);
+
+    // Redirect to failure page
+    return NextResponse.redirect(`https://terrific-web-git-main-mikdaads-projects.vercel.app/payment/cancel`);
   }
 }
