@@ -189,11 +189,11 @@ const focusSearchInput = () => {
 {/* Search Bar */}
 <div className="p-2 mt-3 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
   {/* Search Input */}
-  <div className="relative w-full">
+  <div className="relative w-full font-thin">
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
 
     <Input
-      className="pl-10 pr-10 w-full h-12 rounded-lg border border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
+      className="pl-10 pr-10 w-full h-12 rounded-lg border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
       placeholder="Search any Product..."
       ref={searchInputRef}
       type="text"
@@ -204,10 +204,7 @@ const focusSearchInput = () => {
     <Mic className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 cursor-pointer" />
   </div>
 
-  {/* Sort & Filter Section */}
-  <div className="flex gap-2">
-    <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect} />
-  </div>
+  
 </div>
 
       {isQueryActive ? (
@@ -222,8 +219,12 @@ const focusSearchInput = () => {
 
       {/* Featured Section */}
       <section className=" m-2">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold p-1 ">All Featured</h2>
+        <div className="flex items-center justify-between m-2 mb-4">
+          <h2 className="text-xl font-weight-600 p-1 ">All Featured</h2>
+          {/* Sort & Filter Section */}
+  <div className="flex gap-2">
+    <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect} />
+  </div>
          
         </div>
         <div className="w-full  pb-0 hide-scrollbar">
@@ -249,7 +250,7 @@ const focusSearchInput = () => {
 
       {/* Deals Section */}
       <section className="space-y-0">
-        <div className="flex ml-2 mr-2 items-center justify-between text-white  bg-blue-500 rounded-lg p-2">
+        <div className="flex m-2 items-center justify-between text-white  bg-[#4392F9] rounded-lg p-3">
           <div >
             <h2 className="text-xl font-thin">Deal of the Day</h2>
             <CountdownTimer/>
@@ -266,9 +267,9 @@ const focusSearchInput = () => {
 
       {/* Trending Section */}
       <section className=" space-y-0">
-        <div className="flex items-center ml-2 mr-2 text-white justify-between bg-blue-500 rounded-lg p-2">
+        <div className="flex items-center m-2 text-white justify-between bg-[#4392F9] rounded-lg p-3">
           <div >
-            <h2 className="text-xl font-semibold  ">Trending Products</h2>
+            <h2 className="text-xl font-thin  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
               <span> Last Date {lastDate} </span>

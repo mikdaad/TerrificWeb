@@ -5,6 +5,8 @@ import { addItem, addToWishlist } from "../../actions";
 import { ShoppingBagButton, WishlistButton } from "@/app/components/SubmitButtons";
 import { ImageSlider } from "@/app/components/storefront/ImageSlider";
 import { StarIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductPage({ data }: { data: any }) {
   const [selectedSize, setSelectedSize] = useState("");
@@ -14,10 +16,26 @@ export default function ProductPage({ data }: { data: any }) {
   const addProductToWishlist = () => addToWishlist(data.id, selectedSize, selectedColor);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 font-glancyr gap-6 items-start px-0 lg:gap-x-24 py-6">
+    <div className="grid grid-cols-1  md:grid-cols-2 font-glancyr gap-6 items-start  lg:gap-x-24 py-6">
+
+<div className="flex justify-center items-center w-full">
+  <Link href="/">
+    <Image
+      src="/logo2.svg"
+      alt="Company Logo"
+      width={161}
+      height={73}
+      className="w-[150px] h-[75px] sm:w-[140px] sm:h-[65px] lg:w-[161px] lg:h-[73px]"
+      priority
+    />
+  </Link>
+</div>
+
+<div className="p-2">
+
       {/* Image Slider */}
       <ImageSlider images={data.images} />
-      <div className="p-2">
+      
 
       {/* Product Details */}
       <div>
@@ -104,6 +122,7 @@ export default function ProductPage({ data }: { data: any }) {
         </div>
       </div>
       </div>
-    </div>
+      </div>
+   
   );
 }

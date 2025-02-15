@@ -41,7 +41,7 @@ export default async function IndexPage() {
     {/* Left Side - Text Content */}
     <div className="flex flex-col items-center  lg:items-start w-full lg:w-[100%] space-y-8 ">
   
-      <h1 className="text-white font-glancyr font-medium text-sm lg:text-2xl mt-32">
+      <h1 className="text-white font-glancyr font-medium text-sm lg:text-2xl mt-10">
         W E L C O M E &nbsp; T O &nbsp; T E R R I F I C
       </h1>
   
@@ -60,7 +60,7 @@ export default async function IndexPage() {
       </p>
   
       {/* Mobile Button */}
-      <div className="lg:hidden w-full flex justify-center  mb-10">
+      <div className="lg:hidden w-full flex justify-center  mb-20">
         <Button className="bg-white text-black p-3 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-3/4">
         <Link href="/">
           Get Started
