@@ -37,7 +37,7 @@ export function ProductCard({ item, className }: ProductCardProps) {
       {item.images.map((image, index) => (
         <CarouselItem key={index}>
           <div className="relative ">
-            <div className=" min-w-[200px] min-h-[200px]  aspect-square">
+            <div className=" min-w-[200px] min-h-[200px] md:min-w-[400px] md:min-h-[400px] lg:min-w-[400px] lg:min-h-[400px] aspect-square">
               <Image
                 src={image}
                 alt={item.name}

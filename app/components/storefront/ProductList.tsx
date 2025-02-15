@@ -26,7 +26,7 @@ interface ProductListProps {
 
 export default function ProductList({ products }: ProductListProps) {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 lg:grid-cols-3">
       {products.length > 0 ? (
         products.map((product) => (
           <ProductCard

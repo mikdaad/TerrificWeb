@@ -69,7 +69,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
   }, [gender, category, status]);
 
   return (
-    <div className="grid grid-cols-2 gap-0">
+    <div className="grid grid-cols-2  lg:grid-cols-3 gap-0">
       {loading ? (
         <p>Loading...</p>
       ) : products.length > 0 ? (

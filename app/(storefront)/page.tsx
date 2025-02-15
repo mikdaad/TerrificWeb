@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "../components/ui/button";
 import React,{useState,useEffect,useRef } from "react";
-import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown } from "lucide-react";
+import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown, Router } from "lucide-react";
 import  ProductList  from "../components/storefront/ProductList";
 import  ProductList2  from "../components/storefront/Productlist2";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
@@ -11,6 +11,7 @@ import { BottomNav } from "../components/buildercomponents/home/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
 import SortFilter from "../components/storefront/sortfilter";
+import CountdownTimer from "../components/home/timer";
 
 const categories = [
   { image: "/categories/luxury.png", title: "Luxury" },
@@ -32,7 +33,7 @@ const genders = [
 const Index = () => {
 
 const [currentTime, setCurrentTime] = useState(new Date());
-const [remainingTime, setRemainingTime] = useState(null);
+const [lastDate, setLastDate] = useState<string | null>(null);
 const searchInputRef = useRef<HTMLInputElement>(null);
 
 const [products, setProducts] = useState([]);
@@ -43,6 +44,25 @@ const [selectedstatus, setSelectedstatus] = useState("");
 const [sortOption, setSortOption] = useState(""); // Example: "price-asc", "price-desc"
 const [filterOption, setFilterOption] = useState(""); // Example: "in-stock", "discounted"
 const [isQueryActive, setIsQueryActive] = useState(false);
+
+
+
+
+async function fetchLastDate() {
+  try {
+    const response = await fetch("/api/lastdate", { method: "GET" });
+    const data = await response.json();
+   
+    setLastDate(data.lastdate);
+    console.log(data.lastdate);
+  } catch (error) {
+    console.error("Error fetching lastdate:", error);
+  }
+}
+
+  useEffect(() => {
+    fetchLastDate();
+  }, []);
 
 
 useEffect(() => {
@@ -128,33 +148,42 @@ const focusSearchInput = () => {
   return (
 
     
-    <div className="pb-24 font-glancyr">
+    <div className="pb-20 p-4 font-glancyr">
       {/* Header */}
-      <header className="p-4 flex items-center justify-between  ">
-      <Link href="/dashboard" >
-        <div className="flex items-center gap-2 mt-4">
-          <Clock className="h-5 w-5 mb-1" />
-          <span className="font-medium"> {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit"})}</span>
-        </div>
-        </Link>
-        <Link href="/" className="flex items-center">
-    <Image
-      src="/logo2.svg"
-      alt="Company Logo"
-      width={161.23}
-      height={72.87}
-      className="relative right-[18%] w-[120px] h-[54px]  sm:w-[140px] sm:h-[65px] lg:w-[161px] lg:h-[73px]"
-      priority
-    />
+      <header className="p-2 flex items-center justify-between relative">
+  {/* Left Section: Time */}
+  <Link href="/dashboard">
+    <div className="flex items-center gap-2 mt-4">
+      <Clock className="h-5 w-5 mb-1" />
+      <span className="font-medium text-sm sm:text-base">
+        {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+      </span>
+    </div>
   </Link>
-        <Image
-          src="https://picsum.photos/200/300"
-          alt="Profile"
-          width={40} // Set width
-      height={40} // Set height 
-          className="w-10 h-10 rounded-full  mt-4"
-        />
-      </header>
+
+  {/* Centered Logo */}
+  <div className="absolute left-1/2 transform -translate-x-1/2">
+    <Link href="/">
+      <Image
+        src="/logo2.svg"
+        alt="Company Logo"
+        width={161}
+        height={73}
+        className="w-[150px] h-[75px] sm:w-[150px] sm:h-[75px] lg:w-[161px] lg:h-[73px]"
+        priority
+      />
+    </Link>
+  </div>
+
+  {/* Right Section: Profile Image */}
+  <Image
+    src="https://picsum.photos/200/300"
+    alt="Profile"
+    width={40}
+    height={40}
+    className="w-10 h-10 rounded-full mt-4"
+  />
+</header>
 
 {/* Search Bar */}
 <div className="p-2 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
@@ -222,10 +251,7 @@ const focusSearchInput = () => {
         <div className="flex items-center justify-between text-white  bg-blue-500 rounded-lg p-3">
           <div>
             <h2 className="text-xl font-thin">Deal of the Day</h2>
-            <div className="flex items-center gap-2 text-sm ">
-              <Timer className="h-4 w-4" />
-              <span>22h 55m 20s remaining</span>
-            </div>
+            <CountdownTimer/>
           </div>
           <Button onClick={()=> setSelectedstatus("Dealoftheday")}  variant="ghost" size="sm">
             View all
@@ -244,7 +270,7 @@ const focusSearchInput = () => {
             <h2 className="text-xl font-semibold  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
-              <span> Last Date 25/10/24 </span>
+              <span> Last Date {lastDate} </span>
             </div>
           </div>
           <Button  onClick={()=> setSelectedstatus("TrendingProduct")} variant="ghost" size="sm">
