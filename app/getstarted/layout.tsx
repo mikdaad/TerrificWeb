@@ -24,7 +24,7 @@ export default function StoreFrontLayout({
   
     <div
     className="relative min-h-screen bg-cover  bg-left"
-    style={{ backgroundImage: 'url("/background.png")' }} // ✅ Correct syntax
+    style={{ backgroundImage: 'url("/background.jpg")' }} // ✅ Correct syntax
   >
     {/* SVG Overlay */}
     <svg
