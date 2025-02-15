@@ -24,63 +24,61 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
   };
 
   return (
-    <div className="flex gap-2">
-      {/* Sort Button with Popover */}
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="outline" size="sm">
-            <ArrowUpDown className="h-4 w-4 mr-2" />
-            Sort
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-40">
-          <div className="flex flex-col">
-            <button
-              onClick={() => handleSortSelect("asc")}
-              className={`p-2 hover:bg-gray-100 font-glancyr ${
-                selectedSort === "price-asc" ? "bg-gray-200" : ""
-              }`}
-            >
-              Price: Low to High
-            </button>
-            <button
-              onClick={() => handleSortSelect("desc")}
-              className={`p-2 hover:bg-gray-100 font-glancyr ${
-                selectedSort === "price-desc" ? "bg-gray-200" : ""
-              }`}
-            >
-              Price: High to Low
-            </button>
-          </div>
-        </PopoverContent>
-      </Popover>
+    <div className="flex gap-1">
+  {/* Sort Button with Popover */}
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button variant="outline" size="icon" className="p-2">
+        <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-32 text-sm">
+      <div className="flex flex-col">
+        <button
+          onClick={() => handleSortSelect("asc")}
+          className={`p-1 hover:bg-gray-100 ${
+            selectedSort === "price-asc" ? "bg-gray-200" : ""
+          }`}
+        >
+          Low to High
+        </button>
+        <button
+          onClick={() => handleSortSelect("desc")}
+          className={`p-1 hover:bg-gray-100 ${
+            selectedSort === "price-desc" ? "bg-gray-200" : ""
+          }`}
+        >
+          High to Low
+        </button>
+      </div>
+    </PopoverContent>
+  </Popover>
 
-      {/* Filter Button with Popover */}
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="outline" size="sm">
-            <Filter className="h-4 w-4 mr-2" />
-            Filter
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-40">
-          <div className="flex flex-col font-glancyr">
-          {["Men", "Women", "Kids", "Unisex"].map((filterOption) => (
-  <button
-    key={filterOption}
-    onClick={() => handleFilterSelect(filterOption)} // Removed .toLowerCase()
-    className={`p-2 hover:bg-gray-100 ${
-      selectedFilter === filterOption ? "bg-gray-200" : ""
-    }`}
-  >
-    {filterOption}
-  </button>
-))}
+  {/* Filter Button with Popover */}
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button variant="outline" size="icon" className="p-2">
+        <Filter className="h-4 w-4" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-32 text-sm">
+      <div className="flex flex-col">
+        {["Men", "Women", "Kids", "Unisex"].map((filterOption) => (
+          <button
+            key={filterOption}
+            onClick={() => handleFilterSelect(filterOption)}
+            className={`p-1 hover:bg-gray-100 ${
+              selectedFilter === filterOption ? "bg-gray-200" : ""
+            }`}
+          >
+            {filterOption}
+          </button>
+        ))}
+      </div>
+    </PopoverContent>
+  </Popover>
+</div>
 
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
   );
 };
 

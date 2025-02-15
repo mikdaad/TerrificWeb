@@ -30,18 +30,18 @@ export function ProductCard({ item, className }: ProductCardProps) {
   
   return (
     <Link href={`/product/${item.id}`}>
-    <div className={cn("flex flex-col gap-2 p-4 rounded-lg bg-white", className)}>
+    <div className={cn("flex flex-col  p-4 rounded-lg bg-white", className)}>
       
   <Carousel className="">
     <CarouselContent>
       {item.images.map((image, index) => (
         <CarouselItem key={index}>
           <div className="relative ">
-            <div className=" min-w-[300px] min-h-[300px]  aspect-square">
+            <div className=" min-w-[200px] min-h-[200px]  aspect-square">
               <Image
                 src={image}
                 alt={item.name}
-                className=" w-full h-32 object-cover rounded-lg"
+                className="  rounded-lg"
                 layout="fill"
                 loading="lazy"
               />
@@ -52,11 +52,11 @@ export function ProductCard({ item, className }: ProductCardProps) {
     </CarouselContent>
   </Carousel>
 
-  <h3 className="font-semibold text-lg mt-0">{item.name}</h3>
+  <h3 className="font-weight-600 text-lg mt-0">{item.name}</h3>
   <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
 
   <div className="flex items-center gap-2 mt-0">
-    <span className="text-lg font-bold">${item.discountprice}</span>
+    <span className="text-lg  ">${item.discountprice}</span>
     <span className="text-sm text-gray-500 line-through">${item.originalprice}</span>
     <span className="text-sm text-green-600">{discount.toFixed(0)}% OFF</span>
   </div>

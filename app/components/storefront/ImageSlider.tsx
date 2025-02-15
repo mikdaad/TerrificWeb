@@ -33,11 +33,11 @@ export function ImageSlider({ images }: iAppProps) {
     <div className="grid gap-6 md:gap-3 items-start">
       <div className="relative overflow-hidden rounded-lg">
         <Image
-          width={600}
-          height={600}
+          width={400}
+          height={400}
           src={images[mainImageIndex]}
           alt="Product image"
-          className="object-cover w-[600px] h-[600px]"
+          className="object-cover w-[400px] h-[400px]"
         />
 
         <div className="absolute inset-0 flex items-center justify-between px-4">

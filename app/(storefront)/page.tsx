@@ -156,22 +156,29 @@ const focusSearchInput = () => {
         />
       </header>
 
+{/* Search Bar */}
+<div className="p-2 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
+  {/* Search Input */}
+  <div className="relative w-full">
+    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
 
-      {/* Search Bar */}
-      <div className="p-2 flex w-full gap-4">
-        <div className="flex-1 relative ">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-          
-          <input className="pl-10 w-full" placeholder="Search any Product.."  
-          ref={searchInputRef}  type="text"
-           value={searchQuery}  onChange={handleSearchChange} />
-          <Mic className="absolute h-4 w-4 text-gray-500 left-[90%] top-1/3" />
-          
-         
-        </div>
-        <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect}/>
-        
-      </div>
+    <input
+      className="pl-10 pr-10 w-full h-12 rounded-lg border border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
+      placeholder="Search any Product..."
+      ref={searchInputRef}
+      type="text"
+      value={searchQuery}
+      onChange={handleSearchChange}
+    />
+    
+    <Mic className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 cursor-pointer" />
+  </div>
+
+  {/* Sort & Filter Section */}
+  <div className="flex gap-2">
+    <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect} />
+  </div>
+</div>
 
       {isQueryActive ? (
       /* Show Dynamic Product List */
@@ -189,10 +196,20 @@ const focusSearchInput = () => {
           <h2 className="text-xl font-semibold">All Featured</h2>
          
         </div>
-        <div className="flex gap-4 items-center w-full" >
-        <CategoryList categories={categories}  onCategorySelect={handleCategorySelect} />
-        <Genderlist categories={genders}  onCategorySelect={handleGenderSelect} />
-        </div>
+        <div className="w-full overflow-x-auto pb-4 hide-scrollbar">
+  <div className="flex ">
+    {/* CategoryList takes more space (since it has 2 items) */}
+    <div className="flex-[2]">
+      <CategoryList categories={categories} onCategorySelect={handleCategorySelect} />
+    </div>
+
+    {/* Genderlist takes less space (since it has 3 items) */}
+    <div className="flex-[3]">
+      <Genderlist categories={genders} onCategorySelect={handleGenderSelect} />
+    </div>
+  </div>
+</div>
+
       </section>
 
       {/* Banner */}
