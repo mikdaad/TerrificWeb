@@ -535,41 +535,12 @@ export async function checkOut() {
     return redirect("/");
   }
 
-  let cart: Cart | null = await redis.get(`cart-${user.id}`);
+  
+  
 
-  if (cart && cart.items) {
-    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] =
-      cart.items.map((item) => ({
-        originalprice_data: {
-          currency: "usd",
-          unit_amount: item.originalprice * 100,
-          product_data: {
-            name: item.name,
-            images: [item.imageString],
-          },
-        },
-        quantity: item.quantity,
-      }));
-
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: lineItems,
-      success_url:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000/payment/success"
-          : "https://shoe-marshal.vercel.app/payment/success",
-      cancel_url:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000/payment/cancel"
-          : "https://shoe-marshal.vercel.app/payment/cancel",
-      metadata: {
-        userId: user.id,
-      },
-    });
-
-    return redirect(session.url as string);
+    return redirect("/payment");
   }
-}
+
 
 
 export async function updatediscount(prevState: any, formData: FormData) {
