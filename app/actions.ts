@@ -83,18 +83,46 @@ export async function editProduct(prevState: any, formData: FormData) {
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
   }
+  
+  let sizes: string[] = [];
+  const stringifiedGenders = formData.get("sizes") as string;
+  try {
+    sizes = JSON.parse(stringifiedGenders);
+    
+    
+  } catch (error) {
+   
+    
+    console.error("Invalid JSON for genders:", error);
+    return { status: "error", errors: ["Invalid gender format"] };
+    
+  }
+
+  let colors: string[] = [];
+  const stringifiedColors = formData.get("colors") as string;
+  try {
+    colors = JSON.parse(stringifiedColors);
+  } catch (error) {
+    console.error("❌ Invalid JSON for colors:", error);
+    return { status: "error", errors: ["Invalid color format"] };
+  }
+
 
   const submission = parseWithZod(formData, {
     schema: productSchema,
   });
 
   if (submission.status !== "success") {
+    console.log("❌ Zod validation failed:", submission.error);
     return submission.reply();
+   
   }
 
   const flattenUrls = submission.value.images.flatMap((urlString) =>
     urlString.split(",").map((url) => url.trim())
   );
+
+
 
   const productId = formData.get("productId") as string;
   await prisma.product.update({
@@ -106,13 +134,21 @@ export async function editProduct(prevState: any, formData: FormData) {
       description: submission.value.description,
       category: submission.value.category,
       originalprice: submission.value.originalprice,
-      isFeatured: submission.value.isFeatured === true ? true : false,
+      discountprice: submission.value.discountprice,
+      status: submission.value.status,
       gender: submission.value.gender,
+      isFeatured: submission.value.isFeatured === true ? true : false,
+      sizes:sizes,
+      colors:colors,
+      reviews:submission.value.reviews,
+
       images: flattenUrls,
+      
     },
   });
 
-  redirect("/dashboard/products");
+  return redirect("/dashboard/products");
+
 }
 
 export async function deleteProduct(formData: FormData) {

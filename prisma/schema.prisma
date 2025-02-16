@@ -48,7 +48,7 @@ model Product {
   images      String[]
   category    Category
   isFeatured  Boolean       @default(false)
-  stars       Decimal
+  stars       Int
   reviews     Int
   status      Status
   sizes       String[]

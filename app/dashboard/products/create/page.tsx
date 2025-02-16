@@ -81,9 +81,9 @@ export default function ProductCreateRoute() {
     }
   };
   const [customColor, setCustomColor] = useState<string>("");
-
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-const [selectedColors, setSelectedColors] = useState<string[]>([]);
+
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
@@ -293,11 +293,13 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     <PopoverContent className="w-56 max-h-64 overflow-y-auto">
       {availableColors.map((color) => (
         <div key={color} className="flex items-center gap-2">
-          <Checkbox
-            name="colors" // ✅ Corrected: All checkboxes should have the same name
-            checked={selectedColors.includes(color)}
-            onCheckedChange={() => toggleColor(color)}
+         <Checkbox
+        name="colors"
+        checked={selectedColors.includes(color)}
+         onChange={() => toggleColor(color)}
           />
+
+
           <span>{color}</span>
         </div>
       ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "../ui/checkbox";
 import {
   Card,
   CardContent,
@@ -33,6 +34,10 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { productSchema } from "@/app/lib/zodSchemas";
 import { type $Enums } from "@prisma/client";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Decimal } from "@prisma/client/runtime/library";
+
+
 
 interface iAppProps {
   data: {
@@ -41,32 +46,74 @@ interface iAppProps {
     description: string;
     status: $Enums.Status;
     discountprice: number;
+    originalprice:number;
     images: string[];
     category: $Enums.Category;
     isFeatured: boolean;
+    gender: $Enums.Gender;
+    sizes: String[];
+    reviews:number;
+    stars:number;
+    colors:string[];
+
+    
   };
 }
 
+
+
 export function EditForm({ data }: iAppProps) {
   const [images, setImages] = useState<string[]>(data.images);
+  const [SelectedValues, setSelectedValues] = useState<string[]>([]);
   const [lastResult, action] = useFormState(editProduct, undefined);
   const [form, fields] = useForm({
-    lastResult,
-
+    lastResult: null, // Explicitly setting null
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: productSchema });
     },
-
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+  
+
+  const toggleSelection = (value: string) => {
+    setSelectedValues((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+
 
   const handleDelete = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
   };
+
+  const sizes = ["S", "M", "L", "XL", "XXL"];
+
+  const availableColors = [
+    "Red", "Blue", "Green", "Black", "White", "Yellow", "Pink", "Purple", "Orange",
+    "Teal", "Brown", "Gray", "Cyan", "Magenta", "Gold", "Silver", "Maroon", "Olive",
+    "Navy", "Lime", "Indigo", "Turquoise", "Beige", "Coral"
+  ];
+   const toggleColor = (color: string) => {
+    setSelectedColors((prev) =>
+      prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
+    );
+  };
+  const addCustomColor = () => {
+    if (customColor && !selectedColors.includes(customColor)) {
+      setSelectedColors([...selectedColors, customColor]);
+      setCustomColor(""); // Reset input
+    }
+  };
+  const [customColor, setCustomColor] = useState<string>("");
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+
+
+  
+  
   return (
-    <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <input type="hidden" name="productId" value={data.id} />
+    <form id={form.id}  action={action}>
+      <Input type="hidden" name="productId" value={data.id} />
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" asChild>
           <Link href="/dashboard/products">
@@ -98,6 +145,7 @@ export function EditForm({ data }: iAppProps) {
 
               <p className="text-red-500">{fields.name.errors}</p>
             </div>
+           
 
             <div className="flex flex-col gap-3">
               <Label>Description</Label>
@@ -116,10 +164,90 @@ export function EditForm({ data }: iAppProps) {
                 name={fields.discountprice.name}
                 defaultValue={data.discountprice}
                 type="number"
-                placeholder="$55"
+                placeholder="₹55"
               />
               <p className="text-red-500">{fields.discountprice.errors}</p>
             </div>
+            <div className="flex flex-col gap-3">
+              <Label>originalprice</Label>
+              <Input
+                key={fields.originalprice.key}
+                name={fields.originalprice.name}
+                defaultValue={data.originalprice}
+                type="number"
+                placeholder="₹55"
+              />
+              <p className="text-red-500">{fields.originalprice.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>reviews</Label>
+              <Input
+                key={fields.reviews.key}
+                name={fields.reviews.name}
+                defaultValue={fields.reviews.initialValue}
+                type="number"
+                placeholder=""
+              />
+              <p className="text-red-500">{fields.reviews.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Stars</Label>
+              <Input
+                key={fields.stars.key}
+                name={fields.stars.name}
+                defaultValue={fields.stars.initialValue}
+                type="number"
+                placeholder=""
+              />
+              <p className="text-red-500">{fields.stars.errors}</p>
+            </div>
+
+
+
+
+            
+{/* Colors Selection */}
+<div className="flex flex-col gap-3">
+  <Label>Available Colors</Label>
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button variant="outline">
+        {selectedColors.length > 0 ? selectedColors.join(", ") : "Select Colors"}
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-56 max-h-64 overflow-y-auto">
+      {availableColors.map((color) => (
+        <div key={color} className="flex items-center gap-2">
+          <input
+  type="checkbox"
+  name="color"
+  checked={selectedColors.includes(color)}
+  onChange={() => toggleColor(color)}
+/>
+
+          <span>{color}</span>
+        </div>
+      ))}
+      {/* Custom Color Picker */}
+      <div className="mt-2 flex items-center gap-2">
+        <Input
+          type="text"
+          placeholder="Enter custom color"
+          name="customColor" // ✅ Corrected: Properly named input field
+          value={customColor}
+          onChange={(e) => setCustomColor(e.target.value)}
+        />
+        <Button size="sm" onClick={addCustomColor}>Add</Button>
+      </div>
+    </PopoverContent>
+  </Popover>
+
+  <input type="hidden" name="colors" value={JSON.stringify(selectedColors)} />
+</div>
+
+
 
             <div className="flex flex-col gap-3">
               <Label>Featured Product</Label>
@@ -129,6 +257,46 @@ export function EditForm({ data }: iAppProps) {
                 defaultChecked={data.isFeatured}
               />
               <p className="text-red-500">{fields.isFeatured.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Category</Label>
+              <Select
+                key={fields.category.key}
+                name={fields.category.name}
+                defaultValue={data.category}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Fashion">Fashion</SelectItem>
+                  <SelectItem value="Luxury">Luxury</SelectItem>
+                
+                </SelectContent>
+              </Select>
+              <p className="text-red-500">{fields.category.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Gender</Label>
+              <Select
+                key={fields.gender.key}
+                name={fields.gender.name}
+                defaultValue={data.gender}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Men">Men</SelectItem>
+                  <SelectItem value="Women">Women</SelectItem>
+                  <SelectItem value="Kids">Kids</SelectItem>
+                  <SelectItem value="Unisex">Unisex</SelectItem>
+                
+                </SelectContent>
+              </Select>
+              <p className="text-red-500">{fields.category.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -142,34 +310,44 @@ export function EditForm({ data }: iAppProps) {
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                  <SelectItem value="archived">Archived</SelectItem>
+                  <SelectItem value="Dealoftheday">Dealoftheday</SelectItem>
+                  <SelectItem value="TrendingProduct">TrendingProduct</SelectItem>
+                  <SelectItem value="NewArrival">NewArrival</SelectItem>
+                  <SelectItem value="None">None</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-red-500">{fields.status.errors}</p>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <Label>Category</Label>
-              <Select
-                key={fields.category.key}
-                name={fields.category.name}
-                defaultValue={data.category}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.name}>
-                      {category.title}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <p className="text-red-500">{fields.category.errors}</p>
+
+             <div className="flex flex-col gap-3">
+      <label className="text-gray-700">Sizes</label>
+      {/* Hidden input to store JSON values */}
+      <input type="hidden" name="sizes" value={JSON.stringify(SelectedValues)} />
+
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline" className="w-full justify-between">
+            {SelectedValues.length > 0
+              ? SelectedValues.join(", ")
+              : "Select sizes"}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-full p-2">
+          {sizes.map((size) => (
+            <div key={size} className="flex items-center gap-2 py-1">
+              <Checkbox
+        checked={SelectedValues.includes(size)}
+        onChange={(event) => toggleSelection(size)}
+        className="mr-2"
+      />
+              <span>{size}</span>
             </div>
+          ))}
+        </PopoverContent>
+      </Popover>
+    </div>
+
 
             <div className="flex flex-col gap-3">
               <Label>Images</Label>

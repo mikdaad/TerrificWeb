@@ -38,6 +38,7 @@ async function getData() {
   return data;
 }
 
+
 export default async function ProductsRoute() {
   noStore();
   const data = await getData();
@@ -64,9 +65,13 @@ export default async function ProductsRoute() {
               <TableRow>
                 <TableHead>Image</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Price</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Discount Price</TableHead>
+                <TableHead>Original Price</TableHead>
                 <TableHead>Date</TableHead>
+                <TableHead>Sizes</TableHead>
+                <TableHead>Gender</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -83,11 +88,15 @@ export default async function ProductsRoute() {
                     />
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.status}</TableCell>
-                  <TableCell>${item.discountprice}</TableCell>
+                  <TableCell>{item.category}</TableCell>
+                  <TableCell>₹{item.discountprice}</TableCell>
+                  <TableCell>₹{item.originalprice}</TableCell>
                   <TableCell>
                     {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
                   </TableCell>
+                  <TableCell>{item.sizes}</TableCell>
+                  <TableCell>{item.gender}</TableCell>
+                  <TableCell>{item.status}</TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

@@ -9,7 +9,7 @@ export const productSchema = z.object({
   images: z.array(z.string()).min(1, "At least one image is required"),
   category: z.enum(["Fashion", "Luxury"]),
   isFeatured: z.boolean().optional(),
-  stars:  z.number().multipleOf(0.01),
+  stars:  z.number().min(1),
   reviews: z.number().min(1),
   status: z.enum(["Dealoftheday", "TrendingProduct", "NewArrival","None"]),
   sizes:z.array(z.string()).min(1, "At least one size is required"),
