@@ -30,8 +30,8 @@ export default async function IndexPage() {
     <Image
       src="/logo.svg"
       alt="Company Logo"
-      width={250}
-      height={170}
+      width={220}
+      height={140}
       className="mt-20"
       priority
     />
@@ -39,13 +39,13 @@ export default async function IndexPage() {
   </div>
 
     {/* Left Side - Text Content */}
-    <div className="flex flex-col items-center  lg:items-start w-full lg:w-[100%] space-y-8 ">
+    <div className="flex flex-col items-center  lg:items-start w-full lg:w-[100%] space-y-5 ">
   
-      <h1 className="text-white font-glancyr font-medium text-sm lg:text-2xl mt-10">
+      <h1 className="text-white font-glancyr font-medium text-sm lg:text-[1.25rem] mt-20">
         W E L C O M E &nbsp; T O &nbsp; T E R R I F I C
       </h1>
   
-      <h1 className="text-white font-glancyr font-weight-300 text-3xl lg:text-5xl">
+      <h1 className="text-white font-glancyr font-weight-300 text-3xl lg:text-[2.45rem]">
         WHERE MODERN ELEGANCE
       </h1>
   
@@ -54,7 +54,7 @@ export default async function IndexPage() {
         <span className="text-[#EED359] font-bold"> STYLE</span>
       </h1>
   
-      <p className="text-white text-xs lg:text-sm max-w-xl leading-relaxed">
+      <p className="text-white text-xs lg:text-[0.675] max-w-xl leading-relaxed">
         Discover fashion that speaks to your unique sense of self, with designs that redefine what it means to be timelessly chic.
         Step into a world of confidence, innovation, and unparalleled style with <span className="font-bold">TERRIFIC</span>.
       </p>

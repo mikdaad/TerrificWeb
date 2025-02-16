@@ -2,6 +2,7 @@ import { EditForm } from "@/app/components/dashboard/EditForm";
 import prisma from "@/app/lib/db";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
+import { Decimal } from "@prisma/client/runtime/library";
 
 async function getData(productId: string) {
   const data = await prisma.product.findUnique({
@@ -9,12 +10,20 @@ async function getData(productId: string) {
       id: productId,
     },
   });
-
+  
   if (!data) {
     return notFound();
   }
-
-  return data;
+  
+  // Convert Decimal fields to numbers
+  const formattedData = {
+    ...data,
+    discountprice: Decimal.isDecimal(data.discountprice) ? data.discountprice.toNumber() : data.discountprice,
+    originalprice: Decimal.isDecimal(data.originalprice) ? data.originalprice.toNumber() : data.originalprice,
+    stars: Decimal.isDecimal(data.stars) ? data.stars.toNumber() : data.stars,
+  };
+  
+  return formattedData;
 }
 
 export default async function EditRoute({

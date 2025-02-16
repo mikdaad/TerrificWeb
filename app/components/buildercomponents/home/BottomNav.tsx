@@ -2,12 +2,15 @@
 
 import { Home, Heart, Search, Settings, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { cn } from "@/lib/utils";
+import { Cart } from "@/app/lib/interfaces";
+
 
 type BottomNavProps = {
   onSearchClick?: () => void;
 };
+
 
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
@@ -19,6 +22,38 @@ const navItems = [
 export function BottomNav({ onSearchClick }: BottomNavProps) {
   const router = useRouter();
   const [active, setActive] = useState("Home");
+
+  
+const [user, setUser] = useState<any>(null);
+const [cartTotal, setCartTotal] = useState(0);
+
+useEffect(() => {
+  const fetchUserAndCart = async () => {
+    try {
+      // Fetch user details
+      const res = await fetch("/api/kindefetch");
+      const fetchedUser = await res.json();
+
+      if (!fetchedUser?.id) {
+        console.error("User not found");
+        return;
+      }
+
+      setUser(fetchedUser);
+
+      // Fetch cart data from the API route
+      const cartRes = await fetch(`/api/cart?userId=${fetchedUser.id}`);
+      const cartData = await cartRes.json();
+
+      setCartTotal(cartData.total || 0);
+    } catch (error) {
+      console.error("Error fetching user and cart:", error);
+    }
+  };
+
+  fetchUserAndCart();
+}, []);
+
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
@@ -34,6 +69,15 @@ export function BottomNav({ onSearchClick }: BottomNavProps) {
   onClick={() => router.push("/bag")}
 >
   <ShoppingCart className="h-6 w-6 text-gray-700" />
+    {/* Cart Item Count Badge */}
+    {cartTotal > 0 && (
+          <span className="absolute -top-0 mt-1 mr-1
+                            text-black text-xs font-weight-300 
+                           px-1 py-0.5 rounded-full 
+                          ">
+            {cartTotal}
+          </span>
+        )}
 </button>
 
 </div>

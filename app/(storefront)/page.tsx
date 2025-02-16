@@ -13,6 +13,8 @@ import Link from "next/link";
 import SortFilter from "../components/storefront/sortfilter";
 import CountdownTimer from "../components/home/timer";
 import { Input } from "@/components/ui/input";
+import { useRouter, useSearchParams } from "next/navigation";
+import UserCart from"../components/storefront/usercart"; 
 
 const categories = [
   { image: "/categories/luxury.png", title: "Luxury" },
@@ -45,7 +47,8 @@ const [selectedstatus, setSelectedstatus] = useState("");
 const [sortOption, setSortOption] = useState(""); // Example: "price-asc", "price-desc"
 const [filterOption, setFilterOption] = useState(""); // Example: "in-stock", "discounted"
 const [isQueryActive, setIsQueryActive] = useState(false);
-
+const router = useRouter();
+const searchParams = useSearchParams();
 
 
 
@@ -66,39 +69,56 @@ async function fetchLastDate() {
   }, []);
 
 
-useEffect(() => {
-  if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption && !selectedstatus) {
-    setIsQueryActive(false);
-    return;
-  }
+  useEffect(() => {
+    if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption && !selectedstatus) {
+      setIsQueryActive(false);
+      return;
+    }
+  
+    setIsQueryActive(true);
+  
+    const fetchProducts = async () => {
+      try {
+        // Construct query params
+        const queryParams = new URLSearchParams({
+          ...(searchQuery && { search: searchQuery }),
+          ...(selectedCategory && { category: selectedCategory }),
+          ...(selectedgender && { gender: selectedgender }),
+          ...(selectedstatus && { status: selectedstatus }),
+          ...(sortOption && { sort: sortOption }),
+          ...(filterOption && { filter: filterOption }),
+        }).toString();
 
-  setIsQueryActive(true);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("/api/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          search: searchQuery,
-          category: selectedCategory,
-          gender: selectedgender, // Ensure gender is sent
-          status: selectedstatus,
-        }),
-      });
-
+        router.replace(`?${queryParams.toString()}`, { scroll: false });
+      
+  
+        const response = await fetch(`/api/products?${queryParams}`, {
+          method: "GET",
+        });
+  
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+  
+    fetchProducts();
+  }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption,searchParams]);
+  
+ 
+  useEffect(() => {
+    const fetchUpdatedProducts = async () => {
+      const queryParams = searchParams.toString();
+  
+      const response = await fetch(`/api/products?${queryParams}`, { method: "GET" });
       const data = await response.json();
       setProducts(data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  fetchProducts();
-}, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption]); 
- 
+      
+    };
+  
+    fetchUpdatedProducts();
+  }, [searchParams]);
 
 
 
@@ -176,14 +196,7 @@ const focusSearchInput = () => {
     </Link>
   </div>
 
-  {/* Right Section: Profile Image */}
-  <Image
-    src="https://picsum.photos/200/300"
-    alt="Profile"
-    width={15}
-    height={15}
-    className="w-10 h-10 rounded-full mt-4"
-  />
+ <UserCart/>
 </header>
 
 {/* Search Bar */}
@@ -235,7 +248,7 @@ const focusSearchInput = () => {
     </div>
 
     {/* Genderlist takes less space (since it has 3 items) */}
-    <div className="flex-auto">
+    <div className="flex">
       <Genderlist categories={genders} onCategorySelect={handleGenderSelect} />
     </div>
   </div>

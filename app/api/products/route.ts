@@ -4,15 +4,18 @@ import { Decimal } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
     try {
-        const body = await req.json();
-        const { search, gender, category, status, sortFilter } = body;
+        const { searchParams } = new URL(req.url);
+        const search = searchParams.get("search") || "";
+        const gender = searchParams.get("gender");
+        const category = searchParams.get("category");
+        const status = searchParams.get("status");
+        const sortFilter = searchParams.get("sort");
 
         let products: Product[] = [];
 
         if (search) {
-            // PostgreSQL full-text search (if using PostgreSQL)
             products = await prisma.$queryRaw`
               SELECT *
               FROM "Product"
@@ -21,7 +24,6 @@ export async function POST(req: Request) {
               LIMIT 10;
             `;
         } else {
-            // Prisma Query for filtering with sorting
             products = await prisma.product.findMany({
                 where: {
                     gender: gender ? (gender as Gender) : undefined,
@@ -34,7 +36,6 @@ export async function POST(req: Request) {
             });
         }
 
-        // Convert Decimal fields to numbers safely
         const formattedProducts = products.map((product) => ({
             ...product,
             stars: Decimal.isDecimal(product.stars) ? product.stars.toNumber() : product.stars,

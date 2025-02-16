@@ -35,12 +35,18 @@ export default function ProductList({ gender, category, status }: ProductListPro
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("/api/products", {
-          method: "POST",
+        // Build query parameters dynamically
+        const params = new URLSearchParams({
+          ...(gender && { gender }),
+          ...(category && { category }),
+          ...(status && { status }),
+        });
+
+        const response = await fetch(`/api/products?${params.toString()}`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ gender, category, status }),
         });
 
         if (!response.ok) {
@@ -49,13 +55,12 @@ export default function ProductList({ gender, category, status }: ProductListPro
 
         const res: Product[] = await response.json();
 
-        // Convert Decimal fields to number if necessary
+        // Convert Decimal fields to numbers if necessary
         const formattedProducts: Product[] = res.map((product) => ({
-            ...product,
-            stars: (product.stars as any)?.toNumber ? (product.stars as any).toNumber() : product.stars, 
+          ...product,
+          stars: (product.stars as any)?.toNumber ? (product.stars as any).toNumber() : product.stars, 
+          discountprice: (product.discountprice as any)?.toNumber ? (product.discountprice as any).toNumber() : product.discountprice,
         }));
-        
-        
 
         setProducts(formattedProducts);
       } catch (error) {

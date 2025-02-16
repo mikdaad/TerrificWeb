@@ -12,12 +12,12 @@ interface CategoryListProps {
 
 export function Genderlist({ categories,onCategorySelect }: CategoryListProps ) {
   return (
-    <div className="flex  overflow-x-auto  hide-scrollbar">
+    <div className="flex   hide-scrollbar">
       {categories.map((category, index) => (
          <button key={category.title} onClick={() => onCategorySelect(category.title)}>
         <div
           key={index}
-          className="flex flex-col items-center m-1.5 gap-2 min-w-[60px]"
+          className="flex flex-col items-center m-1.5 gap-2 min-w-[40px]"
         >
           <Image
             src={category.image}
