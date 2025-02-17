@@ -1,21 +1,22 @@
 import { NextResponse } from "next/server";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { PrismaClient } from "@prisma/client";
-
-
-const prisma = new PrismaClient();
+import db from "../../../lib/db";
 
 
 export async function GET(req: Request) {
+
+
   try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    
+  
+    const user = await db.user.current(); 
+  
 
     if (!user || !user.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { email: user.email },
     
     });
@@ -25,7 +26,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const userAddress = await prisma.address.findUnique({
+    const userAddress = await db.address.findUnique({
       where: { userId: existingUser.id },
     });
 
@@ -48,9 +49,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-
+    const user = await db.user.current();
     if (!user || !user.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -66,7 +65,7 @@ export async function POST(req: Request) {
     const { firstName, lastName, street, city, state, postalCode,phoneno } = formData;
 
     // Validate user existence
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { email: user.email },
       include: { address: true }, // Ensure address is fetched
     });
@@ -76,7 +75,7 @@ export async function POST(req: Request) {
     }
 
     // Update user with nested address upsert
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await db.user.update({
       where: { email: user.email },
       data: {
         firstName,

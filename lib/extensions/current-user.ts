@@ -7,16 +7,14 @@ export function currentUser() {
 		return client.$extends({
 			model: {
 				user: {
-					async current() {
+					async current(this: typeof client.user) {
 						const session = await getServerSession(options);
 
 						if (!session?.user?.email) return null;
 
-						const user = await client.user.findUnique({
+						return this.findUnique({
 							where: { email: session.user.email }
 						});
-
-						return user;
 					}
 				}
 			}
