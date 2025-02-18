@@ -15,7 +15,7 @@ export default async function WishlistRoute() {
     const user = await db.user.current();
 
   if (!user) {
-    redirect("/");
+    redirect("/auth/signin");
   }
 
   const wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);

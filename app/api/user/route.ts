@@ -33,6 +33,7 @@ export async function GET(req: Request) {
       firstName: existingUser.firstName,
       lastName: existingUser.lastName,
       email: existingUser.email,
+      profileImage: existingUser.profileImage,
       street: userAddress?.street || "",
       city: userAddress?.city || "",
       state: userAddress?.state || "",

@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
+
 
 type UserFormData = {
   firstName: string;
@@ -34,6 +36,12 @@ export default function UpdateUserForm() {
       try {
         const res = await fetch("/api/user", { method: "GET" });
         if (!res.ok) throw new Error(`Error ${res.status}: Failed to fetch`);
+
+        if (res.status === 401) {
+          // If not authenticated, redirect to sign-in page
+          redirect("/auth/signin");
+          return;
+        }
   
         const data = await res.json();
         setUserData(data);
@@ -75,6 +83,7 @@ export default function UpdateUserForm() {
   return (
     <div>
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto">
+   
       <div className="flex items-center gap-x-4">
         <Button variant="outline" size="icon" asChild>
           <Link href="/dashboard/profile">
@@ -146,12 +155,10 @@ export default function UpdateUserForm() {
       }}
       className="flex flex-col items-center p-4 bg-gray-100 rounded-md"
     >
-      <button
-        type="submit"
-        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-      >
+      <Button type="submit"  className="max-w-xl mx-auto w-full gap-x-4">
+     
         Logout
-      </button>
+        </Button>
     </form>
     </div>
   );

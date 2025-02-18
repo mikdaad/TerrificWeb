@@ -3,7 +3,6 @@ import { ChceckoutButton, DeleteItem } from "@/app/components/SubmitButtons";
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import { Button } from "@/components/ui/button";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +16,7 @@ export default async function BagRoute() {
   const user = await db.user.current(); 
 
   if (!user) {
-    redirect("/");
+    redirect("/auth/signin");
   }
 
   const cart: Cart | null = await redis.get(`cart-${user.id}`);
