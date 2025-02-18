@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import db from "../../../lib/db";
 
 

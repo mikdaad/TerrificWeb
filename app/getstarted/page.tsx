@@ -1,13 +1,9 @@
-import { CategoriesSelection } from "../components/storefront/CategorySelection";
-import { FeaturedProducts } from "../components/storefront/FeaturedProducts";
 import { Hero } from "../components/storefront/Hero";
-import { Navbar } from "../components/storefront/Navbar";
 import { Button } from "../components/ui/button";
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 
 

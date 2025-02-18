@@ -1,7 +1,6 @@
 import React,{ type ReactNode } from "react";
 import { Navbar } from "../components/storefront/Navbar";
 import { Footer } from "../components/storefront/Footer";
-import background from "@/public/background.png"; // Ensure this path is correct
 
 export default function StoreFrontLayout({
   children,

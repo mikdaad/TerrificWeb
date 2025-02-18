@@ -9,15 +9,16 @@ import {
 import { DashboardStats } from "../components/dashboard/DashboardStats";
 import { RecentSales } from "../components/dashboard/RecentSales";
 import { Chart } from "../components/dashboard/Chart";
-import prisma from "../lib/db";
 import { unstable_noStore as noStore } from "next/cache";
+import db from "../../lib/db";
+
 
 async function getData() {
   const now = new Date();
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(now.getDate() - 7);
 
-  const data = await prisma.order.findMany({
+  const data = await db.order.findMany({
     where: {
       createdAt: {
         gte: sevenDaysAgo,

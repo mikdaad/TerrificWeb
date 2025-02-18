@@ -1,9 +1,9 @@
+
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import EmailProvider from "next-auth/providers/email";
 import { db } from "../lib/db";
 import { AuthOptions } from "next-auth";
 import { PrismaClient } from "@prisma/client";
-import nodemailer from "nodemailer";
 
 export const options = {
 	providers: [
@@ -32,6 +32,9 @@ export const options = {
 	callbacks: {
 		async signIn({ user, account, profile }) {
 		  console.log("User signing in:", user);
+		  if (profile) {
+			user.image = profile.image ?? `https://avatar.vercel.sh/${profile.name}`;
+		  }
 		  
 		  return true;
 		},

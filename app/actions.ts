@@ -10,10 +10,11 @@ import { Cart,Wishlist } from "./lib/interfaces";
 import { revalidatePath } from "next/cache";
 import { stripe } from "./lib/stripe";
 import Stripe from "stripe";
+import db from "../lib/db";
+
 
 export async function createProduct(prevState: unknown, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -77,8 +78,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
 }
 
 export async function editProduct(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+     const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -152,8 +152,7 @@ export async function editProduct(prevState: any, formData: FormData) {
 }
 
 export async function deleteProduct(formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -169,8 +168,7 @@ export async function deleteProduct(formData: FormData) {
 }
 
 export async function createBanner(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+      const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -196,8 +194,7 @@ export async function createBanner(prevState: any, formData: FormData) {
 }
 
 export async function createTopBanner(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+     const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -224,8 +221,7 @@ export async function createTopBanner(prevState: any, formData: FormData) {
 }
 
 export async function createBottomBanner(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -251,9 +247,7 @@ export async function createBottomBanner(prevState: any, formData: FormData) {
 }
 
 export async function deleteBanner(formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
+     const user = await db.user.current();
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
   }
@@ -268,8 +262,7 @@ export async function deleteBanner(formData: FormData) {
 }
 
 export async function addItem(productId: string, size: string, color: string) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user) {
     return redirect("/");
@@ -361,8 +354,7 @@ export async function getData(productId: string) {
 
 
 export async function addToWishlist(productId: string, size: string, color: string) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user) {
     return { error: "User not authenticated" };
@@ -444,8 +436,7 @@ export async function addToWishlist(productId: string, size: string, color: stri
 
 
 export async function delItem(formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+      const user = await db.user.current();
 
   if (!user) {
     return redirect("/");
@@ -475,8 +466,7 @@ export async function moveToCart(formData: FormData) {
     throw new Error("Product ID is missing from form data.");
   }
 
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await db.user.current();
 
   if (!user) {
     return redirect("/");
@@ -536,9 +526,7 @@ export async function delWishlistItem(formData: FormData) {
     throw new Error("Product ID is missing from form data.");
   }
 
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
+  const user = await db.user.current();
   if (!user) {
     return redirect("/");
   }
@@ -564,8 +552,7 @@ export async function delWishlistItem(formData: FormData) {
 }
 
 export async function checkOut() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user) {
     return redirect("/");
@@ -580,8 +567,7 @@ export async function checkOut() {
 
 
 export async function updatediscount(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
@@ -624,8 +610,7 @@ export async function updatediscount(prevState: any, formData: FormData) {
 
 
 export async function updatevariables(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+     const user = await db.user.current();
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");

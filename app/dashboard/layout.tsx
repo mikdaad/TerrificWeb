@@ -1,3 +1,4 @@
+
 import { ReactNode } from "react";
 import { DashboardNavigation } from "../components/dashboard/DasboardNavigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -11,10 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { unstable_noStore as noStore } from "next/cache";
+import db from "../../lib/db";
+
 
 export default async function DashboardLayout({
   children,
@@ -22,8 +24,7 @@ export default async function DashboardLayout({
   children: ReactNode;
 }) {
   noStore();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await db.user.current(); 
 
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");

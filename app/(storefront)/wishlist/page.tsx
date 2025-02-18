@@ -3,17 +3,16 @@ import { DeleteItem,MovetoCart } from "@/app/components/SubmitButtons";
 import { Wishlist } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import { Button } from "@/components/ui/button";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
+import db from "../../../lib/db";
 
 export default async function WishlistRoute() {
   noStore();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    const user = await db.user.current();
 
   if (!user) {
     redirect("/");

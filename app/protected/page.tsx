@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 
-import AccessDenied from "@client-extension/components/access-denied";
-import { options } from "@client-extension/lib/auth";
+import AccessDenied from "../../components/access-denied";
+import { options } from "../../lib/auth";
 
 export default async function ProtectedPage() {
 	const session = await getServerSession(options);

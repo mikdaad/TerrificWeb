@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 type UserFormData = {
   firstName: string;
@@ -23,6 +24,10 @@ type UserFormData = {
 export default function UpdateUserForm() {
   const { register, handleSubmit, setValue } = useForm<UserFormData>();
   const [userData, setUserData] = useState<UserFormData | null>(null);
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/" }); // Redirect to home or login page after logout
+  };
 
   useEffect(() => {
     async function fetchUserData() {
@@ -68,6 +73,7 @@ export default function UpdateUserForm() {
   if (!userData) return <p className="text-center">Loading...</p>;
 
   return (
+    <div>
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto">
       <div className="flex items-center gap-x-4">
         <Button variant="outline" size="icon" asChild>
@@ -132,5 +138,21 @@ export default function UpdateUserForm() {
         </CardContent>
       </Card>
     </form>
+
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleLogout();
+      }}
+      className="flex flex-col items-center p-4 bg-gray-100 rounded-md"
+    >
+      <button
+        type="submit"
+        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+      >
+        Logout
+      </button>
+    </form>
+    </div>
   );
 }
