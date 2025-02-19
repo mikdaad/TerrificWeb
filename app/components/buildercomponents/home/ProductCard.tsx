@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+
 
 interface ProductCardProps {
   item: {
@@ -56,8 +56,8 @@ export function ProductCard({ item, className }: ProductCardProps) {
   <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
 
   <div className="flex items-center gap-2 mt-0">
-    <span className="text-lg  ">${item.discountprice}</span>
-    <span className="text-sm text-gray-500 line-through">${item.originalprice}</span>
+    <span className="text-lg  ">₹{item.discountprice}</span>
+    <span className="text-sm text-gray-500 line-through">₹{item.originalprice}</span>
     <span className="text-sm text-green-600">{discount.toFixed(0)}% OFF</span>
   </div>
 

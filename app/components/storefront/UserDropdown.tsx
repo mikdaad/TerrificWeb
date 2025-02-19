@@ -10,9 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface iAppProps {
   email: string;
@@ -26,14 +25,24 @@ interface iAppProps {
 export function UserDropdown({ email, name, userImage }: iAppProps) {
   const router = useRouter();
 
-const handleLogout = async () => {
-    await signOut({ callbackUrl: "/getstarted" }); // Redirect to home or login page after logout
+  const [loading, setLoading] = useState(false);
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/logout", { method: "POST" });
+  
+      if (!res.ok) {
+        throw new Error("Logout failed");
+      }
+  
+      router.push("/getstarted"); // Redirect after successful logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const onLogoutClick = () => {
-    handleLogout();
-    router.push("/getstarted"); // Client-side redirection
-  };
+  
 
   return (
     <DropdownMenu>
@@ -52,7 +61,7 @@ const handleLogout = async () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-        <Button  onClick={onLogoutClick}>Log out</Button>
+        <Button onClick={handleLogout} disabled={loading}>Log out</Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
           <Input
             id="email"
             name="email"
-            placeholder="johndoe@example.com"
+            placeholder="spiderman@example.com"
             required
             type="email"
             onChange={(e) => setState(e.target.value)}
@@ -66,11 +66,18 @@ const SignIn: React.FC = () => {
         >
           {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Send me a magic link"}
         </button>
+          {/* Sign in with Google Button */}
+      <button
+        onClick={() => signIn("google")}
+        className="w-full bg-yellow-300 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+      >
+        Sign in with Google
+      </button>
 
 		<GlowEffect
         colors={['#ffffff', '#fff37d', '#ffffff', '#fff37d']}
-        mode='colorShift'
-        blur='strongest'
+        mode='rotate'
+        blur='medium'
 		className="absolute  inset-0 -z-10"
       />
 		

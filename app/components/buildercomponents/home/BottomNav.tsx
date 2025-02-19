@@ -4,7 +4,7 @@ import { Home, Heart, Search, Settings, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState ,useEffect} from "react";
 import { cn } from "@/lib/utils";
-import { Cart } from "@/app/lib/interfaces";
+
 
 
 type BottomNavProps = {

@@ -14,16 +14,10 @@ const UserCart = () => {
     const fetchUser = async () => {
       try {
         const res = await fetch("/api/user");
-
-    // ✅ Check if response has content before parsing JSON
-    const text = await res.text();
-    const data = text ? JSON.parse(text) : null;
-
-    if (!data) {
-      throw new Error("No user data received");
-    }
-
-        const userData = await res.json();
+        if (!res.ok) {
+          throw new Error("User not found");
+        }
+ const userData = await res.json();
         setUser(userData);
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -42,6 +36,18 @@ const UserCart = () => {
     );
   }
 
+  if(user) {
+    return (
+    <div className="flex flex-col items-center mt-3 space-x-4">
+      <UserDropdown
+        email={user.email as string}
+        name={user.firstName as string ?? "anonymous"}
+        userImage={user.profileImage ?? `https://avatar.vercel.sh/${user.firstName}`}
+      />
+    </div>
+  );
+}
+
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center ">
@@ -55,15 +61,7 @@ const UserCart = () => {
       </div>
     );
   }
-  return (
-    <div className="flex flex-col items-center mt-3 space-x-4">
-      <UserDropdown
-        email={user.email as string}
-        name={user.firstName as string ?? "anonymous"}
-        userImage={user.profileImage ?? `https://avatar.vercel.sh/${user.firstName}`}
-      />
-    </div>
-  );
+ 
 };
 
 export default UserCart;

@@ -1,4 +1,4 @@
-import { options } from "../auth";
+import  {options} from "../auth";
 import { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 

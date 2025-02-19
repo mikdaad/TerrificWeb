@@ -68,7 +68,7 @@ cart?.items.forEach((item) => {
                 <div className="flex flex-col h-full justify-between">
                   <div className="flex items-center gap-x-2">
                     <p>{item.quantity} x</p>
-                    <p>${item.originalprice}</p>
+                    <p>₹{item.originalprice}</p>
                   </div>
 
                   <form action={delItem} className="text-end">
@@ -82,7 +82,7 @@ cart?.items.forEach((item) => {
           <div className="mt-10">
             <div className="flex items-center justify-between font-medium">
               <p>Subtotal:</p>
-              <p>${totalPrice}</p>
+              <p>₹{totalPrice}</p>
             </div>
 
             <form action={checkOut}>

@@ -69,7 +69,21 @@ async function fetchLastDate() {
   }, []);
 
 
+
   useEffect(() => {
+    if (isQueryActive) {
+      router.push(`/products?${new URLSearchParams({
+        ...(searchQuery && { search: searchQuery }),
+        ...(selectedCategory && { category: selectedCategory }),
+        ...(selectedgender && { gender: selectedgender }),
+        ...(selectedstatus && { status: selectedstatus }),
+        ...(sortOption && { sort: sortOption }),
+        ...(filterOption && { filter: filterOption }),
+      }).toString()}`);
+    }
+  }, [isQueryActive]);
+  
+  {/*useEffect(() => {
     if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption && !selectedstatus) {
       setIsQueryActive(false);
       return;
@@ -105,8 +119,10 @@ async function fetchLastDate() {
   
     fetchProducts();
   }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption,searchParams]);
+*/}
   
  
+  {/*
   useEffect(() => {
     const fetchUpdatedProducts = async () => {
       const queryParams = searchParams.toString();
@@ -119,6 +135,7 @@ async function fetchLastDate() {
   
     fetchUpdatedProducts();
   }, [searchParams]);
+*/}
 
 
 

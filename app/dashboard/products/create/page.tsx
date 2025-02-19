@@ -151,7 +151,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 name={fields.originalprice.name}
                 defaultValue={fields.originalprice.initialValue}
                 type="number"
-                placeholder="$55"
+                placeholder="₹550"
               />
               <p className="text-red-500">{fields.originalprice.errors}</p>
             </div>
@@ -163,7 +163,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 name={fields.discountprice.name}
                 defaultValue={fields.discountprice.initialValue}
                 type="number"
-                placeholder="$55"
+                placeholder="₹550"
               />
               <p className="text-red-500">{fields.discountprice.errors}</p>
             </div>
@@ -175,7 +175,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 name={fields.stars.name}
                 defaultValue={fields.stars.initialValue}
                 type="number"
-                placeholder="$55"
+                placeholder="5"
               />
               <p className="text-red-500">{fields.stars.errors}</p>
             </div>
@@ -187,7 +187,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 name={fields.reviews.name}
                 defaultValue={fields.reviews.initialValue}
                 type="number"
-                placeholder="$55"
+                placeholder=""
               />
               <p className="text-red-500">{fields.reviews.errors}</p>
             </div>

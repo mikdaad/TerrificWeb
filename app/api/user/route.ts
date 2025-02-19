@@ -9,6 +9,7 @@ export async function GET(req: Request) {
     
   
     const user = await db.user.current(); 
+    console.log("defintion : " + user?.email);
   
 
     if (!user || !user.email) {

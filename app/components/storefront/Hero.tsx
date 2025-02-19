@@ -107,9 +107,9 @@ export async function Hero() {
       <h1 className="text-md lg:text-lg font-semibold text-black">{item.title}</h1>
       
       <div className="flex items-center gap-2">
-        <p className="text-lg font-bold text-black">₹{item.pricing}</p>
+        <p className="text-lg font-bold text-black">₹{ Number(item.pricing) -  (30/100) * Number(item.pricing)  }</p>
         {item.pricing && (
-          <p className="text-sm text-red-500 line-through">₹{item.pricing}</p>
+          <p className="text-sm text-red-500 line-through">₹{item.pricing }</p>
         )}
       </div>
     </div>
