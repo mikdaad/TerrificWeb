@@ -71,6 +71,10 @@ export default function UpdateUserForm() {
       body: JSON.stringify(formData),
     });
 
+    if (res.status === 401) {
+      return redirect("/auth/signin");
+  }
+
     if (res.ok) {
       alert("User updated successfully!");
     } else {
@@ -78,7 +82,7 @@ export default function UpdateUserForm() {
     }
   };
 
-  if (!userData) return <p className="text-center">Loading...</p>;
+  if (!userData) return  redirect("/auth/signin");
 
   return (
     <div>

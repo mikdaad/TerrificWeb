@@ -2,15 +2,27 @@
 
 import { useState, useEffect } from "react";
 import { UserDropdown } from "./UserDropdown"; 
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const UserCart = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await fetch("/api/user");
+
+    // ✅ Check if response has content before parsing JSON
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : null;
+
+    if (!data) {
+      throw new Error("No user data received");
+    }
+
         const userData = await res.json();
         setUser(userData);
       } catch (error) {
@@ -22,10 +34,27 @@ const UserCart = () => {
 
     fetchUser();
   }, []);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid"></div>
+      </div>
+    );
+  }
 
-  if (loading) return <p>Loading...</p>;
-  if (!user) return <p>User not found</p>;
-
+  if (!user) {
+    return (
+      <div className="flex flex-col items-center justify-center ">
+        <p className="mb-4 text-gray-600"></p>
+        <Button
+          onClick={() => router.push("/auth/signin")}
+          className="px-2 py-2 bg-yellow-300 text-black text-[0.7rem] rounded-md hover:bg-blue-700 transition"
+        >
+          Sign In
+        </Button>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center mt-3 space-x-4">
       <UserDropdown

@@ -552,18 +552,38 @@ export async function delWishlistItem(formData: FormData) {
 }
 
 export async function checkOut() {
-    const user = await db.user.current();
+  const user: {
+      id: string;
+      email: string;
+      firstName: string | null;
+      lastName: string | null;
+      profileImage: string | null;
+      street?: string;
+      city?: string;
+      state?: string;
+      postalCode?: string;
+      phoneno?: string;
+  } | null = await db.user.current();
 
   if (!user) {
-    return redirect("/");
+      return redirect("/");
   }
 
+  // Required user details
+  const requiredFields: (keyof typeof user)[] = [
+      "firstName", "lastName", "email", "street", "city", "state", "postalCode", "phoneno"
+  ];
   
-  
+  // Check if any required field is missing or empty
+  const missingFields = requiredFields.some(field => !user[field] || user[field]?.trim() === "");
 
-    return redirect("/payment");
+  if (missingFields) {
+      // Redirect to settings with a message
+      return redirect("/settings?message=Please+fill+in+your+necessary+details");
   }
 
+  return redirect("/payment");
+}
 
 
 export async function updatediscount(prevState: any, formData: FormData) {
