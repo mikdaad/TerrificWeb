@@ -61,7 +61,7 @@ const SignIn: React.FC = () => {
         </div>
         <button
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-300 py-3 text-white font-medium rounded-lg shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-2 bg-black py-3 text-white font-medium rounded-lg shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50"
           type="submit"
         >
           {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Send me a magic link"}
@@ -69,9 +69,12 @@ const SignIn: React.FC = () => {
           {/* Sign in with Google Button */}
       <button
         onClick={() => signIn("google")}
-        className="w-full bg-yellow-300 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+        className="w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-green-600"
       >
-        Sign in with Google
+        <div className=" mx-5   flex flex-row gap-x-5">
+       <svg width="40px" height="40px" viewBox="0 0 32 32" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><path d="M23.75,16A7.7446,7.7446,0,0,1,8.7177,18.6259L4.2849,22.1721A13.244,13.244,0,0,0,29.25,16" fill="#00ac47"/><path d="M23.75,16a7.7387,7.7387,0,0,1-3.2516,6.2987l4.3824,3.5059A13.2042,13.2042,0,0,0,29.25,16" fill="#4285f4"/><path d="M8.25,16a7.698,7.698,0,0,1,.4677-2.6259L4.2849,9.8279a13.177,13.177,0,0,0,0,12.3442l4.4328-3.5462A7.698,7.698,0,0,1,8.25,16Z" fill="#ffba00"/><polygon fill="#2ab2db" points="8.718 13.374 8.718 13.374 8.718 13.374 8.718 13.374"/><path d="M16,8.25a7.699,7.699,0,0,1,4.558,1.4958l4.06-3.7893A13.2152,13.2152,0,0,0,4.2849,9.8279l4.4328,3.5462A7.756,7.756,0,0,1,16,8.25Z" fill="#ea4435"/><polygon fill="#2ab2db" points="8.718 18.626 8.718 18.626 8.718 18.626 8.718 18.626"/><path d="M29.25,15v1L27,19.5H16.5V14H28.25A1,1,0,0,1,29.25,15Z" fill="#4285f4"/></svg>
+       <p className="mx-5 mt-2"> Sign in with Google </p>
+        </div>
       </button>
 
 		<GlowEffect

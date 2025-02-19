@@ -10,6 +10,9 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { Loader2 } from "lucide-react";
+
+
 
 
 type UserFormData = {
@@ -24,8 +27,9 @@ type UserFormData = {
 };
 
 export default function UpdateUserForm() {
-  const { register, handleSubmit, setValue } = useForm<UserFormData>();
+  const { register, handleSubmit, setValue , formState: { errors } } = useForm<UserFormData>();
   const [userData, setUserData] = useState<UserFormData | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/" }); // Redirect to home or login page after logout
@@ -39,8 +43,8 @@ export default function UpdateUserForm() {
 
         if (res.status === 401) {
           // If not authenticated, redirect to sign-in page
-          redirect("/auth/signin");
-          return;
+          return redirect("/auth/signin");
+          
         }
   
         const data = await res.json();
@@ -65,6 +69,7 @@ export default function UpdateUserForm() {
   
 
   const onSubmit = async (formData: UserFormData) => {
+    setLoading(true);
     const res = await fetch("/api/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -76,13 +81,14 @@ export default function UpdateUserForm() {
   }
 
     if (res.ok) {
-      alert("User updated successfully!");
+      setLoading(false);
+      alert("Updated Successfully");
     } else {
       alert("Error updating user!");
     }
   };
 
-  if (!userData) return  redirect("/auth/signin");
+
 
   return (
     <div>
@@ -90,16 +96,16 @@ export default function UpdateUserForm() {
    
       <div className="flex items-center gap-x-4">
         <Button variant="outline" size="icon" asChild>
-          <Link href="/dashboard/profile">
+          <Link href="/">
             <ChevronLeft className="w-4 h-4" />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold tracking-tight">Update User Details</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Update Details</h1>
       </div>
 
       <Card className="mt-5">
         <CardHeader>
-          <CardTitle>User Information</CardTitle>
+          <CardTitle>your Information</CardTitle>
           <CardDescription>Update your personal details here</CardDescription>
         </CardHeader>
         <CardContent>
@@ -144,8 +150,10 @@ export default function UpdateUserForm() {
               <Input {...register("phoneno")} placeholder="Mobile Number" />
             </div>
 
-            <Button type="submit" className="w-full">
-              Update Details
+            <Button type="submit" className="w-full"   disabled={loading}>
+              {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Update Details"}
+
+            
             </Button>
           </div>
         </CardContent>

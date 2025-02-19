@@ -1,8 +1,12 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import db from "../../../lib/db";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 
 const f = createUploadthing();
+
+if(!db) {
+  throw new Error("Database connection is not available");
+}
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
@@ -10,8 +14,8 @@ export const ourFileRouter = {
   imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 10 } })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
-      const { getUser } = getKindeServerSession();
-      const user = await getUser();
+    
+      const user = await db.user.current();
 
       // If you throw, the user will not be able to upload
       if (!user || user.email !== "terrificmaile@gmail.com")
@@ -33,8 +37,7 @@ export const ourFileRouter = {
   bannerImageRoute: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
-      const { getUser } = getKindeServerSession();
-      const user = await getUser();
+      const user = await db.user.current();
 
       // If you throw, the user will not be able to upload
       if (!user || user.email !== "terrificmaile@gmail.com")

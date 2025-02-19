@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
 import {
   Card,
   CardContent,
@@ -12,12 +12,17 @@ import { Chart } from "../components/dashboard/Chart";
 import { unstable_noStore as noStore } from "next/cache";
 import db from "../../lib/db";
 
-
+if(!db) {
+  throw new Error("Database connection is not available");
+}
 async function getData() {
   const now = new Date();
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(now.getDate() - 7);
 
+  if (!db) {
+    throw new Error("Database connection is not available");
+  }
   const data = await db.order.findMany({
     where: {
       createdAt: {

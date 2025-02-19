@@ -1,4 +1,4 @@
-import prisma from "@/app/lib/db";
+import db from "../../../lib/db";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,7 +29,7 @@ import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 
 async function getData() {
-  const data = await prisma.product.findMany({
+  const data = await db.product.findMany({
     orderBy: {
       createdAt: "desc",
     },

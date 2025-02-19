@@ -1,11 +1,16 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import EmailProvider from "next-auth/providers/email";
-import { db } from "../lib/db";
 import { AuthOptions } from "next-auth";
-import { PrismaClient } from "@prisma/client";
 import GoogleProvider from "next-auth/providers/google";
+import { db } from "./db";
+
+if(!db){
+	throw new Error("No Database Connection Found");
+}
+
 
 export const options = {
+	debug: true,  // Add this
 	providers: [
 		EmailProvider({
 			server: {
@@ -25,7 +30,7 @@ export const options = {
       }),
 	],
 	secret: process.env.NEXTAUTH_SECRET,
-	adapter: PrismaAdapter(db as unknown as PrismaClient),
+	adapter: PrismaAdapter(db),
 	session: {
 		strategy: "database",
 		maxAge: 24 * 30 * 24 * 60 * 60 
@@ -36,20 +41,21 @@ export const options = {
 	},
 	callbacks: {
 		async signIn({ user, account, profile }) {
-		  console.log("User signing in:", user);
-      if (account?.provider === "google" && profile) {
-        user.image = profile.image || `https://avatar.vercel.sh/${profile.name}`;
-      }
-		  if (profile) {
-			user.image = profile.image ?? `https://avatar.vercel.sh/${profile.name}`;
-		  }
-      
-      if (!user || !user.email) {
-        return false; // Prevent session creation
-      }
+			console.log("User signing in:", user);
+			console.log("Google Profile Data:", profile);
+  			console.log("User Data:", user);
+ 			 console.log("Account Data:", account);
+			if (account?.provider === "google" && profile) {
+			  user.image = profile.image || `https://avatar.vercel.sh/${profile.name}`;
+			}
+			
+			if (!user || !user.email) {
+			  return false; // Prevent session creation
+			}
+			
+			return true;
+		  },
 		  
-		  return true;
-		},
 		async session({ session, user }) {
 		  console.log("Session updated:", session);
 		  return session;

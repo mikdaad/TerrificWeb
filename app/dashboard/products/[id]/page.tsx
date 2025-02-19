@@ -1,11 +1,11 @@
 import { EditForm } from "@/app/components/dashboard/EditForm";
-import prisma from "@/app/lib/db";
+import db from "../../../../lib/db";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import { Decimal } from "@prisma/client/runtime/library";
 
 async function getData(productId: string) {
-  const data = await prisma.product.findUnique({
+  const data = await db.product.findUnique({
     where: {
       id: productId,
     },

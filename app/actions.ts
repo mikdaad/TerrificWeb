@@ -1,10 +1,8 @@
 "use server";
 
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
 import { bannerSchema, productSchema,topbannerSchema,bottombannerSchema,variablesschema,discountschema } from "./lib/zodSchemas";
-import prisma from "./lib/db";
 import { redis } from "./lib/redis";
 import { Cart,Wishlist } from "./lib/interfaces";
 import { revalidatePath } from "next/cache";
@@ -51,7 +49,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
   
 
 
-  await prisma.product.create({
+  await db.product.create({
     data: {
       name: submission.value.name,
       description: submission.value.description,
@@ -123,7 +121,7 @@ export async function editProduct(prevState: any, formData: FormData) {
 
 
   const productId = formData.get("productId") as string;
-  await prisma.product.update({
+  await db.product.update({
     where: {
       id: productId,
     },
@@ -156,7 +154,7 @@ export async function deleteProduct(formData: FormData) {
     return redirect("/");
   }
 
-  await prisma.product.delete({
+  await db.product.delete({
     where: {
       id: formData.get("productId") as string,
     },
@@ -180,7 +178,7 @@ export async function createBanner(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  await prisma.banner.create({
+  await db.banner.create({
     data: {
       title: submission.value.title,
       imageString: submission.value.imageString,
@@ -206,7 +204,7 @@ export async function createTopBanner(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  await prisma.topBanner.create({
+  await db.topBanner.create({
     data: {
       title: submission.value.title,
       imageString: submission.value.imageString,
@@ -233,7 +231,7 @@ export async function createBottomBanner(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  await prisma.bottomBanner.create({
+  await db.bottomBanner.create({
     data: {
       title: submission.value.title,
       imageString: submission.value.imageString,
@@ -250,7 +248,7 @@ export async function deleteBanner(formData: FormData) {
     return redirect("/");
   }
 
-  await prisma.banner.delete({
+  await db.banner.delete({
     where: {
       id: formData.get("bannerId") as string,
     },
@@ -268,7 +266,7 @@ export async function addItem(productId: string, size: string, color: string) {
 
   let cart: Cart | null = await redis.get(`cart-${user.id}`);
 
-  const selectedProduct = await prisma.product.findUnique({
+  const selectedProduct = await db.product.findUnique({
     select: {
       id: true,
       name: true,
@@ -332,7 +330,7 @@ export async function addItem(productId: string, size: string, color: string) {
 
 
 export async function getData(productId: string) {
-  const data = await prisma.product.findUnique({
+  const data = await db.product.findUnique({
     where: { id: productId },
     select: {
       id: true,
@@ -361,7 +359,7 @@ export async function addToWishlist(productId: string, size: string, color: stri
   let wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
 
   // Fetch product details
-  const selectedProduct = await prisma.product.findUnique({
+  const selectedProduct = await db.product.findUnique({
     select: {
       id: true,
       name: true,
@@ -604,7 +602,7 @@ export async function updatediscount(prevState: any, formData: FormData) {
   const discountPercentage = parseFloat(formData.get("discount") as string); // Convert to number
 
   // Fetch all products matching the criteria
-  const products = await prisma.product.findMany({
+  const products = await db.product.findMany({
     where: {
       category: category as any,
       gender: gender as any,
@@ -616,7 +614,7 @@ export async function updatediscount(prevState: any, formData: FormData) {
     const discountAmount = (product.originalprice * discountPercentage) / 100;
     const newDiscountPrice = product.originalprice - discountAmount;
 
-    await prisma.product.update({
+    await db.product.update({
       where: { id: product.id },
       data: {
         discountprice: Math.round(newDiscountPrice), // Ensure it's an integer
@@ -646,7 +644,7 @@ export async function updatevariables(prevState: any, formData: FormData) {
   const lastdate = formData.get("lastdate") as string; // Keep as string
 
   // Update the single row in the `variables` table
-  await prisma.variables.updateMany({
+  await db.variables.updateMany({
     data: {
       daytime: daytime, 
       lastdate: lastdate,

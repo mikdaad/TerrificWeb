@@ -16,12 +16,15 @@ datasource db {
 model User {
   id           String @id @unique  @default(uuid())
   email        String @unique
+  name         String?
   firstName    String?
   lastName     String?
   profileImage String?
   address      Address?
   emailVerified DateTime? @map("email_verified")
   updatedAt     DateTime?  @updatedAt @map("updated_at")
+  accounts   Account[]
+  image      String?
 
 
   orders Order[]
@@ -30,6 +33,29 @@ model User {
 
   createdAt DateTime @default(now())
 }
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @unique
+  access_token       String? // Optional if you don’t want to store tokens
+  expires_at         Int? // Store expiry time for tokens if needed
+  scope             String?
+  refresh_token      String?
+  token_type          String?
+  id_token            String?
+  
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  @@unique([provider, providerAccountId])  
+  
+
+  @@map("accounts")
+}
+
+
 
 model VerificationToken {
   identifier String

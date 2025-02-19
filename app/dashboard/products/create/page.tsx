@@ -350,7 +350,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                     </div>
                   ))}
                 </div>
-              ) : (<div> <h2 className="text-lg font-bold">Upload Your Avatar</h2>
+              ) : (<div> <h2 className="text-lg font-bold">Upload Your images</h2>
 
 <AvatarUploader
       onUploadSuccess={(url) => {
