@@ -44,8 +44,8 @@ const [searchQuery, setSearchQuery] = useState("");
 const [selectedCategory, setSelectedCategory] = useState("");
 const [selectedgender, setSelectedgender] = useState("");
 const [selectedstatus, setSelectedstatus] = useState("");
-const [sortOption, setSortOption] = useState(""); // Example: "price-asc", "price-desc"
-const [filterOption, setFilterOption] = useState(""); // Example: "in-stock", "discounted"
+const [sortOption, setSortOption] = useState(""); 
+const [filterOption, setFilterOption] = useState(""); 
 const [isQueryActive, setIsQueryActive] = useState(false);
 const router = useRouter();
 const searchParams = useSearchParams();
@@ -67,77 +67,35 @@ async function fetchLastDate() {
   useEffect(() => {
     fetchLastDate();
   }, []);
-
-
-
-  useEffect(() => {
-    if (isQueryActive) {
-      router.push(`/products?${new URLSearchParams({
-        ...(searchQuery && { search: searchQuery }),
-        ...(selectedCategory && { category: selectedCategory }),
-        ...(selectedgender && { gender: selectedgender }),
-        ...(selectedstatus && { status: selectedstatus }),
-        ...(sortOption && { sort: sortOption }),
-        ...(filterOption && { filter: filterOption }),
-      }).toString()}`);
-    }
-  }, [isQueryActive]);
+  const updateSearchParams = (newParams: Record<string, string | undefined>) => {
+    const params = new URLSearchParams(searchParams);
   
-  {/*useEffect(() => {
-    if (!searchQuery && !selectedCategory && !selectedgender && !sortOption && !filterOption && !selectedstatus) {
-      setIsQueryActive(false);
-      return;
-    }
-  
-    setIsQueryActive(true);
-  
-    const fetchProducts = async () => {
-      try {
-        // Construct query params
-        const queryParams = new URLSearchParams({
-          ...(searchQuery && { search: searchQuery }),
-          ...(selectedCategory && { category: selectedCategory }),
-          ...(selectedgender && { gender: selectedgender }),
-          ...(selectedstatus && { status: selectedstatus }),
-          ...(sortOption && { sort: sortOption }),
-          ...(filterOption && { filter: filterOption }),
-        }).toString();
-
-        router.replace(`?${queryParams.toString()}`, { scroll: false });
-      
-  
-        const response = await fetch(`/api/products?${queryParams}`, {
-          method: "GET",
-        });
-  
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
+    Object.keys(newParams).forEach((key) => {
+      if (newParams[key]) {
+        params.set(key, newParams[key]!);
+      } else {
+        params.delete(key);
       }
-    };
+    });
   
-    fetchProducts();
-  }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption,searchParams]);
-*/}
+    // Redirect to /products page instead of staying on index page
+    router.push(`/products?${params.toString()}`);
+  };
   
- 
-  {/*
+  // When filters/search are updated, navigate to the products page
   useEffect(() => {
-    const fetchUpdatedProducts = async () => {
-      const queryParams = searchParams.toString();
+    if (searchQuery || selectedCategory || selectedgender || selectedstatus || sortOption || filterOption) {
+      updateSearchParams({
+        search: searchQuery,
+        category: selectedCategory,
+        gender: selectedgender,
+        status: selectedstatus,
+        sort: sortOption,
+        filter: filterOption,
+      });
+    }
+  }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption]);
   
-      const response = await fetch(`/api/products?${queryParams}`, { method: "GET" });
-      const data = await response.json();
-      setProducts(data);
-      
-    };
-  
-    fetchUpdatedProducts();
-  }, [searchParams]);
-*/}
-
-
 
 const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   setSearchQuery(e.target.value);
@@ -167,13 +125,11 @@ const handleFilterSelect = (filterOption: string) => {
 
 
 useEffect(() => {
-  // Update current time every second
-  const timeInterval = setInterval(() => {
-    setCurrentTime(new Date());
-  }, 1000);
-
+  const updateCurrentTime = () => setCurrentTime(new Date());
+  const timeInterval = setInterval(updateCurrentTime, 60000); // Update every minute instead of every second
   return () => clearInterval(timeInterval);
 }, []);
+
 
 const focusSearchInput = () => {
   if (searchInputRef.current) {
@@ -237,15 +193,7 @@ const focusSearchInput = () => {
   
 </div>
 
-      {isQueryActive ? (
-      /* Show Dynamic Product List */
-      <section className="p-2 space-y-4">
-        <h2 className="text-xl font-semibold">Search Results</h2>
-        <div className="">
-          <ProductList products={products} />
-        </div>
-      </section>
-    ) : (<>
+      
 
       {/* Featured Section */}
       <section className=" m-2">
@@ -342,8 +290,6 @@ const focusSearchInput = () => {
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
 
-      </>
-    )}
     </div>
   );
 };

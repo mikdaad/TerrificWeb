@@ -178,7 +178,7 @@ export default function BannerRoute() {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton text="Create Banner" />
+          <SubmitButton text="update lastdate" />
         </CardFooter>
       </Card>
     </form>
