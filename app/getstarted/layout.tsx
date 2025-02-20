@@ -1,6 +1,6 @@
 import React,{ type ReactNode } from "react";
 import { Navbar } from "../components/storefront/Navbar";
-import { Footer } from "../components/storefront/Footer";
+
 
 export default function StoreFrontLayout({
   children,
@@ -25,6 +25,7 @@ export default function StoreFrontLayout({
     className="relative min-h-screen bg-cover  bg-left"
     style={{ backgroundImage: 'url("/background.jpg")' }} // ✅ Correct syntax
   >
+   
     {/* SVG Overlay */}
     <svg
       className="hidden lg:block absolute top-0 left-0 w-full h-full pointer-events-none"

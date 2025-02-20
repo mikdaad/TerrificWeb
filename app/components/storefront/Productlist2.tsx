@@ -61,8 +61,9 @@ export default function ProductList({ gender, category, status }: ProductListPro
           stars: (product.stars as any)?.toNumber ? (product.stars as any).toNumber() : product.stars, 
           discountprice: (product.discountprice as any)?.toNumber ? (product.discountprice as any).toNumber() : product.discountprice,
         }));
+        const lastFourProducts = formattedProducts.slice(-4);
 
-        setProducts(formattedProducts);
+        setProducts(lastFourProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {

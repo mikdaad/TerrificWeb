@@ -8,6 +8,7 @@ import { TextRoll } from  '../components/storefront/textroll';
 
 
 
+
 export default async function IndexPage() {
   return (
     /*<div>
@@ -20,6 +21,7 @@ export default async function IndexPage() {
     </div>
     */
     <div>
+      
     <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left space-y-6 lg:space-y-0 lg:space-x-12  mt-0">
       
     <div className="block lg:hidden ">

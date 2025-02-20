@@ -9,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { CldImage } from "next-cloudinary";
 
 
 interface ProductCardProps {
@@ -38,13 +39,16 @@ export function ProductCard({ item, className }: ProductCardProps) {
         <CarouselItem key={index}>
           <div className="relative ">
             <div className=" min-w-[200px] min-h-[200px] md:min-w-[400px] md:min-h-[400px] lg:min-w-[400px] lg:min-h-[400px] aspect-square">
-              <Image
-                src={image}
-                alt={item.name}
-                className="  rounded-lg"
-                layout="fill"
-                loading="lazy"
-              />
+            <CldImage
+                    src={image}
+                    alt={item.name}
+                    width={400}
+                    height={400}
+                    crop="fill"
+                    sizes="(max-width: 768px) 200px, (max-width: 1024px) 400px, 400px"
+                    className="rounded-lg"
+                    loading="lazy"
+                  />
             </div>
           </div>
         </CarouselItem>
