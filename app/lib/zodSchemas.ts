@@ -21,6 +21,7 @@ export const bannerSchema = z.object({
   title: z.string(),
   imageString: z.string(),
   pricing: z.string(),
+  pricingd: z.string(),
 });
 
 export const topbannerSchema = z.object({

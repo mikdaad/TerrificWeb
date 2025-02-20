@@ -183,6 +183,7 @@ export async function createBanner(prevState: any, formData: FormData) {
       title: submission.value.title,
       imageString: submission.value.imageString,
       pricing: submission.value.pricing,
+      pricingd: submission.value.pricingd,
     },
   });
 
@@ -255,6 +256,38 @@ export async function deleteBanner(formData: FormData) {
   });
 
   redirect("/dashboard/banner");
+}
+
+
+
+export async function deletebottomBanner(formData: FormData) {
+  const user = await db.user.current();
+if (!user || user.email !== "terrificmaile@gmail.com") {
+ return redirect("/");
+}
+
+await db.bottomBanner.delete({
+ where: {
+   id: formData.get("bannerId") as string,
+ },
+});
+
+redirect("/dashboard/banner");
+}
+
+export async function deletetopBanner(formData: FormData) {
+  const user = await db.user.current();
+if (!user || user.email !== "terrificmaile@gmail.com") {
+ return redirect("/");
+}
+
+await db.topBanner.delete({
+ where: {
+   id: formData.get("bannerId") as string,
+ },
+});
+
+redirect("/dashboard/banner");
 }
 
 export async function addItem(productId: string, size: string, color: string) {

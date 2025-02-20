@@ -1,4 +1,4 @@
-import { deleteBanner } from "@/app/actions";
+import { deletetopBanner } from "@/app/actions";
 import { SubmitButton } from "@/app/components/SubmitButtons";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +29,7 @@ export default function DeleteBannerRoute({
           <Button variant="secondary" asChild>
             <Link href="/dashboard/banner">Cancel</Link>
           </Button>
-          <form action={deleteBanner}>
+          <form action={deletetopBanner}>
             <input type="hidden" name="bannerId" value={params.id} />
             <SubmitButton variant="destructive" text="Delete Product" />
           </form>

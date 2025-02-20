@@ -135,7 +135,8 @@ model Banner {
   id          String @id @default(uuid())
   title       String
   imageString String
-  pricing       String  
+  pricing       String 
+  pricingd      String 
   
 
   createdAt DateTime @default(now())

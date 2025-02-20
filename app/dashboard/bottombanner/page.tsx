@@ -92,7 +92,7 @@ export default async function BannerRoute() {
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem asChild>
-                          <Link href={`/dashboard/topbanner/${item.id}/delete`}>
+                          <Link href={`/dashboard/bottombanner/${item.id}/delete`}>
                             Delete
                           </Link>
                         </DropdownMenuItem>

@@ -100,16 +100,29 @@ export default function BannerRoute() {
               <p className="text-red-500">{fields.imageString.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
-              <Label>Name</Label>
+              <Label>Original price</Label>
               <Input
                 name={fields.pricing.name}
                 key={fields.pricing.key}
-                defaultValue={fields.title.initialValue}
+                defaultValue={fields.pricing.initialValue}
                 type="text"
                 placeholder="Create price for Banner"
               />
               <p className="text-red-500">{fields.pricing.errors}</p>
             </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Discount price</Label>
+              <Input
+                name={fields.pricingd.name}
+                key={fields.pricingd.key}
+                defaultValue={fields.pricingd.initialValue}
+                type="text"
+                placeholder="Create price for Banner"
+              />
+              <p className="text-red-500">{fields.pricing.errors}</p>
+            </div>
+
 
           </div>
         </CardContent>

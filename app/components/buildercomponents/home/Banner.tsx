@@ -4,60 +4,64 @@ import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const banners = [
-  {
-    image: "/shop/dress.png",
-    discount: "50-40% OFF",
-    description: "Now in Fashion Wear",
-    subtext: "All colours",
-  },
-  {
-    image: "/shop/dress2.jpg",
-    discount: "Up to 30% OFF",
-    description: "Exclusive Footwear",
-    subtext: "Limited stock",
-  },
-  {
-    image: "/shop/dress3.jpg",
-    discount: "Flat 20% OFF",
-    description: "Trendy Accessories",
-    subtext: "Grab yours now",
-  },
-];
+type Banner = {
+  id: string;
+  title: string;
+  imageString: string;
+  description: string;
+  subtext: string;
+};
 
-export  function Banner() {
+export function Banner() {
+  const [banners, setBanners] = useState<Banner[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % banners.length);
-    }, 2000); // Change banner every 2 seconds
+    async function fetchBanners() {
+      try {
+        const response =  await fetch("/api/topbannner", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data: Banner[] = await response.json();
+        setBanners(data);
+      } catch (error) {
+        console.error("Failed to fetch banners:", error);
+      }
+    }
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    fetchBanners();
   }, []);
 
+  useEffect(() => {
+    if (banners.length === 0) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % banners.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [banners]);
+
+  if (banners.length === 0) {
+    return <div className="text-center text-gray-500">Loading banners...</div>;
+  }
+
   return (
-    <div className="relative w-full  mx-auto">
-      {/* Banner */}
+    <div className="relative w-full mx-auto">
       <div
         className="relative bg-primary rounded-lg p-6 text-white bg-cover bg-center transition-all duration-500"
         style={{
-          backgroundImage: `linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, #000000 69.15%), url('${banners[activeIndex].image}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundImage: `linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, #000000 69.15%), url('${banners[activeIndex].imageString}')`,
         }}
       >
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold">{banners[activeIndex].discount}</h2>
+          <h2 className="text-2xl font-bold">{banners[activeIndex].title}</h2>
           <p className="text-lg">{banners[activeIndex].description}</p>
           <p className="text-sm opacity-90">{banners[activeIndex].subtext}</p>
-          <Button
-            variant="secondary"
-            className="mt-4"
-            onClick={() => console.log("Navigate to Shop")}
-          >
-            Shop Now
-            <ArrowRight className="ml-2 h-4 w-4" />
+          <Button variant="secondary" className="mt-4">
+            Shop Now <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -66,6 +70,7 @@ export  function Banner() {
       <div className="flex justify-center mt-4 space-x-2">
         {banners.map((_, index) => (
           <button
+          
             key={index}
             onClick={() => setActiveIndex(index)}
             className={`h-3 w-3 rounded-full transition-all duration-300 ${
