@@ -28,6 +28,15 @@ async function getData() {
           firstName: true,
           email: true,
           profileImage: true,
+          address: {
+            select: {
+              street: true,
+              city: true,
+              state: true,
+              postalCode: true,
+              phoneno: true,
+            },
+          },
         },
       },
     },
@@ -56,7 +65,10 @@ export default async function OrdersPage() {
               <TableHead>Type</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>postal,street,city</TableHead>
+              <TableHead>phone no</TableHead>
               <TableHead className="text-right">Amount</TableHead>
+             
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -72,6 +84,15 @@ export default async function OrdersPage() {
                 <TableCell>{item.status}</TableCell>
                 <TableCell>
                   {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
+                </TableCell>
+                <TableCell>
+                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
+                </TableCell>
+                <TableCell className="text-right text-sm">
+                {item.User?.address?.postalCode},{item.User?.address?.street}, {item.User?.address?.city}
+                </TableCell>
+                <TableCell className="text-right">
+                {item.User?.address?.phoneno}
                 </TableCell>
                 <TableCell className="text-right">
                 ₹{new Intl.NumberFormat("en-US").format(item.amount / 100)}

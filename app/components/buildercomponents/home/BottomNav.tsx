@@ -31,19 +31,21 @@ useEffect(() => {
   const fetchUserAndCart = async () => {
     try {
       // Fetch user details
-      const res = await fetch("/api/kindefetch");
+      const res = await fetch("/api/user");
       const fetchedUser = await res.json();
+      const modifiedUser = JSON.stringify(fetchedUser);
+      console.log("fetched user : " + modifiedUser);
+      const parsedUser = JSON.parse(modifiedUser);
+      console.log("ihfseiuhriushir" + parsedUser.userId);
 
-      if (!fetchedUser?.id) {
-        console.error("User not found");
-        return;
-      }
 
-      setUser(fetchedUser);
+
+    
 
       // Fetch cart data from the API route
-      const cartRes = await fetch(`/api/cart?userId=${fetchedUser.id}`);
+      const cartRes = await fetch(`/api/cart?userId=${parsedUser.userId}`);
       const cartData = await cartRes.json();
+      console.log(  "cart data : " + cartData);
 
       setCartTotal(cartData.total || 0);
     } catch (error) {
@@ -68,11 +70,11 @@ useEffect(() => {
              focus:ring-2 focus:ring-gray-400"
   onClick={() => router.push("/bag")}
 >
-  <ShoppingCart className="h-6 w-6 text-gray-700" />
+  <ShoppingCart className="h-6 w-6 text-black" />
     {/* Cart Item Count Badge */}
     {cartTotal > 0 && (
-          <span className="absolute -top-0 mt-1 mr-1
-                            text-black text-xs font-weight-300 
+          <span className="absolute -top-0 mt-1 mr-2
+                            text-yellow-600 text-xs font-weight-300 
                            px-1 py-0.5 rounded-full 
                           ">
             {cartTotal}

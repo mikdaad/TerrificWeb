@@ -65,7 +65,7 @@ export default function ProductCreateRoute() {
   };
 
   const availableColors = [
-    "Red", "Blue", "Green", "Black", "White", "Yellow", "Pink", "Purple", "Orange",
+    "single color","Red", "Blue", "Green", "Black", "White", "Yellow", "Pink", "Purple", "Orange",
     "Teal", "Brown", "Gray", "Cyan", "Magenta", "Gold", "Silver", "Maroon", "Olive",
     "Navy", "Lime", "Indigo", "Turquoise", "Beige", "Coral"
   ];

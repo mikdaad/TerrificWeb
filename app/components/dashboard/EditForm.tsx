@@ -90,7 +90,7 @@ export function EditForm({ data }: iAppProps) {
   const sizes = ["S", "M", "L", "XL", "XXL"];
 
   const availableColors = [
-    "Red", "Blue", "Green", "Black", "White", "Yellow", "Pink", "Purple", "Orange",
+    "Single color","Red", "Blue", "Green", "Black", "White", "Yellow", "Pink", "Purple", "Orange",
     "Teal", "Brown", "Gray", "Cyan", "Magenta", "Gold", "Silver", "Maroon", "Olive",
     "Navy", "Lime", "Indigo", "Turquoise", "Beige", "Coral"
   ];
@@ -185,7 +185,7 @@ export function EditForm({ data }: iAppProps) {
               <Input
                 key={fields.reviews.key}
                 name={fields.reviews.name}
-                defaultValue={fields.reviews.initialValue}
+                defaultValue={data.reviews}
                 type="number"
                 placeholder=""
               />
@@ -197,7 +197,7 @@ export function EditForm({ data }: iAppProps) {
               <Input
                 key={fields.stars.key}
                 name={fields.stars.name}
-                defaultValue={fields.stars.initialValue}
+                defaultValue={data.stars}
                 type="number"
                 placeholder=""
               />

@@ -31,6 +31,7 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.json({
+      userId: existingUser.id,  
       firstName: existingUser.firstName,
       lastName: existingUser.lastName,
       email: existingUser.email,
