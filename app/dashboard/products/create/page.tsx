@@ -1,7 +1,6 @@
 "use client";
 
 import { createProduct } from "@/app/actions";
-import { UploadDropzone } from "@/app/lib/uplaodthing";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "../../../components/ui/popover";
 import {Checkbox } from "../../../components/ui/checkbox";
@@ -33,7 +32,6 @@ import { productSchema } from "@/app/lib/zodSchemas";
 import { useState,FormEvent } from "react";
 
 import Image from "next/image";
-import { categories } from "@/app/lib/categories";
 import { SubmitButton } from "@/app/components/SubmitButtons";
 
 import { AvatarUploader } from "../../../components/dashboard/imageuploader";
@@ -358,7 +356,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
         setTimeout(() => {
           setImages((prevImages) => [...prevImages, ...url]);
-        }, 5000);
+        }, 20000);
 
         
       }}

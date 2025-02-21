@@ -4,7 +4,6 @@ import { NavbarLinks } from "./NavbarLinks";
 import { UserDropdown } from "./UserDropdown";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import db from "../../../lib/db";
 import { AuthButton } from "./authbutton";
 
@@ -36,7 +35,7 @@ export async function Navbar() {
     {/* Shopping Bag & User Dropdown - Show only on large screens */}
     {user ? (
       <div className="hidden lg:flex items-center space-x-4">
-      \
+      
         <UserDropdown
           email={user.email as string}
           name={user.firstName as string}

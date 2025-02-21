@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import db from "../../../lib/db";
+import PaymentPage from "../payment/page";
 
 import { redirect } from "next/navigation";
 
@@ -79,17 +80,20 @@ cart?.items.forEach((item) => {
               </div>
             </div>
           ))}
+           <form action={checkOut}>
+
           <div className="mt-10">
             <div className="flex items-center justify-between font-medium">
               <p>Subtotal:</p>
               <p>₹{totalPrice}</p>
             </div>
-
-            <form action={checkOut}>
+            </div>
+             <PaymentPage totalPrice={totalPrice} />
+           
               <ChceckoutButton />
             </form>
           </div>
-        </div>
+       
       )}
     </div>
   );

@@ -1,50 +1,38 @@
-"use client";
+'use client';
+import { useState } from "react";
 
-import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+interface PaymentPageProps {
+  totalPrice: number;
+}
 
-const CheckoutPage: React.FC = () => {
-  const [upiUrl, setUpiUrl] = useState<string>("");
-
-  useEffect(() => {
-    const transactionId: string = uuidv4();
-    const upiId: string = "cashwayclicks-1@okicici"; // Your UPI ID
-    const name: string = "M. Mikdad"; // Business or user name
-    const amount: string = "100.00"; // Amount in INR
-    const orderId: string = `ORDER-${transactionId}`;
-    const note: string = "Payment for Order";
-
-    // Callback URL to receive payment response
-    const callbackUrl: string = encodeURIComponent(
-      "https://terrific-web-git-main-mikdaads-projects.vercel.app/api/payment-callback"
-    );
-
-    // Construct UPI Payment URL
-    const generatedUpiUrl: string = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
-      name
-    )}&am=${amount}&cu=INR&tr=${orderId}&tn=${encodeURIComponent(
-      note
-    )}&url=${callbackUrl}`;
-
-    setUpiUrl(generatedUpiUrl);
-
-    // Redirect user to UPI payment
-    window.location.href = generatedUpiUrl;
-  }, []);
-
-  return (
-    <div>
-      <p>Redirecting to Google Pay...</p>
-      {upiUrl && (
-        <p>
-          If nothing happens,{" "}
-          <a href={upiUrl} style={{ color: "blue", textDecoration: "underline" }}>
-            click here to pay manually
-          </a>
-        </p>
-      )}
-    </div>
+export default function PaymentPage({ totalPrice }: PaymentPageProps) {
+ const [loading, setLoading] = useState(false);
+ const [transactionId, setTransactionId] = useState("");
+ const initiatePayment = async () => {
+   setLoading(true);
+   const txnId = `TXN${Date.now()}`;
+   setTransactionId(txnId);
+   const response = await fetch("/api/initiatepayment", {
+     method: "POST",
+     headers: { "Content-Type": "application/json" },
+     body: JSON.stringify({ amount: totalPrice, transactionId: txnId }),
+   });
+   const data = await response.json();
+   console.log(data);
+   setLoading(false);
+   if (data.success) {
+     window.location.href = data.data.instrumentResponse.redirectInfo.url; // Redirect to PhonePe
+   } else {
+     alert("Payment initiation failed");
+   }
+ };
+ return (
+   <div>
+     <h2>PhonePe Payment</h2>
+     <button onClick={initiatePayment} disabled={loading}>
+      
+       {loading ? "Processing..." : "Pay ₹" + totalPrice}
+       </button>
+ </div>
   );
-};
-
-export default CheckoutPage;
+ }

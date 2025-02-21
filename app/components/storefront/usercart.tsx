@@ -1,4 +1,5 @@
-//"use client";
+//
+// "use client";
 
 import { useState, useEffect } from "react";
 import { UserDropdown } from "./UserDropdown"; 
@@ -41,7 +42,7 @@ const UserCart = () => {
     <div className="flex flex-col items-center mt-3 space-x-4">
       <UserDropdown
         email={user.email as string}
-        name={user.firstName as string ?? "anonymous"}
+        name={(user.firstName as string) || "anonymous"}
         userImage={user.profileImage ?? `https://avatar.vercel.sh/${user.firstName}`}
       />
     </div>

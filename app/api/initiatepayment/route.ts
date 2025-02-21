@@ -1,39 +1,67 @@
+import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
- export async function POST(req) {
+
+const MERCHANT_ID = "SANDBOXTESTMID"; // Replace with actual MID
+const SALT_KEY = "51778fc0-016b-48fe-b509-108277bfa5e2";
+const SALT_INDEX = "1";
+const API_ENDPOINT = "https://api-preprod.phonepe.com/apis/hermes/pg/v1/pay";
+const STATUS_ENDPOINT = "https://api-preprod.phonepe.com/apis/hermes/pg/v1/status";
+
+export async function POST(req: NextRequest) {
   try {
-    const { amount, transactionId } = await req.json();
-    // Merchant credentials (Use env variables in production)
-    const merchantId = "PGTESTPAYUAT132"; // Replace with actual MID
-    const saltKey = "58f62bdc-2b1f-44a1-9da5-1820a35835f3";
-    const saltIndex = 1;
-    const callbackUrl = "https://yourwebsite.com/payment/callback"; // Your frontend callback
+    const { amount, mobileNumber } = await req.json();
+    const transactionId = `TXN_${Date.now()}`;
     const payload = {
-      merchantId,
+      merchantId: MERCHANT_ID,
       merchantTransactionId: transactionId,
+      merchantUserId: `MUID_${Date.now()}`,
       amount: amount * 100, // Convert to paisa
-      callbackUrl,
-      mobileNumber: "9999999999",
+      redirectUrl: "https://terrific.fit/success",
+      redirectMode: "REDIRECT",
+      callbackUrl: "https://yourdomain.com/api/payment/callback",
+      mobileNumber,
       paymentInstrument: {
         type: "PAY_PAGE",
       },
     };
-    // Create SHA256 hash
+
     const payloadString = JSON.stringify(payload);
-    const hash = crypto.createHash("sha256").update(payloadString + saltKey).digest("hex");
-    const xVerify = hash + "###" + saltIndex;
-    // Send request to PhonePe
-    const response = await fetch("https://api-preprod.phonepe.com/apis/hermes/pg/v1/pay", {
+    const base64Payload = Buffer.from(payloadString).toString("base64");
+    const hash = crypto.createHash("sha256").update(base64Payload + "/pg/v1/pay" + SALT_KEY).digest("hex");
+    const xVerify = `${hash}###${SALT_INDEX}`;
+
+    const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-VERIFY": xVerify,
-        "X-MERCHANT-ID": merchantId,
       },
-      body: payloadString,
+      body: JSON.stringify({ request: base64Payload }),
     });
+
     const data = await response.json();
-    return Response.json(data);
+    return NextResponse.json(data);
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
   }
- }
+}
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const transactionId = searchParams.get("transactionId");
+  if (!transactionId) return NextResponse.json({ error: "Missing transaction ID" }, { status: 400 });
+
+  const checksum = crypto.createHash("sha256").update(`/pg/v1/status/${MERCHANT_ID}/${transactionId}${SALT_KEY}`).digest("hex");
+  const xVerify = `${checksum}###${SALT_INDEX}`;
+
+  const response = await fetch(`${STATUS_ENDPOINT}/${MERCHANT_ID}/${transactionId}`, {
+    method: "GET",
+    headers: {
+      "X-VERIFY": xVerify,
+      "X-MERCHANT-ID": MERCHANT_ID,
+    },
+  });
+
+  const data = await response.json();
+  return NextResponse.json(data);
+}

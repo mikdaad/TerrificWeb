@@ -104,6 +104,16 @@ export default async function IndexPage() {
         </Button>
         
       </div>
+
+        {/* Mobile Button */}
+        <div className="hidden lg:block w-full justify-center  mb-20">
+        <Button className="bg-white text-black p-3 mt-10 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-[15%]">
+        <Link href="/">
+          Buy Now
+          </Link>
+        </Button>
+        
+      </div>
   
     </div>
   
@@ -115,10 +125,12 @@ export default async function IndexPage() {
     <div className=" w-[90%]">
 
     </div>
-  <div className="relative hidden lg:block   items-center justify-start">
+  
+  {/*<div className="relative hidden lg:block   items-center justify-start">
     
       <Hero  />
     </div>
+*/}
     </div>
     </div>
   );

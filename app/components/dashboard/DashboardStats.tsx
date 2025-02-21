@@ -1,6 +1,6 @@
 import prisma from "@/app/lib/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, PartyPopper, ShoppingBag, User2 } from "lucide-react";
+import { DollarSign, PartyPopper, ShoppingBag, User2,IndianRupee } from "lucide-react";
 
 async function getData() {
   const [user, products, order] = await Promise.all([
@@ -41,11 +41,11 @@ export async function DashboardStats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle>Total Revenue</CardTitle>
-          <DollarSign className="h-4 w-4 text-green-500" />
+          <IndianRupee className="h-4 w-4 text-green-500" />
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">
-            ${new Intl.NumberFormat("en-US").format(totalAmount / 100)}
+          ₹{new Intl.NumberFormat("en-US").format(totalAmount / 100)}
           </p>
           <p className="text-xs text-muted-foreground">Based on 100 Charges</p>
         </CardContent>

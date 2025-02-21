@@ -581,39 +581,60 @@ export async function delWishlistItem(formData: FormData) {
 }
 
 export async function checkOut() {
-  const user: {
-      id: string;
-      email: string;
-      firstName: string | null;
-      lastName: string | null;
-      profileImage: string | null;
-      street?: string;
-      city?: string;
-      state?: string;
-      postalCode?: string;
-      phoneno?: string;
-  } | null = await db.user.current();
+  
+  const user1 = await db.user.current();
+  if (!user1) {
+    return redirect("/");
+  }
+  let userid=user1.id;
+
+  const user = await db.user.findUnique({
+    where: { id: userid }, // Replace with actual user ID
+    select: {
+      id: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      profileImage: true,
+      address: {
+        select: {
+          street: true,
+          city: true,
+          state: true,
+          postalCode: true,
+          phoneno: true,
+        },
+      },
+    },
+  } );
+  
 
   if (!user) {
       return redirect("/");
   }
 
-  // Required user details
-  const requiredFields: (keyof typeof user)[] = [
-      "firstName", "lastName", "email", "street", "city", "state", "postalCode", "phoneno"
-  ];
-  
-  // Check if any required field is missing or empty
-  const missingFields = requiredFields.some(field => !user[field] || user[field]?.trim() === "");
+  const requiredFields = ["firstName", "lastName", "address.street", "address.city", "address.state", "address.postalCode", "address.phoneno"];
 
-  if (missingFields) {
-      // Redirect to settings with a message
-      return redirect("/settings?message=Please+fill+in+your+necessary+details");
-  }
+const missingFields = requiredFields.filter(field => {
+  const [parent, child] = field.split(".");
+  const value = parent === "address" && child
+  ? user?.address?.[child as keyof typeof user.address]
+  : user?.[parent as keyof typeof user];
 
-  return redirect("/payment");
+// Handle nested fields
+  console.log(`Checking ${field}:`, value);
+  return value === undefined || value === null || value === "";
+});
+
+console.log("Missing Fields:", missingFields);
+
+if (missingFields.length > 0) {
+  const message = `Please fill in your necessary details: ${missingFields.join(", ")}`;
+  return redirect(`/settings?message=${encodeURIComponent(message)}`);
 }
 
+return redirect("/payment");
+}
 
 export async function updatediscount(prevState: any, formData: FormData) {
   const user = await db.user.current();
