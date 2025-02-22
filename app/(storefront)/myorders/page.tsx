@@ -82,15 +82,12 @@ export default async function OrdersPage() {
                 <TableCell>
                   {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
                 </TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
-                </TableCell>
                 <TableCell className="text-right text-sm">
                 {item.User?.email}
                 </TableCell>
             
                 <TableCell className="text-right">
-                ₹{new Intl.NumberFormat("en-US").format(item.amount / 100)}
+                ₹{item.amount}
                 </TableCell>
               </TableRow>
             ))}

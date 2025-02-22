@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Loader2, ShoppingBag,Heart } from "lucide-react";
 import { useFormStatus } from "react-dom";
+import { useState } from "react";
 
 interface buttonProps {
   text: string;
@@ -35,42 +36,84 @@ export function SubmitButton({ text, variant }: buttonProps) {
   );
 }
 
-export function ShoppingBagButton() {
-  const { pending } = useFormStatus();
+
+export function ShoppingBagButton({ onAddToCart }: { onAddToCart: () => Promise<void> }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = async () => {
+    setLoading(true);
+    await onAddToCart(); // Wait for the function to complete
+    setLoading(false);
+  };
 
   return (
-    <>
-      {pending ? (
-        <Button disabled size="lg" className="w-full mt-5">
+    <Button
+      size="lg"
+      className="w-full mt-5"
+      onClick={handleClick}
+      disabled={loading}
+      type="button" // Prevents default form submission behavior
+    >
+      {loading ? (
+        <>
           <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Please Wait
-        </Button>
+        </>
       ) : (
-        <Button size="lg" className="w-full mt-5" type="submit">
+        <>
           <ShoppingBag className="mr-4 h-5 w-5" /> Add to Cart
-        </Button>
+        </>
       )}
-    </>
+    </Button>
   );
 }
 
 
-export function WishlistButton() {
-  const { pending } = useFormStatus();
+export function WishlistButton({ onAddToWishlist }: { onAddToWishlist: () => Promise<{ error?: string; success?: boolean; message?: string }> }) {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleClick = async () => {
+    setLoading(true);
+    setErrorMessage(null); // Reset error state
+
+    try {
+      const response = await onAddToWishlist(); // Call the function
+
+      if (response.error) {
+        setErrorMessage(response.error);
+      } 
+    } catch (error) {
+      setErrorMessage("Something went wrong!");
+    }
+
+    setLoading(false);
+  };
 
   return (
-    <>
-      {pending ? (
-        <Button disabled size="lg" className="w-full mt-5">
-          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Please Wait
-        </Button>
-      ) : (
-        <Button size="lg" className="w-full mt-5" type="submit">
-          <Heart  className="mr-4 h-5 w-5" /> Add to Wishlist
-        </Button>
-      )}
-    </>
+    <div>
+      <Button
+        size="lg"
+        className="w-full mt-5"
+        onClick={handleClick}
+        disabled={loading}
+        type="button" // Prevents form submission
+      >
+        {loading ? (
+          <>
+            <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Please Wait
+          </>
+        ) : (
+          <>
+            <Heart className="mr-4 h-5 w-5" /> Add to Wishlist
+          </>
+        )}
+      </Button>
+
+      {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+    </div>
   );
 }
+
 
 export function DeleteItem() {
   const { pending } = useFormStatus();
@@ -111,7 +154,6 @@ export function MovetoCart() {
 }
 
 
-
 export function ChceckoutButton() {
   const { pending } = useFormStatus();
   return (
@@ -128,3 +170,6 @@ export function ChceckoutButton() {
     </>
   );
 }
+
+
+

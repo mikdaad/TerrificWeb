@@ -1,15 +1,29 @@
-import { Hero } from "../components/storefront/Hero";
+'use client';
 import { Button } from "../components/ui/button";
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import { TextEffect } from '../components/storefront/texteffect';
 import { TextRoll } from  '../components/storefront/textroll';
+import { useState } from "react";
 
 
 
 
 export default async function IndexPage() {
+
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+
+    // Simulate a delay (e.g., API call)
+    setTimeout(() => {
+      setLoading(false);
+      window.location.href = "/"; // Redirect manually since Next.js `Link` doesn't support onClick
+    }, 2000); // 2 seconds delay
+  };
+
   return (
     /*<div>
          
@@ -97,9 +111,10 @@ export default async function IndexPage() {
   
       {/* Mobile Button */}
       <div className="lg:hidden w-full flex justify-center  mb-20">
-        <Button className="bg-white text-black p-3 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-3/4">
+        <Button className="bg-white text-black p-3 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-3/4"
+         onClick={handleClick}>
         <Link href="/">
-          Get Started
+        {loading ? "Loading..." : "Get Started"}
           </Link>
         </Button>
         
@@ -107,9 +122,9 @@ export default async function IndexPage() {
 
         {/* Mobile Button */}
         <div className="hidden lg:block w-full justify-center  mb-20">
-        <Button className="bg-white text-black p-3 mt-10 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-[15%]">
+        <Button onClick={handleClick}  className="bg-white text-black p-3 mt-10 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-[15%]">
         <Link href="/">
-          Buy Now
+        {loading ? "Loading..." : "Buy Now"} 
           </Link>
         </Button>
         

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 interface PaymentPageProps {
   totalPrice: number;
@@ -27,12 +28,21 @@ export default function PaymentPage({ totalPrice }: PaymentPageProps) {
    }
  };
  return (
-   <div>
-     <h2>PhonePe Payment</h2>
-     <button onClick={initiatePayment} disabled={loading}>
-      
-       {loading ? "Processing..." : "Pay ₹" + totalPrice}
-       </button>
- </div>
+  <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg rounded-2xl max-w-sm mx-auto">
+  <h2 className="text-white text-xl font-bold mb-4">PhonePe Payment</h2>
+  <button
+    onClick={initiatePayment}
+    disabled={loading}
+    className={`relative flex items-center justify-center w-full px-6 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"}`}
+  >
+    {loading ? (
+      <>
+        <Loader2 className="w-5 h-5 mr-2 animate-spin" /> Processing...
+      </>
+    ) : (
+      `Pay ₹${totalPrice}`
+    )}
+  </button>
+</div>
   );
  }

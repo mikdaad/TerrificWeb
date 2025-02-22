@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GlowEffect } from "../../ui/Gloweffect";
 
 type Banner = {
   id: string;
@@ -64,7 +65,16 @@ export function Banner() {
             Shop Now <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
+        <GlowEffect
+        colors={['#ffffff', '#fff37d', '#ffffff', '#fff37d']}
+        mode='colorShift'
+        blur='soft'
+        duration={3}
+        scale={1.08}
+        	className="absolute  inset-0 -z-10"
+      />
       </div>
+      
 
       {/* Navigation Dots */}
       <div className="flex justify-center mt-4 space-x-2">
@@ -73,12 +83,13 @@ export function Banner() {
           
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+            className={`h-2 w-2 rounded-full transition-all duration-300 ${
               activeIndex === index ? "bg-black" : "bg-gray-400 opacity-50"
             }`}
           />
         ))}
       </div>
+      
     </div>
   );
 }

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import db from "../../../lib/db";
+import { redirect } from "next/navigation";
+
 
 const MERCHANT_ID = "SANDBOXTESTMID"; // Replace with actual MID
 const SALT_KEY = "51778fc0-016b-48fe-b509-108277bfa5e2";
@@ -8,17 +11,29 @@ const API_ENDPOINT = "https://api-preprod.phonepe.com/apis/hermes/pg/v1/pay";
 const STATUS_ENDPOINT = "https://api-preprod.phonepe.com/apis/hermes/pg/v1/status";
 
 export async function POST(req: NextRequest) {
+
+  let userId;
+  let mobileNumber;
+
+   const user = await db.user.current();
+  
+    if (!user) {
+      return redirect("/");
+    }
+    userId=user.id;
+    mobileNumber=user.phoneno;
+
   try {
     const { amount, mobileNumber } = await req.json();
     const transactionId = `TXN_${Date.now()}`;
     const payload = {
       merchantId: MERCHANT_ID,
       merchantTransactionId: transactionId,
-      merchantUserId: `MUID_${Date.now()}`,
+      merchantUserId: userId,
       amount: amount * 100, // Convert to paisa
-      redirectUrl: "https://terrific.fit/success",
+      redirectUrl: `http://localhost:3000/api/payment/callback/${transactionId}`,
       redirectMode: "REDIRECT",
-      callbackUrl: "https://yourdomain.com/api/payment/callback",
+      callbackUrl: `http://localhost:3000/api/payment/callback/${transactionId}`,
       mobileNumber,
       paymentInstrument: {
         type: "PAY_PAGE",
@@ -40,9 +55,18 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await response.json();
+
+    await db.order.create({
+      data: {
+        userId,
+        transactionId,
+        amount,
+        status: "PENDING",
+      },
+    });
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }
 

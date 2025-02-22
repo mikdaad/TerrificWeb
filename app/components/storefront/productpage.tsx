@@ -113,11 +113,16 @@ export default function ProductPage({ data }: { data: any }) {
         {/* Action Buttons */}
         <div className="mt-6 flex-col">
           
-          <form onSubmit={(e) => { e.preventDefault(); addProductToWishlist(); }}>
-            <WishlistButton />
-          </form>
+        <form
+  onSubmit={(e) => {
+    e.preventDefault();
+    addProductToWishlist();
+  }}
+>
+  <WishlistButton onAddToWishlist={addProductToWishlist} />
+</form>
           <form onSubmit={(e) => { e.preventDefault(); addProductToShoppingCart(); }}>
-            <ShoppingBagButton />
+            <ShoppingBagButton   onAddToCart={addProductToShoppingCart}/>
           </form>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "../buildercomponents/home/ProductCard";
 import { Gender, Category, Status } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
+import { AnimatedGroup } from "../ui/animatedgroup";
+import { GlowEffect } from "../ui/Gloweffect";
 
 // Define Product Type (Based on Prisma Model)
 interface Product {
@@ -75,7 +77,34 @@ export default function ProductList({ gender, category, status }: ProductListPro
   }, [gender, category, status]);
 
   return (
-    <div className="grid grid-cols-2  lg:grid-cols-3 gap-0">
+    <div className="grid grid-cols-2  lg:grid-cols-3 gap-x-1">
+      <AnimatedGroup
+      className=''
+      variants={{
+        container: {
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.05,
+            },
+          },
+        },
+        item: {
+          hidden: { opacity: 0, y: 40, filter: 'blur(4px)' },
+          visible: {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            transition: {
+              duration: 1.2,
+              type: 'spring',
+              bounce: 0.3,
+            },
+          },
+        },
+      }}
+    >
       {loading ? (
         <p>Loading...</p>
       ) : products.length > 0 ? (
@@ -98,6 +127,10 @@ export default function ProductList({ gender, category, status }: ProductListPro
       ) : (
         <p>No products found.</p>
       )}
+      
+       </AnimatedGroup>
+       
     </div>
+   
   );
 }

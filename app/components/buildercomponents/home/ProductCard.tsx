@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CldImage } from "next-cloudinary";
+import { GlowEffect } from "../../ui/Gloweffect";
 
 
 interface ProductCardProps {
@@ -42,27 +43,30 @@ export function ProductCard({ item, className }: ProductCardProps) {
             <CldImage
                     src={image}
                     alt={item.name}
-                    width={400}
-                    height={400}
+                    width={250}
+                    height={250}
                     crop="fill"
                     sizes="(max-width: 768px) 200px, (max-width: 1024px) 400px, 400px"
                     className="rounded-lg"
                     loading="lazy"
                   />
             </div>
+              
           </div>
+          
         </CarouselItem>
       ))}
     </CarouselContent>
   </Carousel>
+  
 
-  <h3 className="font-weight-600 text-lg mt-0">{item.name}</h3>
-  <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
+  <h3 className="font-weight-600 text-md mt-1">{item.name}</h3>
+  <p className="text-xs text-gray-600 line-clamp-2">{item.description}</p>
 
   <div className="flex items-center gap-2 mt-0">
-    <span className="text-lg  ">₹{item.discountprice}</span>
-    <span className="text-sm text-gray-500 line-through">₹{item.originalprice}</span>
-    <span className="text-sm text-green-600">{discount.toFixed(0)}% OFF</span>
+    <span className="text-sm  ">₹{item.discountprice}</span>
+    <span className="text-xs text-gray-500 line-through">₹{item.originalprice}</span>
+    <span className="text-[0.6rem] text-green-600">{discount.toFixed(0)}% OFF</span>
   </div>
 
   <div className="flex items-center gap-0 mt-0">
@@ -78,10 +82,12 @@ export function ProductCard({ item, className }: ProductCardProps) {
       ))}
     </div>
     <span className="text-sm text-gray-600">({item.reviews})</span>
+    
   </div>
 
   
 </div>
+
 </Link>
 
   );

@@ -22,12 +22,12 @@ export function Genderlist({ categories,onCategorySelect }: CategoryListProps ) 
           <Image
             src={category.image}
             alt={category.title}
-            className="w-14 h-14 rounded-full"
+            className="w-11 h-11 rounded-full"
             width={40} // Set width
       height={40}
             loading="lazy"
           />
-          <span className="text-sm font-weight-200">{category.title}</span>
+          <span className="text-xs font-thin">{category.title}</span>
         </div>
         </button>
       ))}

@@ -80,7 +80,7 @@ cart?.items.forEach((item) => {
               </div>
             </div>
           ))}
-           <form action={checkOut}>
+           <div>
 
           <div className="mt-10">
             <div className="flex items-center justify-between font-medium">
@@ -89,9 +89,8 @@ cart?.items.forEach((item) => {
             </div>
             </div>
              <PaymentPage totalPrice={totalPrice} />
-           
-              <ChceckoutButton />
-            </form>
+
+            </div>
           </div>
        
       )}

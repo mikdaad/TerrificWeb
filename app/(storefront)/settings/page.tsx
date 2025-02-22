@@ -93,6 +93,15 @@ export default function UpdateUserForm() {
   return (
     <div>
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto">
+      <div className="flex items-center ">
+
+    <Button type="submit"  className="max-w-xl mx-auto w-[30%] m-3 bg-yellow-400 gap-x-4">
+     <Link href="/myorders">
+     My Orders
+          </Link>
+    
+     </Button>
+     </div>
    
       <div className="flex items-center gap-x-4">
         <Button variant="outline" size="icon" asChild>
@@ -100,7 +109,7 @@ export default function UpdateUserForm() {
             <ChevronLeft className="w-4 h-4" />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold tracking-tight">Update Details</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Update Personal Details</h1>
       </div>
 
       <Card className="mt-5">
