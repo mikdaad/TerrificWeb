@@ -46,7 +46,7 @@ export function Banner() {
   }, [banners]);
 
   if (banners.length === 0) {
-    return <div className="text-center text-gray-500">Loading banners...</div>;
+    return <div className="text-center text-gray-500"></div>;
   }
 
   return (

@@ -2,46 +2,47 @@ import prisma from "@/app/lib/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, PartyPopper, ShoppingBag, User2,IndianRupee } from "lucide-react";
 
+
 async function getData() {
-  const [user, products, order] = await Promise.all([
-    prisma.user.findMany({
-      select: {
-        id: true,
-      },
-    }),
+  try {
+    const [users, products, orders] = await Promise.all([
+      prisma.user.findMany({
+        select: { id: true },
+      }),
 
-    prisma.product.findMany({
-      select: {
-        id: true,
-      },
-    }),
+      prisma.product.findMany({
+        select: { id: true },
+      }),
 
-    prisma.order.findMany({
-      select: {
-        amount: true,
-      },
-    }),
-  ]);
+      prisma.order.findMany({
+        select: { amount: true },
+      }),
+    ]);
 
-  return {
-    user,
-    products,
-    order,
-  };
+    return { users, products, orders };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data");
+  }
 }
 
-export async function DashboardStats() {
-  const { products, user, order } = await getData();
 
-  const totalAmount = order.reduce((accumalator, currentValue) => {
+
+
+export async function DashboardStats() {
+  const { products, users, orders } = await getData();
+
+  const totalAmount = orders.reduce((accumalator, currentValue) => {
     return accumalator + currentValue.amount;
   }, 0);
   return (
     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div>
+        <CardHeader className="relative flex flex-row items-center justify-between pb-2">
           <CardTitle>Total Revenue</CardTitle>
           <IndianRupee className="h-4 w-4 text-green-500" />
+           
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">
@@ -49,6 +50,9 @@ export async function DashboardStats() {
           </p>
           <p className="text-xs text-muted-foreground">Based on 100 Charges</p>
         </CardContent>
+      
+        </div>
+       
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -56,9 +60,9 @@ export async function DashboardStats() {
           <ShoppingBag className="h-4 w-4 text-blue-500" />
         </CardHeader>
         <CardContent>
-          <p className="text-2xl font-bold">+{order.length}</p>
+          <p className="text-2xl font-bold">+{orders.length}</p>
           <p className="text-xs text-muted-foreground">
-            Total Sales on ShoeMarshal
+            Total Sales on Terrific
           </p>
         </CardContent>
       </Card>
@@ -80,7 +84,7 @@ export async function DashboardStats() {
           <User2 className="h-4 w-4 text-orange-500" />
         </CardHeader>
         <CardContent>
-          <p className="text-2xl font-bold">{user.length}</p>
+          <p className="text-2xl font-bold">{users.length}</p>
           <p className="text-xs text-muted-foreground">Total Users Signed Up</p>
         </CardContent>
       </Card>

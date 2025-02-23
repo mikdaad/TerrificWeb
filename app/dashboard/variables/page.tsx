@@ -2,7 +2,6 @@
 
 import { updatediscount,updatevariables } from "@/app/actions";
 import { SubmitButton } from "@/app/components/SubmitButtons";
-import { UploadDropzone } from "@/app/lib/uplaodthing";
 import { discountschema,variablesschema } from "@/app/lib/zodSchemas";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +24,6 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { ChevronLeft } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -62,7 +60,7 @@ export default function BannerRoute() {
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
     <div className="flex items-center gap-x-4">
       <Button variant="outline" size="icon" asChild>
-        <Link href="/dashboard/products">
+        <Link href="/dashboard">
           <ChevronLeft className="w-4 h-4" />
         </Link>
       </Button>
@@ -71,8 +69,8 @@ export default function BannerRoute() {
 
     <Card className="mt-5">
       <CardHeader>
-        <CardTitle>Banner Details</CardTitle>
-        <CardDescription>Create your banner right here</CardDescription>
+        <CardTitle>Bulk Discount Zone</CardTitle>
+        <CardDescription>update discount price right here</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-y-6">
@@ -129,38 +127,27 @@ export default function BannerRoute() {
         </div>
       </CardContent>
       <CardFooter>
-        <SubmitButton text="Create Banner" />
+        <SubmitButton text="Discount" />
       </CardFooter>
     </Card>
   </form>
    <form id={form2.id} onSubmit={form2.onSubmit} action={action2}>
       <div className="flex items-center gap-x-4">
         <Button variant="outline" size="icon" asChild>
-          <Link href="/dashboard/products">
+          <Link href="/dashboard">
             <ChevronLeft className="w-4 h-4" />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold tracking-tight">Discount update</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Variable update</h1>
       </div>
 
       <Card className="mt-5">
         <CardHeader>
-          <CardTitle>variable Details</CardTitle>
-          <CardDescription>update your variables right here</CardDescription>
+          
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-y-6">
-            <div className="flex flex-col gap-3">
-              <Label>update day deal remaining time here</Label>
-              <Input
-                name={fields2.daytime.name}
-                key={fields2.daytime.key}
-                defaultValue={fields2.daytime.initialValue}
-                type="number"
-                placeholder="update here"
-              />
-              <p className="text-red-500">{fields2.daytime.errors}</p>
-            </div>
+        
 
             <div className="flex flex-col gap-3">
               <Label>update lastdate  here</Label>

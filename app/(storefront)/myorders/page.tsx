@@ -47,6 +47,9 @@ async function getData() {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
 console.log(orders);

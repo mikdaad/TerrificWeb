@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { unstable_noStore as noStore } from "next/cache";
+import Image from "next/image";
 
 async function getData() {
   const data = await prisma.order.findMany({
@@ -23,11 +24,16 @@ async function getData() {
       createdAt: true,
       status: true,
       id: true,
+      itemname: true,
+      itemimage: true,
+      itemcolor: true,
+      itemsize: true,
       User: {
         select: {
           firstName: true,
           email: true,
           profileImage: true,
+          phoneno: true,
           address: {
             select: {
               street: true,
@@ -59,48 +65,87 @@ export default async function OrdersPage() {
       </CardHeader>
       <CardContent>
         <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>postal,street,city</TableHead>
-              <TableHead>phone no</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-             
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>
-                  <p className="font-medium">{item.User?.firstName}</p>
-                  <p className="hidden md:flex text-sm text-muted-foreground">
-                    {item.User?.email}
-                  </p>
-                </TableCell>
-                <TableCell>Order</TableCell>
-                <TableCell>{item.status}</TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
-                </TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
-                </TableCell>
-                <TableCell className="text-right text-sm">
-                {item.User?.address?.postalCode},{item.User?.address?.street}, {item.User?.address?.city}
-                </TableCell>
-                <TableCell className="text-right">
-                {item.User?.address?.phoneno}
-                </TableCell>
-                <TableCell className="text-right">
-                ₹{new Intl.NumberFormat("en-US").format(item.amount / 100)}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                 <TableHeader>
+                   <TableRow>
+                     <TableHead>Product </TableHead>
+                     <TableHead> </TableHead>
+                     <TableHead> payment </TableHead>
+                     <TableHead> Color </TableHead>
+                     <TableHead> Size </TableHead>
+                     <TableHead> Amount </TableHead>
+                     <TableHead> contactno </TableHead>
+                     <TableHead> </TableHead>
+                     <TableHead> </TableHead>
+                     <TableHead> Deliverable address </TableHead>
+                     <TableHead> </TableHead>
+                     <TableHead> Ordered Date </TableHead>
+       
+                     
+                    
+                    
+                   </TableRow>
+                 </TableHeader>
+                 <TableBody>
+                   {data.map((item) => (
+                     <TableRow key={item.id}>
+                       <TableCell>
+                         
+                           {item.itemname}
+                     
+                       </TableCell>
+                       <TableCell>
+                                           <Image
+                                             alt="Product Image"
+                                             src={item.itemimage ? item.itemimage : "https://picsum.photos/200/300" }
+                                             height={64}
+                                             width={64}
+                                             className="rounded-lg object-cover h-16 w-16"
+                                           />
+                                         </TableCell>
+                       <TableCell>{item.status}</TableCell>
+                      
+                       <TableCell className="text-right text-sm">
+                       {item.itemcolor}
+                       </TableCell>
+                       <TableCell className="text-right text-sm">
+                       {item.itemsize}
+                       </TableCell>
+                   
+                   
+                       <TableCell className="text-right">
+                       ₹{item.amount}
+                       </TableCell>
+       
+                       <TableCell className="text-right">
+                       {item.User?.phoneno}
+                       </TableCell>
+       
+                       <TableCell className="text-right">
+                       {item.User?.address?.street ? item.User.address.street : "not filled"}
+                       </TableCell>
+       
+                       <TableCell className="text-right">
+                       {item.User?.address?.postalCode ? item.User.address.postalCode : "not filled"}
+                       </TableCell>
+       
+                       <TableCell className="text-right">
+                       {item.User?.address?.city ? item.User.address.city : "not filled"}
+                       </TableCell>
+       
+                       <TableCell className="text-right">
+                       {item.User?.address?.state ? item.User.address.state : "not filled"}
+                       </TableCell>
+       
+       
+                       
+       
+                       <TableCell>
+                         {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
+                       </TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </Table>
       </CardContent>
     </Card>
   );

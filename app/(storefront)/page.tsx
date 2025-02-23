@@ -7,6 +7,7 @@ import  ProductList2  from "../components/storefront/Productlist2";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
 import { Genderlist } from "../components/buildercomponents/home/Genderlist";
 import { Banner } from "../components/buildercomponents/home/Banner";
+import {SingleBanner} from "../components/buildercomponents/bottombanner";
 import { BottomNav } from "../components/buildercomponents/home/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
@@ -286,28 +287,7 @@ const focusSearchInput = () => {
       </section>
 
       {/* New Arrivals */}
-      <section className="p-4">
-        <div className="relative rounded-lg overflow-hidden">
-          <Image
-            src="https://picsum.photos/200/300"
-            alt="New Arrivals"
-            
-            className="w-full h-[200px] object-cover"
-            width={40} // Set width
-      height={40} // Set height
-          />
-          <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
-            <div className="text-white">
-              <h2 className="text-2xl font-bold">New Arrivals</h2>
-              <p className="text-lg">Winter&apos;s 24 Collections</p>
-            </div>
-            <Button  onClick={()=> setSelectedstatus("NewArrival")} variant="secondary">
-              View all
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </section>
+      <SingleBanner setSelectedStatus={setSelectedstatus}/>
 
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />

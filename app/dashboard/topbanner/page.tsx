@@ -63,6 +63,8 @@ export default async function BannerRoute() {
               <TableRow>
                 <TableHead>Image</TableHead>
                 <TableHead>Title</TableHead>
+                <TableHead>subtext</TableHead>
+                <TableHead>description</TableHead>
                 <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -80,6 +82,8 @@ export default async function BannerRoute() {
                     />
                   </TableCell>
                   <TableCell className="font-medium">{item.title}</TableCell>
+                  <TableCell className="font-medium">{item.subtext}</TableCell>
+                  <TableCell className="font-medium">{item.description}</TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

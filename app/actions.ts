@@ -692,22 +692,13 @@ export async function updatevariables(prevState: any, formData: FormData) {
   if (!user || user.email !== "terrificmaile@gmail.com") {
     return redirect("/");
   }
-
-  const submission = parseWithZod(formData, {
-    schema: variablesschema,
-  });
-
-  if (submission.status !== "success") {
-    return submission.reply();
-  }
-
-  const daytime = parseInt(formData.get("daytime") as string, 10); // Ensure it's an integer
+ 
   const lastdate = formData.get("lastdate") as string; // Keep as string
 
   // Update the single row in the `variables` table
   await db.variables.updateMany({
     data: {
-      daytime: daytime, 
+      daytime: 24, 
       lastdate: lastdate,
     },
   });
