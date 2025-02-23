@@ -97,7 +97,7 @@ async function fetchLastDate() {
         filter: filterOption,
       });
     }
-  }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption]);
+  }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption,updateSearchParams]);
   
 
 const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

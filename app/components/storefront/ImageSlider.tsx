@@ -19,7 +19,7 @@ export function ImageSlider({ images }: iAppProps) {
       handleNextClick();
     }, 3000); // Auto-scroll every 3 seconds
     return () => clearInterval(interval);
-  }, [mainImageIndex]);
+  }, [mainImageIndex, handleNextClick]);
 
   function handlePreviousClick() {
     setMainImageIndex((prevIndex) =>
