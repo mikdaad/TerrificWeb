@@ -9,7 +9,7 @@ interface PaymentPageProps {
 
 }
 
-export default function PaymentPage({ totalPrice,cartItems }: PaymentPageProps) {
+export  function PaymentPage({ totalPrice,cartItems }: PaymentPageProps) {
  const [loading, setLoading] = useState(false);
  const [transactionId, setTransactionId] = useState("");
  const initiatePayment = async () => {

@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import db from "../../../lib/db";
-import PaymentPage from "../payment/page";
+import {PaymentPage} from "../payment/page";
 
 import { redirect } from "next/navigation";
 
