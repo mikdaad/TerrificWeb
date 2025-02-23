@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 interface Banner {
   id: string;
@@ -44,7 +45,7 @@ export function SingleBanner({ setSelectedStatus }: SingleBannerProps) {
     return (
       <section className="p-4">
         <div className="relative rounded-lg overflow-hidden">
-          <img
+          <Image
             src={banner.imageString}
             alt={banner.title}
             className="w-full h-[200px] object-cover"

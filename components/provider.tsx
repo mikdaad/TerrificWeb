@@ -1,16 +1,16 @@
 "use client";
 
-import React, { PropsWithChildren } from "react";
+import React, { ReactNode } from "react";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
-interface Props extends PropsWithChildren<{}> {
-	session: Session | null;
+interface Props {
+  session: Session | null;
+  children: ReactNode; // ✅ Explicitly define children
 }
 
-const Provider: React.FC<Props> = async (props) => {
-	const { session, children } = props;
-	return <SessionProvider session={session}>{children}</SessionProvider>;
+const Provider: React.FC<Props> = ({ session, children }) => {
+  return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
 export default Provider;
