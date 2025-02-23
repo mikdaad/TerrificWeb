@@ -91,7 +91,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
           },
         },
         item: {
-          hidden: { opacity: 0, y: 40, filter: 'blur(4px)' },
+          hidden: { opacity: 0, y: 40, filter: 'blur(8px)' },
           visible: {
             opacity: 1,
             y: 0,

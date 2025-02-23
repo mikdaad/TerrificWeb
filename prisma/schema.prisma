@@ -118,6 +118,13 @@ model Order {
   User   User?   @relation(fields: [userId], references: [id])
   userId String?
   transactionId   String? @unique
+  itemid  String?
+  itemimage String?
+  itemname String?
+  itemquantity  Int
+  itemcolor  String?
+  itemsize   String?
+
 
 
   createdAt DateTime @default(now())

@@ -82,6 +82,7 @@ export async function POST(req: Request) {
       data: {
         firstName,
         lastName,
+        phoneno,
         address: {
           upsert: {
             where: { id: existingUser.id }, // Ensure unique address is updated

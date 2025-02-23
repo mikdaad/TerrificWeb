@@ -1,6 +1,6 @@
 import { checkOut, delItem } from "@/app/actions";
 import { ChceckoutButton, DeleteItem } from "@/app/components/SubmitButtons";
-import { Cart } from "@/app/lib/interfaces";
+import { Cart,newcart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
@@ -25,8 +25,18 @@ export default async function BagRoute() {
   let totalPrice = 0;
 
 cart?.items.forEach((item) => {
-  totalPrice += item.originalprice * Number(item.quantity);
+  totalPrice += item.discountprice * Number(item.quantity);
 });
+
+const cartItems: Array<newcart> = cart?.items?.map((item) => ({
+  id: item.id ,
+  imageString: item.imageString ,
+  name: item.name,
+  color: item.color,
+  size: item.size,
+  discountprice: item.discountprice,
+  quantity: item.quantity,
+})) || [];
 
   return (
     <div className="p-4 max-w-2xl mx-auto mt-10 min-h-[55vh]">
@@ -69,7 +79,7 @@ cart?.items.forEach((item) => {
                 <div className="flex flex-col h-full justify-between">
                   <div className="flex items-center gap-x-2">
                     <p>{item.quantity} x</p>
-                    <p>₹{item.originalprice}</p>
+                    <p>₹{item.discountprice}</p>
                   </div>
 
                   <form action={delItem} className="text-end">
@@ -88,7 +98,7 @@ cart?.items.forEach((item) => {
               <p>₹{totalPrice}</p>
             </div>
             </div>
-             <PaymentPage totalPrice={totalPrice} />
+             <PaymentPage totalPrice={totalPrice} cartItems={cartItems} />
 
             </div>
           </div>

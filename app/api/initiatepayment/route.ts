@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import db from "../../../lib/db";
 import { redirect } from "next/navigation";
+import { newcart } from "@/app/lib/interfaces";
 
 
 const MERCHANT_ID = "SANDBOXTESTMID"; // Replace with actual MID
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
     mobileNumber=user.phoneno;
 
   try {
-    const { amount, mobileNumber } = await req.json();
+    const { amount, mobileNumber,cartItems } = await req.json();
     const transactionId = `TXN_${Date.now()}`;
     const payload = {
       merchantId: MERCHANT_ID,
@@ -56,14 +57,25 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
 
-    await db.order.create({
-      data: {
-        userId,
-        transactionId,
-        amount,
-        status: "PENDING",
-      },
-    });
+    await db.$transaction(
+      cartItems.map((item: newcart) =>
+        db.order.create({
+          data: {
+            userId,
+            transactionId,
+            amount,
+            status: "PENDING",
+            itemid: item.id,
+            itemimage: item.imageString,
+            itemname: item.name,
+            itemquantity: item.quantity,
+            itemcolor: item.color,
+            itemsize: item.size,
+          },
+        })
+      )
+    );
+    
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });

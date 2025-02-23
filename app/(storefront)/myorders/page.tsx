@@ -18,6 +18,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import  {options}  from "../../../lib/auth";
+import Image from "next/image";
 
 async function getData() {
 
@@ -40,7 +41,11 @@ async function getData() {
   const orders = await prisma.order.findMany({
     where: { userId: user.id },
     include: {
-      User: true, // Include user details if needed
+      User: {
+        include: {
+          address: true, // Include the address field from the User model
+        },
+      },
     },
   });
 
@@ -56,14 +61,27 @@ export default async function OrdersPage() {
     <Card>
       <CardHeader className="px-7">
         <CardTitle>Orders</CardTitle>
-        <CardDescription>Recent orders from your store!</CardDescription>
+        <CardDescription></CardDescription>
+        <CardDescription>Note: kindly update  contact number and address fields in settings tab  if missing.  </CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead>Type</TableHead>
+              <TableHead>Product </TableHead>
+              <TableHead> </TableHead>
+              <TableHead> payment </TableHead>
+              <TableHead> Color </TableHead>
+              <TableHead> Size </TableHead>
+              <TableHead> Amount </TableHead>
+              <TableHead> contactno </TableHead>
+              <TableHead> </TableHead>
+              <TableHead> </TableHead>
+              <TableHead> Deliverable address </TableHead>
+              <TableHead> </TableHead>
+              <TableHead> Ordered Date </TableHead>
+
+              
              
              
             </TableRow>
@@ -72,22 +90,58 @@ export default async function OrdersPage() {
             {data.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>
-                  <p className="font-medium">{item.User?.firstName}</p>
-                  <p className="hidden md:flex text-sm text-muted-foreground">
-                    {item.User?.email}
-                  </p>
+                  
+                    {item.itemname}
+              
                 </TableCell>
-                <TableCell>Order</TableCell>
-                <TableCell>{item.status}</TableCell>
                 <TableCell>
-                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
+                                    <Image
+                                      alt="Product Image"
+                                      src={item.itemimage ? item.itemimage : "https://picsum.photos/200/300" }
+                                      height={64}
+                                      width={64}
+                                      className="rounded-lg object-cover h-16 w-16"
+                                    />
+                                  </TableCell>
+                <TableCell>{item.status}</TableCell>
+               
+                <TableCell className="text-right text-sm">
+                {item.itemcolor}
                 </TableCell>
                 <TableCell className="text-right text-sm">
-                {item.User?.email}
+                {item.itemsize}
                 </TableCell>
+            
             
                 <TableCell className="text-right">
                 ₹{item.amount}
+                </TableCell>
+
+                <TableCell className="text-right">
+                {item.User?.phoneno}
+                </TableCell>
+
+                <TableCell className="text-right">
+                {item.User?.address?.street ? item.User.address.street : "not filled"}
+                </TableCell>
+
+                <TableCell className="text-right">
+                {item.User?.address?.postalCode ? item.User.address.postalCode : "not filled"}
+                </TableCell>
+
+                <TableCell className="text-right">
+                {item.User?.address?.city ? item.User.address.city : "not filled"}
+                </TableCell>
+
+                <TableCell className="text-right">
+                {item.User?.address?.state ? item.User.address.state : "not filled"}
+                </TableCell>
+
+
+                
+
+                <TableCell>
+                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
                 </TableCell>
               </TableRow>
             ))}

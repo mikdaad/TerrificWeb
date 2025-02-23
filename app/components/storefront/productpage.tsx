@@ -16,7 +16,7 @@ export default function ProductPage({ data }: { data: any }) {
   const addProductToWishlist = () => addToWishlist(data.id, selectedSize, selectedColor);
 
   return (
-    <div className="grid grid-cols-1  md:grid-cols-2 font-glancyr gap-6 items-start  lg:gap-x-24 py-6">
+    <div className="grid grid-cols-1  font-glancyr gap-6 items-start  lg:gap-x-5 py-6">
 
 <div className="flex justify-center items-center w-full">
   <Link href="/">
@@ -24,8 +24,8 @@ export default function ProductPage({ data }: { data: any }) {
       src="/logo2.svg"
       alt="Company Logo"
       width={161}
-      height={73}
-      className="w-[150px] h-[75px] sm:w-[140px] sm:h-[65px] lg:w-[161px] lg:h-[73px]"
+      height={161}
+      className="w-[150px] h-[75px] sm:w-[140px] sm:h-[65px] lg:w-[161px] lg:h-[161px]"
       priority
     />
   </Link>

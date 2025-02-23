@@ -1,12 +1,15 @@
 'use client';
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { Cart,newcart } from "@/app/lib/interfaces";
 
 interface PaymentPageProps {
   totalPrice: number;
+  cartItems: newcart[];
+
 }
 
-export default function PaymentPage({ totalPrice }: PaymentPageProps) {
+export default function PaymentPage({ totalPrice,cartItems }: PaymentPageProps) {
  const [loading, setLoading] = useState(false);
  const [transactionId, setTransactionId] = useState("");
  const initiatePayment = async () => {
@@ -16,7 +19,7 @@ export default function PaymentPage({ totalPrice }: PaymentPageProps) {
    const response = await fetch("/api/initiatepayment", {
      method: "POST",
      headers: { "Content-Type": "application/json" },
-     body: JSON.stringify({ amount: totalPrice, transactionId: txnId }),
+     body: JSON.stringify({ amount: totalPrice, transactionId: txnId , cartItems: cartItems }),
    });
    const data = await response.json();
    console.log(data);

@@ -167,7 +167,7 @@ const focusSearchInput = () => {
         alt="Company Logo"
         width={161}
         height={73}
-        className="w-[150px] h-[75px] sm:w-[150px] sm:h-[75px] lg:w-[161px] lg:h-[73px]"
+        className=""
         priority
       />
     </Link>
@@ -180,7 +180,7 @@ const focusSearchInput = () => {
 {/* Search Bar */}
 <div className="p-0 mt-4 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
   {/* Search Input */}
-  <div className="relative w-full font-thin">
+  <div className="relative w-full mt-2 font-thin">
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
 
     <Input

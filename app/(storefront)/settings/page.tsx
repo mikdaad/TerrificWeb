@@ -95,7 +95,7 @@ export default function UpdateUserForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto">
       <div className="flex items-center ">
 
-    <Button type="submit"  className="max-w-xl mx-auto w-[30%] m-3 bg-yellow-400 gap-x-4">
+    <Button  className="max-w-xl mx-auto w-[30%] m-3 bg-yellow-400 gap-x-4">
      <Link href="/myorders">
      My Orders
           </Link>
