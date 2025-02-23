@@ -241,7 +241,7 @@ const focusSearchInput = () => {
         <div>
         <div className="flex m-2 items-center justify-between text-white  bg-[#4392F9] rounded-lg p-2">
           <div >
-            <h2 className="text-lg font-thin">Deal of the Day</h2>
+            <h2 className="text-md font-thin">Deal of the Day</h2>
             <CountdownTimer/>
             
           </div>
@@ -252,7 +252,7 @@ const focusSearchInput = () => {
          
         </div>
         <GlowEffect
-                    colors={['#ffffff', '#0CECFF', '#ffffff', '#ffffff']}
+                    colors={['#ffffff', '#68DAE3', '#ffffff', '#ffffff']}
                     mode='flowHorizontal'
                     blur='strong'
                 className="absolute  inset-0 -z-10"
@@ -270,7 +270,7 @@ const focusSearchInput = () => {
         <div className="flex items-center m-2 text-white justify-between bg-[#4392F9] rounded-lg p-2">
        
           <div >
-            <h2 className="text-lg font-thin  ">Trending Products</h2>
+            <h2 className="text-md font-thin  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
               <span> Last Date {lastDate} </span>
