@@ -38,7 +38,7 @@ export function ProductCard({ item, className }: ProductCardProps) {
     <CarouselContent>
       {item.images.map((image, index) => (
         <CarouselItem key={index}>
-          <div className="relative ">
+          <div className="relative focus:ring-blue-400 ">
             <div className="  aspect-square">
             <CldImage
                     src={image}

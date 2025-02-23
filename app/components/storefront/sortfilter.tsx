@@ -29,28 +29,28 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-lg">
-          <ArrowUpDown className="h-4 w-4 mr-2 font-thin opacity-60" />
-          Sort
+          <ArrowUpDown className="h-4 w-4  font-thin opacity-60" />
+          
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-40">
         <div className="flex flex-col">
-          <button
+          <Button
             onClick={() => handleSortSelect("asc")}
             className={`p-2 hover:bg-gray-100 font-glancyr ${
               selectedSort === "price-asc" ? "bg-gray-200" : ""
             }`}
           >
             Price: Low to High
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => handleSortSelect("desc")}
             className={`p-2 hover:bg-gray-100 font-glancyr ${
               selectedSort === "price-desc" ? "bg-gray-200" : ""
             }`}
           >
             Price: High to Low
-          </button>
+          </Button>
         </div>
       </PopoverContent>
     </Popover>
@@ -59,7 +59,7 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-lg">
-            <div className="h-4 w-4 mr-2" >
+            <div className="h-4 w-4 " >
             <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.7136 2.95736H5.05413C4.89571 2.95736 4.76782 2.82948 4.76782 2.67106C4.76782 2.51263 4.89571 2.38475 5.05413 2.38475H11.7136C11.872 2.38475 11.9999 2.51263 11.9999 2.67106C11.9999 2.82948 11.872 2.95736 11.7136 2.95736Z" fill="black"/>
 <path d="M1.94878 2.95736H0.286305C0.127883 2.95736 0 2.82948 0 2.67106C0 2.51263 0.127883 2.38475 0.286305 2.38475H1.94878C2.10721 2.38475 2.23509 2.51263 2.23509 2.67106C2.23509 2.82948 2.10721 2.95736 1.94878 2.95736Z" fill="black"/>
@@ -71,9 +71,7 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
 <path d="M2.71226 11.6152H0.286305C0.127883 11.6152 0 11.4874 0 11.3289C0 11.1705 0.127883 11.0426 0.286305 11.0426H2.71226C2.87069 11.0426 2.99857 11.1705 2.99857 11.3289C2.99857 11.4874 2.87069 11.6152 2.71226 11.6152Z" fill="black"/>
 <path d="M4.26797 13.1689C3.25254 13.1689 2.42798 12.3425 2.42798 11.3289C2.42798 10.3154 3.25254 9.49086 4.26797 9.49086C5.28149 9.49086 6.10605 10.3154 6.10605 11.3289C6.10414 12.3444 5.28149 13.1689 4.26797 13.1689ZM4.26797 10.0635C3.56938 10.0635 3.00059 10.6304 3.00059 11.3289C3.00059 12.0275 3.56938 12.5963 4.26797 12.5963C4.96655 12.5963 5.53343 12.0275 5.53343 11.3289C5.53153 10.6304 4.96464 10.0635 4.26797 10.0635Z" fill="black"/>
 </svg>
-
-            </div>
-            Filter
+ </div>
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-40">

@@ -30,9 +30,9 @@ export async function Navbar() {
     <NavbarLinks />
   </div>
 
-  {/* Right Section - User Controls (Bag, Login, Register) */}
+  {/* Right Section - User Controls (Bag, Login, Register) 
   <div className="flex items-center space-x-4">
-    {/* Shopping Bag & User Dropdown - Show only on large screens */}
+  
     {user ? (
       <div className="hidden lg:flex items-center space-x-4">
       
@@ -47,8 +47,9 @@ export async function Navbar() {
        
         <AuthButton/>
       </div>
-    )}
+    )} 
   </div>
+  */}
 </nav>
 
   );

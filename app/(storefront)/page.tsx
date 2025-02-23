@@ -179,13 +179,13 @@ const focusSearchInput = () => {
 </header>
 
 {/* Search Bar */}
-<div className="p-0 mt-4 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
+<div className="p-0 mt-5 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
   {/* Search Input */}
   <div className="relative w-full mt-2 font-thin">
-    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
 
     <Input
-      className="pl-10 pr-10 w-full h-12 rounded-lg border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
+      className="pl-10 pr-10 w-full h-8 rounded-lg text-sm border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
       placeholder="Search any Product..."
       ref={searchInputRef}
       type="text"
@@ -193,7 +193,7 @@ const focusSearchInput = () => {
       onChange={handleSearchChange}
     />
     
-    <Mic className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 cursor-pointer" />
+    <Mic className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 cursor-pointer" />
   
     
   </div>
@@ -251,12 +251,7 @@ const focusSearchInput = () => {
           </Button>
          
         </div>
-        <GlowEffect
-                    colors={['#ffffff', '#68DAE3', '#ffffff', '#ffffff']}
-                    mode='flowHorizontal'
-                    blur='strong'
-                className="absolute  inset-0 -z-10"
-                  />
+        
                   </div>
 
         <div className="">
@@ -291,6 +286,12 @@ const focusSearchInput = () => {
 
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
+      <GlowEffect
+                    colors={['#ffffff', '#F3FB12', '#ffffff', '#ffffff']}
+                    mode='pulse'
+                    blur='medium'
+                className="absolute  inset-0 -z-10"
+                  />
   
 
     </div>

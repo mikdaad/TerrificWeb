@@ -39,7 +39,7 @@ export default function IndexPage() {
       alt="Company Logo"
       width={220}
       height={140}
-      className="mt-20"
+      className="mt-10"
       priority
     />
     
