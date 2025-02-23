@@ -252,7 +252,7 @@ const focusSearchInput = () => {
          
         </div>
         <GlowEffect
-                    colors={['#ffffff', '#FCFFAC', '#ffffff', '#ffffff']}
+                    colors={['#ffffff', '#0CECFF', '#ffffff', '#ffffff']}
                     mode='flowHorizontal'
                     blur='strong'
                 className="absolute  inset-0 -z-10"
