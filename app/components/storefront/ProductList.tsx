@@ -59,7 +59,10 @@ useEffect(() => {
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3">
-       <InView
+      
+      {products.length > 0 ? (
+        products.map((product) => (
+          <InView
           viewOptions={{ once: true, margin: '0px 0px -250px 0px' }}
           variants={{
             hidden: {
@@ -73,8 +76,6 @@ useEffect(() => {
             },
           }}
         >
-      {products.length > 0 ? (
-        products.map((product) => (
           <motion.div
           variants={{
             hidden: { opacity: 0, scale: 0.8, filter: 'blur(10px)' },
@@ -103,11 +104,12 @@ useEffect(() => {
             }}
           />
            </motion.div>
+           </InView>
         ))
       ) : (
         <p className="col-span-2 text-center text-gray-500 text-lg">Loading...</p>
       )}
-      </InView>
+     
     </div>
   );
 }

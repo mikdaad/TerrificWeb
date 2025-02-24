@@ -301,9 +301,9 @@ const focusSearchInput = () => {
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
       <GlowEffect
-                    colors={['#ffffff', '#add8e6', '#ffffff', '#ffffff']}
-                    mode='breathe'
-                    blur='medium'
+                    colors={['#ffffff', '#FFF9A6', '#ffffff', '#ffffff']}
+                    mode='flowHorizontal'
+                    blur='soft'
                 className="absolute  inset-0 -z-10"
                   />
   

@@ -132,6 +132,56 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             </div>
 
             <div className="flex flex-col gap-3">
+              <Label>Images</Label>
+              <input
+                type="hidden"
+                value={images}
+                key={fields.images.key}
+                name={fields.images.name}
+                defaultValue={fields.images.initialValue as any}
+              />
+              {images.length > 0 ? (
+                <div className="flex gap-5">
+                  {images.map((image, index) => (
+                    <div key={index} className="relative w-[100px] h-[100px]">
+                      <Image
+                        height={100}
+                        width={100}
+                        src={image}
+                        alt="Product Image"
+                        className="w-full h-full object-cover rounded-lg border"
+                      />
+
+                      <button
+                        onClick={() => handleDelete(index)}
+                        type="button"
+                        className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white"
+                      >
+                        <XIcon className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ) : (<div> 
+
+<AvatarUploader
+      onUploadSuccess={(url) => {
+        console.log("Uploaded URL:", url); // Debugging
+
+        setTimeout(() => {
+          setImages((prevImages) => [...prevImages, ...url]);
+        }, 20000);
+
+        
+      }}
+    />
+                </div>
+                )}
+
+              <p className="text-red-500">{fields.images.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
               <Label>Description</Label>
               <Textarea
                 key={fields.description.key}
@@ -317,55 +367,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 </div>
 
 
-            <div className="flex flex-col gap-3">
-              <Label>Images</Label>
-              <input
-                type="hidden"
-                value={images}
-                key={fields.images.key}
-                name={fields.images.name}
-                defaultValue={fields.images.initialValue as any}
-              />
-              {images.length > 0 ? (
-                <div className="flex gap-5">
-                  {images.map((image, index) => (
-                    <div key={index} className="relative w-[100px] h-[100px]">
-                      <Image
-                        height={100}
-                        width={100}
-                        src={image}
-                        alt="Product Image"
-                        className="w-full h-full object-cover rounded-lg border"
-                      />
-
-                      <button
-                        onClick={() => handleDelete(index)}
-                        type="button"
-                        className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white"
-                      >
-                        <XIcon className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ) : (<div> <h2 className="text-lg font-bold">Upload Your images</h2>
-
-<AvatarUploader
-      onUploadSuccess={(url) => {
-        console.log("Uploaded URL:", url); // Debugging
-
-        setTimeout(() => {
-          setImages((prevImages) => [...prevImages, ...url]);
-        }, 20000);
-
-        
-      }}
-    />
-                </div>
-                )}
-
-              <p className="text-red-500">{fields.images.errors}</p>
-            </div>
+          
           </div>
         </CardContent>
         <CardFooter>

@@ -39,8 +39,8 @@ export default function ProductPage({ data }: { data: any }) {
 
       {/* Product Details */}
       <div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{data.name}</h1>
-        <p className="text-2xl mt-2 text-gray-900">₹{data.originalprice}</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">{data.name}</h1>
+        <p className="text-xl mt-2 text-gray-900">₹{data.originalprice}</p>
         
         {/* Star Rating */}
         <div className="mt-3 flex items-center gap-1">
@@ -106,6 +106,7 @@ export default function ProductPage({ data }: { data: any }) {
         <option key={color} value={color}>{color}</option>
       ))}
     </select>
+    
   </div>
 </div>
 

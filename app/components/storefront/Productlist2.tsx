@@ -78,33 +78,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
 
   return (
     <div className="grid grid-cols-2  lg:grid-cols-3 gap-x-1">
-      <AnimatedGroup
-      className=''
-      variants={{
-        container: {
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.05,
-            },
-          },
-        },
-        item: {
-          hidden: { opacity: 0, y: 40, filter: 'blur(8px)' },
-          visible: {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            transition: {
-              duration: 1.2,
-              type: 'spring',
-              bounce: 0.3,
-            },
-          },
-        },
-      }}
-    >
+      
       {loading ? (
         <p>Loading...</p>
       ) : products.length > 0 ? (
@@ -128,7 +102,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
         <p>No products found.</p>
       )}
       
-       </AnimatedGroup>
+    
        
     </div>
    

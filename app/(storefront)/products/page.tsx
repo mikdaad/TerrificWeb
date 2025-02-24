@@ -14,7 +14,7 @@ const ProductsPage = async ({ searchParams }: { searchParams: Record<string, str
 
   return (
     <section className="p-2 space-y-4">
-      <h2 className="text-xl font-semibold">Products</h2>
+      <h2 className="text-xl font-semibold justify-center items-center">Products</h2>
       <Suspense fallback={<p>Loading...</p>}>
         <ProductList products={products} />
       </Suspense>
