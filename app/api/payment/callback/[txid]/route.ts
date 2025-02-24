@@ -56,8 +56,9 @@ export async function GET(req: NextRequest, { params }: { params: { txid: string
     });
 
     
-
+if(status = "SUCCESS"){
     return redirect("/payment/success");
+}
   } catch (error) {
     console.error("Error validating payment:", error);
     return redirect("/payment/cancel");
