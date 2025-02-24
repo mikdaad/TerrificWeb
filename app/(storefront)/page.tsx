@@ -179,8 +179,8 @@ const focusSearchInput = () => {
       <Image
         src="/logo2.svg"
         alt="Company Logo"
-        width={161}
-        height={73}
+        width={130}
+        height={62}
         className=""
         priority
       />

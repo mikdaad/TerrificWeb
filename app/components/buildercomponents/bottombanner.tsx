@@ -47,8 +47,8 @@ export function SingleBanner({ setSelectedStatus }: SingleBannerProps) {
         <div className="relative rounded-lg overflow-hidden">
           <Image
             src={banner.imageString}
-            width={800}
-            height={100}
+            width={300}
+            height={200}
             alt={banner.title}
             className="w-full h-[200px] object-cover"
           />
