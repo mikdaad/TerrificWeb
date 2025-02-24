@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import crypto from "crypto";
 import axios from "axios";
-import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -45,25 +44,19 @@ export async function GET(req: NextRequest, { params }: { params: { txid: string
     let status = "PENDING";
     if (paymentStatus === "PAYMENT_SUCCESS") {
       status = "SUCCESS";
-      await prisma.order.update({
-        where: { transactionId: merchantTransactionId },
-        data: { status },
-      });
-      return redirect("/payment/success");
-
-      
     } else if (paymentStatus === "PAYMENT_FAILED") {
       status = "FAILED";
     }
 
     // ✅ Update order status in the database
-    
-    
-if(status = "SUCCESS"){
-    return redirect("/payment/success");
-}
+    await prisma.order.update({
+      where: { transactionId: merchantTransactionId },
+      data: { status },
+    });
+
+    return NextResponse.redirect(new URL("/payment/success", req.nextUrl));
   } catch (error) {
     console.error("Error validating payment:", error);
-    return redirect("/payment/cancel");
+    return NextResponse.redirect(new URL("/payment/cancel", req.nextUrl));
   }
 }
