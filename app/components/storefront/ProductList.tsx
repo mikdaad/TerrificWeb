@@ -63,6 +63,7 @@ useEffect(() => {
       {products.length > 0 ? (
         products.map((product) => (
           <InView
+          key={product.id}
           viewOptions={{ once: true, margin: '0px 0px -250px 0px' }}
           variants={{
             hidden: {
