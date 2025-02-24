@@ -14,12 +14,16 @@ export default function SuccessRoute() {
 
           <div className="mt-3 text-center sm:mt-5 w-full">
             <h3 className="text-lg leading-6 font-medium">
-              Payment Successfull
+              Payment Successfull , your orders will be delivered Soon
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Congrats to your purchase. Your payment was succesfull. We hope
               you enjoy your product.
             </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+            if you are facing any issues contact - +91 9876543210 , terrificmaile@gmail.com
+            </p>
+
 
             <Button asChild className="w-full mt-5 sm:mt-6">
               <Link href="/">Back to Homepage</Link>

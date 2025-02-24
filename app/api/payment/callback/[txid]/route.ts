@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import crypto from "crypto";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -54,9 +55,11 @@ export async function GET(req: NextRequest, { params }: { params: { txid: string
       data: { status },
     });
 
-    return NextResponse.json({ message: "Payment status updated", status });
+    
+
+    return redirect("/payment/success");
   } catch (error) {
     console.error("Error validating payment:", error);
-    return NextResponse.json({ error: "Validation failed" }, { status: 500 });
+    return redirect("/payment/cancel");
   }
 }

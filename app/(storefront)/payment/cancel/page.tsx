@@ -18,6 +18,10 @@ export default function CancelRoute() {
               Something went wrong with your payment. You havent been charged.
               Please try again
             </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+            if you are facing any issues contact - +91 9876543210 , terrificmaile@gmail.com
+            </p>
+
 
             <Button asChild className="w-full mt-5 sm:mt-6">
               <Link href="/">Back to Homepage</Link>
