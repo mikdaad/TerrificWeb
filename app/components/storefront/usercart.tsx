@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { UserDropdown } from "./UserDropdown"; 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { GlowEffect } from "../ui/Gloweffect";
 
 const UserCart = () => {
   const [user, setUser] = useState<any>(null);
@@ -52,13 +53,19 @@ const UserCart = () => {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center ">
-        <p className="mb-4 text-gray-600"></p>
+        <p className="mb-5 text-gray-600"></p>
         <Button
           onClick={() => router.push("/auth/signin")}
-          className="px-2 py-2 bg-yellow-300 text-black text-[0.7rem] rounded-md hover:bg-blue-700 transition"
+          className="px-2 py-0 bg-gray-100 text-black text-[0.7rem] rounded-md hover:bg-blue-700 transition"
         >
           Sign In
         </Button>
+        <GlowEffect
+                            colors={['#ffffff', '#f5f5dc', '#ffffff', '#ffffff']}
+                            mode='breathe'
+                            blur='strongest'
+                        className="absolute  inset-0 -z-10"
+                          />
       </div>
     );
   }

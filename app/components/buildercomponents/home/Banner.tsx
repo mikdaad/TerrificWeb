@@ -66,7 +66,7 @@ export function Banner() {
           </Button>
         </div>
         <GlowEffect
-        colors={['#ffffff', '#fff37d', '#ffffff', '#fff37d']}
+        colors={['#ffffff', '#add8e6', '#ffffff', '#ffffff']}
         mode='colorShift'
         blur='soft'
         duration={3}

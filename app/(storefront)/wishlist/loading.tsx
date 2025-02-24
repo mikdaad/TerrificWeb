@@ -1,6 +1,6 @@
 import { LoadingProductCard } from "@/app/components/storefront/ProductCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TextShimmer } from "../components/storefront/loadingcomp";
+import { TextShimmer } from "../../components/storefront/loadingcomp"; 
 
 export default function LoadingFile() {
   return (

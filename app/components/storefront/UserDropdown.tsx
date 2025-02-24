@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 interface iAppProps {
   email: string;
@@ -29,11 +30,9 @@ export function UserDropdown({ email, name, userImage }: iAppProps) {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/logout", { method: "POST" });
+      await signOut({ callbackUrl: "/getstarted" })
   
-      if (!res.ok) {
-        throw new Error("Logout failed");
-      }
+      
   
       router.push("/getstarted"); // Redirect after successful logout
     } catch (error) {

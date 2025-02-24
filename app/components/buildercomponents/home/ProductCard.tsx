@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { CldImage } from "next-cloudinary";
 import { GlowEffect } from "../../ui/Gloweffect";
+import { Tilt } from "../../ui/tilt";
 
 
 interface ProductCardProps {
@@ -32,12 +33,15 @@ export function ProductCard({ item, className }: ProductCardProps) {
   
   return (
     <Link href={`/product/${item.id}`}>
+       <Tilt rotationFactor={10} isRevese>
     <div className={cn("flex flex-col  p-2 rounded-lg bg-white", className)}>
       
   <Carousel className="">
     <CarouselContent>
       {item.images.map((image, index) => (
+        
         <CarouselItem key={index}>
+          
           <div className="relative focus:ring-blue-400 ">
             <div className="  aspect-square">
             <CldImage
@@ -87,6 +91,7 @@ export function ProductCard({ item, className }: ProductCardProps) {
 
   
 </div>
+</Tilt>
 
 </Link>
 

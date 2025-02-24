@@ -32,7 +32,7 @@ export default function UpdateUserForm() {
   const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/" }); // Redirect to home or login page after logout
+    await signOut({ callbackUrl: "/getstarted" }); // Redirect to home or login page after logout
   };
 
   useEffect(() => {

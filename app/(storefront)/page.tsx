@@ -87,7 +87,7 @@ async function fetchLastDate() {
   
   // When filters/search are updated, navigate to the products page
   useEffect(() => {
-    if (searchQuery || selectedCategory || selectedgender || selectedstatus || sortOption || filterOption) {
+    if (selectedCategory || selectedgender || selectedstatus || sortOption || filterOption) {
       updateSearchParams({
         search: searchQuery,
         category: selectedCategory,
@@ -97,7 +97,7 @@ async function fetchLastDate() {
         filter: filterOption,
       });
     }
-  }, [searchQuery, selectedCategory, selectedgender, selectedstatus, sortOption, filterOption,updateSearchParams]);
+  }, [ selectedCategory, selectedgender, selectedstatus, sortOption, filterOption,updateSearchParams]);
   
 
 const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,6 +124,19 @@ const handleFilterSelect = (filterOption: string) => {
   console.log("Selected Filter:", filterOption);
   setFilterOption(filterOption);
   // Call your API or filter function here
+};
+
+const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === "Enter") {
+    updateSearchParams({
+      search: searchQuery,
+      category: selectedCategory,
+      gender: selectedgender,
+      status: selectedstatus,
+      sort: sortOption,
+      filter: filterOption,
+    });
+  }
 };
 
 
@@ -185,12 +198,13 @@ const focusSearchInput = () => {
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
 
     <Input
-      className="pl-10 pr-10 w-full h-8 rounded-lg text-sm border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 transition-all"
+      className="pl-10 pr-10 w-full h-9 rounded-lg text-sm border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-black transition-all"
       placeholder="Search any Product..."
       ref={searchInputRef}
       type="text"
       value={searchQuery}
       onChange={handleSearchChange}
+      onKeyDown={handleKeyDown}
     />
     
     <Mic className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 cursor-pointer" />
@@ -268,7 +282,7 @@ const focusSearchInput = () => {
             <h2 className="text-md font-thin  ">Trending Products</h2>
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
-              <span> Last Date {lastDate} </span>
+              <span className="text-xs"> Last Date {lastDate} </span>
             </div>
           </div>
           <Button  onClick={()=> setSelectedstatus("TrendingProduct")} variant="ghost" size="sm">
@@ -287,8 +301,8 @@ const focusSearchInput = () => {
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
       <GlowEffect
-                    colors={['#ffffff', '#F3FB12', '#ffffff', '#ffffff']}
-                    mode='pulse'
+                    colors={['#ffffff', '#add8e6', '#ffffff', '#ffffff']}
+                    mode='breathe'
                     blur='medium'
                 className="absolute  inset-0 -z-10"
                   />

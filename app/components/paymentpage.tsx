@@ -36,7 +36,7 @@ export default function PaymentPage({ totalPrice,cartItems }: PaymentPageProps) 
   <button
     onClick={initiatePayment}
     disabled={loading}
-    className={`relative flex items-center justify-center w-full px-6 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"}`}
+    className={`relative flex items-center justify-center w-full px-6 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-400 hover:bg-green-600"}`}
   >
     {loading ? (
       <>

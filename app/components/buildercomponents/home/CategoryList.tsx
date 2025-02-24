@@ -22,7 +22,7 @@ export function CategoryList({ categories,onCategorySelect }: CategoryListProps 
           <Image
             src={category.image}
             alt={category.title}
-            className="w-11 h-11 rounded-full"
+            className="w-12 h-12 rounded-full"
             width={40} // Set width
       height={40}
             loading="lazy"
