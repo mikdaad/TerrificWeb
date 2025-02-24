@@ -45,16 +45,19 @@ export async function GET(req: NextRequest, { params }: { params: { txid: string
     let status = "PENDING";
     if (paymentStatus === "PAYMENT_SUCCESS") {
       status = "SUCCESS";
+      await prisma.order.update({
+        where: { transactionId: merchantTransactionId },
+        data: { status },
+      });
+      return redirect("/payment/success");
+
+      
     } else if (paymentStatus === "PAYMENT_FAILED") {
       status = "FAILED";
     }
 
     // ✅ Update order status in the database
-    await prisma.order.update({
-      where: { transactionId: merchantTransactionId },
-      data: { status },
-    });
-
+    
     
 if(status = "SUCCESS"){
     return redirect("/payment/success");
