@@ -33,7 +33,7 @@ export async function Hero() {
   return (
     <div className="">
       {/* Timeline SVG */}
-      <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 z-10">
+      <div className="absolute ">
       <svg width="466" height="7" viewBox="0 0 466 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="2.93854" cy="2.93292" r="2.32144" transform="rotate(-18.2968 2.93854 2.93292)" fill="white"/>
 <circle cx="12.7265" cy="2.95648" r="2.32144" transform="rotate(-18.2968 12.7265 2.95648)" fill="white"/>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { TextEffect } from '../components/storefront/texteffect';
 import { TextRoll } from  '../components/storefront/textroll';
 import { useState } from "react";
+import { Hero } from "../components/storefront/Hero";
 
 
 
@@ -126,15 +127,22 @@ export default function IndexPage() {
   
     {/* Right Side - Hero Image */}
     
+   
   
   </div>
-  <div className="flex flex-row">
-    <div className=" w-[90%]">
+  
+ 
+    
+    {/* <div className="relative hidden lg:block ">
+    
+    <Hero  />
+      
 
-    </div>
+
   
   
     </div>
+    */}
     </div>
   );
 }
