@@ -67,7 +67,7 @@ useEffect(() => {
           viewOptions={{ once: false, margin: '0px 0px -250px 0px' }}
           variants={{
             hidden: {
-              opacity: 0.9,
+              opacity: 1,
             },
             visible: {
               opacity: 1,
@@ -79,7 +79,7 @@ useEffect(() => {
         >
           <motion.div
           variants={{
-            hidden: { opacity: 0.9, scale: 0.8, filter: 'blur(10px)' },
+            hidden: { opacity: 1, scale: 0.8, filter: 'blur(1px)' },
             visible: {
               opacity: 1,
               scale: 1,
