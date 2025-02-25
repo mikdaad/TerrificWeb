@@ -75,7 +75,7 @@ export default function BannerRoute() {
       <CardContent>
         <div className="flex flex-col gap-y-6">
           <div className="flex flex-col gap-3">
-            <Label>update discount here</Label>
+            <Label>update discount here in percentage</Label>
             <Input
               name={fields.discount.name}
               key={fields.discount.key}
@@ -133,11 +133,7 @@ export default function BannerRoute() {
   </form>
    <form id={form2.id} onSubmit={form2.onSubmit} action={action2}>
       <div className="flex items-center gap-x-4">
-        <Button variant="outline" size="icon" asChild>
-          <Link href="/dashboard">
-            <ChevronLeft className="w-4 h-4" />
-          </Link>
-        </Button>
+      
         <h1 className="text-xl font-semibold tracking-tight">Variable update</h1>
       </div>
 

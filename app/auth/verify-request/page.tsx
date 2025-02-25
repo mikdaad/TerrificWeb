@@ -8,10 +8,10 @@ export default async function VerifyRequest() {
   if (me) redirect("/");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-800">
-      <div className="bg-white shadow-2xl rounded-3xl p-8 md:p-12 text-center max-w-md w-full">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black to-grey">
+      <div className="bg-white shadow-3xl rounded-3xl p-8 md:p-12 text-center max-w-md w-[80%]">
         <div className="flex justify-center mb-6">
-          <div className="bg-blue-500 p-4 rounded-full shadow-lg">
+          <div className="bg-yellow-500 p-4 rounded-full shadow-lg">
             <Mail className="h-10 w-10 text-white" />
           </div>
         </div>

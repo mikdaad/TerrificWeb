@@ -31,7 +31,7 @@ export async function GET(req: Request) {
                     status: status ? (status as Status) : undefined,
                 },
                 orderBy: {
-                    discountprice: sortFilter === "asc" ? "asc" : sortFilter === "desc" ? "desc" : "desc", // Default to descending
+                    createdAt: "desc",
                 },
             });
         }

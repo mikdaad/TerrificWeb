@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
         </div>
         <h2 className="text-lg lg:text-2xl  font-semibold text-black text-center">Sign In</h2>
         <div className="space-y-3">
-          <Label htmlFor="email" className="text-sm text-black lg:text-xl font-medium">Email</Label>
+          <Label htmlFor="email" className="text-md text-black lg:text-xl font-medium">Email</Label>
           <Input
             id="email"
             name="email"
