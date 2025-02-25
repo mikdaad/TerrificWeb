@@ -80,7 +80,14 @@ export default function ProductList({ gender, category, status }: ProductListPro
     <div className="grid grid-cols-2  lg:grid-cols-3 gap-x-1">
       
       {loading ? (
-        <p>Loading...</p>
+        <div className="flex justify-center items-center ml-36">
+          <div className="flex flex-row gap-10">
+        <div className="animate-spin  rounded-full h-10 w-10 border-t-4 border-black border-solid"></div>
+        <div className="animate-spin  rounded-full h-10 w-10 border-t-4 border-yellow-400 border-solid"></div>
+        <div className="animate-spin  rounded-full h-10 w-10 border-t-4 border-black border-solid"></div>
+        <div className="animate-spin  rounded-full h-10 w-10 border-t-4 border-yellow-400 border-solid"></div>
+      </div>
+      </div>
       ) : products.length > 0 ? (
         products.map((product) => (
           <ProductCard 

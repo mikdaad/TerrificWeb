@@ -64,7 +64,7 @@ useEffect(() => {
         products.map((product) => (
           <InView
           key={product.id}
-          viewOptions={{ once: true, margin: '0px 0px -250px 0px' }}
+          viewOptions={{ once: false, margin: '0px 0px -250px 0px' }}
           variants={{
             hidden: {
               opacity: 0,
@@ -108,7 +108,9 @@ useEffect(() => {
            </InView>
         ))
       ) : (
-        <p className="col-span-2 text-center text-gray-500 text-lg">Loading...</p>
+        <div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-black border-solid"></div>
+      </div>
       )}
      
     </div>

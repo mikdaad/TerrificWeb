@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { UserDropdown } from "./UserDropdown"; 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { GlowEffect } from "../ui/Gloweffect";
 
 const UserCart = () => {
   const [user, setUser] = useState<any>(null);
@@ -60,12 +59,7 @@ const UserCart = () => {
         >
           Sign In
         </Button>
-        <GlowEffect
-                            colors={['#ffffff', '#f5f5dc', '#ffffff', '#ffffff']}
-                            mode='breathe'
-                            blur='strongest'
-                        className="absolute  inset-0 -z-10"
-                          />
+       
       </div>
     );
   }

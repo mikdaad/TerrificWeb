@@ -21,7 +21,7 @@ export default async function WishlistRoute() {
   const wishlist: Wishlist | null = await redis.get(`wishlist-${user.id}`);
 
   return (
-    <div className="max-w-2xl p-10 mx-auto mt-8 min-h-[55vh]">
+    <div className="max-w-2xl p-10 mx-auto mt-8 min-h-[55vh] font-glancyr">
       {!wishlist || !wishlist.items.length ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center mt-20">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
@@ -55,8 +55,8 @@ export default async function WishlistRoute() {
               <div className="ml-5 flex  justify-between w-full font-medium">
                 <div className="space-y-3">
                 <p>{item.name}</p>
-                <p>selected color: {item.color}</p>
-                <p>selected size: {item.size}</p>
+                <p className="font-thin">selected color: {item.color}</p>
+                <p className="font-thin">selected size: {item.size}</p>
                 </div>
                 <div className="flex flex-col h-full justify-between">
                   <p>₹{item.originalprice}</p>

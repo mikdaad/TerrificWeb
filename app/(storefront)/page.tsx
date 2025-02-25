@@ -165,9 +165,9 @@ const focusSearchInput = () => {
      
   {/* Left Section: Time */}
   <Link href="/dashboard">
-    <div className="flex items-center ml-2 gap-2 mt-4">
+    <div className="flex items-center ml-2 gap-2 mt-6">
       {/* <Clock className="h-5 w-5 mb-1" /> */}
-      <span className="font-medium text-[0.650rem] sm:text-base">
+      <span className="font-medium text-[0.750rem] sm:text-base">
         {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
       </span>
     </div>
@@ -198,7 +198,7 @@ const focusSearchInput = () => {
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
 
     <Input
-      className="pl-10 pr-10 w-full h-9 rounded-lg text-sm border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-black transition-all"
+      className="pl-10 pr-10 w-full h-10 rounded-lg text-sm border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-black transition-all"
       placeholder="Search any Product..."
       ref={searchInputRef}
       type="text"
@@ -220,7 +220,7 @@ const focusSearchInput = () => {
       {/* Featured Section */}
       <section className=" m-2 mt-5 ">
         <div className="flex items-center justify-between m-2 mb-4">
-          <h2 className="text-md font-weight-600 p-1 ">All Featured</h2>
+          <h2 className="text-lg font-weight-600 p-1 ">All Featured</h2>
           {/* Sort & Filter Section */}
   <div className="flex gap-2">
     <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect} />

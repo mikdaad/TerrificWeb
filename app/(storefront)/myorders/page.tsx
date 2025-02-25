@@ -61,7 +61,7 @@ export default async function OrdersPage() {
   noStore();
   const data = await getData();
   return (
-    <Card>
+    <Card className="font-glancyr">
       <CardHeader className="px-7">
         <CardTitle>Orders</CardTitle>
         <CardDescription></CardDescription>

@@ -10,7 +10,8 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2,ShoppingBag} from "lucide-react";
+
 
 
 
@@ -92,12 +93,17 @@ export default function UpdateUserForm() {
 
   return (
     <div>
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto font-glancyr">
       <div className="flex items-center ">
 
-    <Button  className="max-w-xl mx-auto w-[30%] m-3 bg-yellow-400 gap-x-4">
+    <Button  className="max-w-xl mx-auto w-[40%] m-3 ml-36 bg-yellow-500 gap-x-4">
      <Link href="/myorders">
-     My Orders
+    <div className="flex flex-row gap-2">
+     <>
+            <ShoppingBag className=" h-5 w-5 m-2" />
+          </> 
+          <p className="mt-2 m-1 mr-2">My Orders</p>
+          </div>
           </Link>
     
      </Button>
@@ -135,8 +141,8 @@ export default function UpdateUserForm() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <Label>Street</Label>
-              <Input {...register("street")} placeholder="Enter your street" />
+              <Label>Building name , Street</Label>
+              <Input {...register("street")} placeholder="Enter your building name , street" />
             </div>
 
             <div className="flex flex-col gap-3">

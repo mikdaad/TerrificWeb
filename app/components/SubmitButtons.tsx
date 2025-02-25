@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Loader2, ShoppingBag,Heart } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 
 interface buttonProps {
   text: string;
@@ -36,34 +40,43 @@ export function SubmitButton({ text, variant }: buttonProps) {
   );
 }
 
-
-export function ShoppingBagButton({ onAddToCart }: { onAddToCart: () => Promise<void> }) {
+export function ShoppingBagButton({ onAddToCart }: { onAddToCart: () => Promise<{ error?: string; success?: boolean; message?: string } | undefined> }) {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
     setLoading(true);
-    await onAddToCart(); // Wait for the function to complete
+    try {
+      const response = await onAddToCart();
+
+      if (!response) {
+        toast.success(response|| "Added to Cart!");
+      } else if (response.error) {
+        toast.success(response.message || "Added to Cart!");
+      } else if (response.success) {
+        toast.success(response.message || "Added to Cart!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
     setLoading(false);
   };
 
   return (
-    <Button
-      size="lg"
-      className="w-full mt-5"
-      onClick={handleClick}
-      disabled={loading}
-      type="button" // Prevents default form submission behavior
-    >
-      {loading ? (
-        <>
-          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Please Wait
-        </>
-      ) : (
-        <>
-          <ShoppingBag className="mr-4 h-5 w-5" /> Add to Cart
-        </>
-      )}
-    </Button>
+    <div>
+      <Button size="lg" className="w-full mt-5" onClick={handleClick} disabled={loading} type="button">
+        {loading ? (
+          <>
+            <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Please Wait
+          </>
+        ) : (
+          <>
+            <ShoppingBag className="mr-4 h-5 w-5" /> Add to Cart
+          </>
+        )}
+      </Button>
+
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover draggable />
+    </div>
   );
 }
 
@@ -81,9 +94,13 @@ export function WishlistButton({ onAddToWishlist }: { onAddToWishlist: () => Pro
 
       if (response.error) {
         setErrorMessage(response.error);
-      } 
+        toast.error(response.error); // Show error toast
+      } else if (response.success) {
+        toast.success(response.message || "Added to Wishlist!"); // Show success toast
+      }
     } catch (error) {
       setErrorMessage("Something went wrong!");
+      toast.error("Something went wrong!");
     }
 
     setLoading(false);
@@ -110,6 +127,9 @@ export function WishlistButton({ onAddToWishlist }: { onAddToWishlist: () => Pro
       </Button>
 
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+
+      {/* Toast container to display notifications */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover draggable />
     </div>
   );
 }
