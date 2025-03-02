@@ -372,6 +372,7 @@ export async function getData(productId: string) {
       id: true,
       name: true,
       description: true,
+      discountprice:true,
       originalprice: true,
       images: true,
       sizes: true,

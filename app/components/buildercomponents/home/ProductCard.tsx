@@ -10,8 +10,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CldImage } from "next-cloudinary";
-import { GlowEffect } from "../../ui/Gloweffect";
-import { Tilt } from "../../ui/tilt";
+import { Heart } from "lucide-react";
+import { addItem, addToWishlist } from "../../../actions";
+import PriceDisplay from "../../storefront/pricedisplay";
+import { Addtocartbtn,Addtowishlistbtn } from "../../SubmitButtons";
 
 
 interface ProductCardProps {
@@ -28,15 +30,22 @@ interface ProductCardProps {
   className?: string;
 }
 
+ 
+
 export function ProductCard({ item, className }: ProductCardProps) {
+  const addProductToShoppingCart = () => addItem(item.id, "", "");
+  const addProductToWishlist = () => addToWishlist(item.id, "", "");
   const discount = ((item.originalprice - item.discountprice) / item.originalprice) * 100;
   
   return (
-    <Link href={`/product/${item.id}`}>
-       <Tilt rotationFactor={10} isRevese>
-    <div className={cn("flex flex-col  p-2 rounded-lg bg-white", className)}>
-      
-  <Carousel className="">
+    
+       
+<article className="max-w-[324px] rounded-[2px_2px_2px_2px] m-1">
+<div className="shadow-[0px_8px_24px_0px_rgba(149,157,165,0.20)] bg-[#242424] w-full rounded-xl relative">
+
+<Link href={`/product/${item.id}`}>
+
+<Carousel  className="aspect-[1.04] object-contain w-full rounded-[12px_12px_0px_0px]">
     <CarouselContent>
       {item.images.map((image, index) => (
         
@@ -62,38 +71,43 @@ export function ProductCard({ item, className }: ProductCardProps) {
       ))}
     </CarouselContent>
   </Carousel>
+  </Link>
   
 
-  <h3 className="font-weight-600 text-md mt-1">{item.name}</h3>
-  <p className="text-xs text-gray-600 line-clamp-2">{item.description}</p>
-
-  <div className="flex items-center gap-2 mt-0">
-    <span className="text-sm  ">₹{item.discountprice}</span>
-    <span className="text-xs text-gray-500 line-through">₹{item.originalprice}</span>
-    <span className="text-[0.6rem] text-green-600">{discount.toFixed(0)}% OFF</span>
-  </div>
-
-  <div className="flex items-center gap-0 mt-0">
-    <div className="flex">
+  
+  
+  <div className="relative flex w-full flex-col items-stretch mt-1.5 pl-[15px]">
+  <div className="flex">
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
           className={cn(
-            "w-4 h-4",
+            "w-3 h-3",
             i < item.stars ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
           )}
         />
       ))}
     </div>
-    <span className="text-sm text-gray-600">({item.reviews})</span>
-    
+    <div className="flex">
+    <h3 className="text-white text-md mt-2 font-medium leading-none">
+      {item.name}
+    </h3>
+    <Addtowishlistbtn onAddToWishlist={addProductToWishlist}/>
+    </div>
+
+   
+   
+    <div className="flex w-full lg:gap-5  justify-between mt-2.5">
+      <PriceDisplay
+        originalPrice={item.originalprice}
+        discountedPrice={item.discountprice}
+      />
+      <Addtocartbtn  onAddToCart={addProductToShoppingCart} />
+    </div>
   </div>
-
-  
 </div>
-</Tilt>
+</article>
 
-</Link>
 
   );
 }

@@ -40,6 +40,113 @@ export function SubmitButton({ text, variant }: buttonProps) {
   );
 }
 
+
+export function Addtocartbtn({ onAddToCart }: { onAddToCart: () => Promise<{ error?: string; success?: boolean; message?: string } | undefined> }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = async () => {
+    setLoading(true);
+    try {
+      const response = await onAddToCart();
+
+      if (!response) {
+        toast.success(response|| "Added to Cart!");
+      } else if (response.error) {
+        toast.success(response.message || "Added to Cart!");
+      } else if (response.success) {
+        toast.success(response.message || "Added to Cart!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div>
+      <button  onClick={handleClick} disabled={loading} type="button">
+        {loading ? (
+          <>
+            <Loader2 className="mr-4 h-7 w-7 animate-spin text-white " />
+          </>
+        ) : (
+          <>
+           <button
+      className="bg-white text-black font-bold font-glancyr mt-[15px] px-[9px] lg:px-[20px] py-2.5 text-[0.70rem] lg:text-xs rounded-[30px_0px_12px_0px] hover:bg-gray-100 transition-colors"
+      aria-label="Add to cart"
+    >
+      Add To Cart
+    </button>
+          </>
+        )}
+      </button>
+
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover draggable />
+    </div>
+  );
+}
+
+
+export function Addtowishlistbtn({ onAddToWishlist }: { onAddToWishlist: () => Promise<{ error?: string; success?: boolean; message?: string }> }) {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleClick = async () => {
+    setLoading(true);
+    setErrorMessage(null); // Reset error state
+
+    try {
+      const response = await onAddToWishlist(); // Call the function
+
+      if (response.error) {
+        setErrorMessage(response.error);
+        toast.error(response.error); // Show error toast
+      } else if (response.success) {
+        toast.success(response.message || "Added to Wishlist!"); // Show success toast
+      }
+    } catch (error) {
+      setErrorMessage("Something went wrong!");
+      toast.error("Something went wrong!");
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <div>
+      <button
+       
+        onClick={handleClick}
+        disabled={loading}
+        type="button" // Prevents form submission
+      >
+        {loading ? (
+          <>
+            <Loader2 className="absolute top-1 left-50 p-2   h-12 w-12 text-red-600 animate-spin" /> 
+          </>
+        ) : (
+          <>
+             
+    <Heart 
+      size={40} 
+      //className={`${isInWishlist ? 'fill-red-500 text-red-500' : 'text-gray-700'}`}
+      className="absolute  right-4 p-2 rounded-full transition-colors top-1 text-red-500"
+    />
+          </>
+        )}
+      </button>
+
+     
+
+      {/* Toast container to display notifications */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover draggable />
+    </div>
+  );
+}
+
+
+
+
 export function ShoppingBagButton({ onAddToCart }: { onAddToCart: () => Promise<{ error?: string; success?: boolean; message?: string } | undefined> }) {
   const [loading, setLoading] = useState(false);
 

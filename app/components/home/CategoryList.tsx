@@ -25,7 +25,7 @@ export function CategoryList({ categories,onCategorySelect }: CategoryListProps 
             className="w-14 h-14 rounded-full"
             loading="lazy"
           />
-          <span className="text-sm font-medium">{category.title}</span>
+          <span className="text-sm font-medium text-white">{category.title}</span>
         </div>
         </button>
       ))}

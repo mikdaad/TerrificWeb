@@ -167,7 +167,7 @@ const focusSearchInput = () => {
   <Link href="/dashboard">
     <div className="flex items-center ml-2 gap-2 mt-6">
       {/* <Clock className="h-5 w-5 mb-1" /> */}
-      <span className="font-medium text-[0.750rem] sm:text-base">
+      <span className="font-medium text-[0.750rem] text-white sm:text-base">
         {currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
       </span>
     </div>
@@ -177,7 +177,7 @@ const focusSearchInput = () => {
   <div className="absolute left-1/2 transform -translate-x-1/2">
     <Link href="/">
       <Image
-        src="/logo2.svg"
+        src="/logo3.svg"
         alt="Company Logo"
         width={150}
         height={62}
@@ -220,7 +220,7 @@ const focusSearchInput = () => {
       {/* Featured Section */}
       <section className=" m-2 mt-5 ">
         <div className="flex items-center justify-between m-2 mb-4">
-          <h2 className="text-lg font-weight-600 p-1 ">All Featured</h2>
+          <h2 className="text-lg font-weight-600 p-1 text-white">All Featured</h2>
           {/* Sort & Filter Section */}
   <div className="flex gap-2">
     <SortFilter onSortSelect={handleSortSelect} onFilterSelect={handleFilterSelect} />
