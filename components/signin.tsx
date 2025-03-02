@@ -23,74 +23,89 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center font-glancyr  bg-cover  bg-left p-6"
-	style={{ backgroundImage: 'url("/background.jpg")' }}>
-		
-      <form 
-        onSubmit={handleSubmit} 
-        className="space-y-3 lg:space-y-6 w-full max-w-md bg-white backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white"
+    <div className=" m-10  lg:max-w-[418px]  text-xs text-black font-normal"
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-[rgba(217,217,217,1)] flex w-full flex-col items-center px-[25px] py-14 rounded-[32px_32px_0px_0px]"
       >
-		
-		
-        <div className="flex justify-center mb-4">
-		
-		<Link href="/">
-      <Image
-        src="/logo2.svg"
-        alt="Company Logo"
-        width={280}
-        height={160}
-        className="w-[160px] h-[90px]  lg:w-[161px] lg:h-[73px]"
-        priority
-      />
-    </Link>
-	
+        <h1 className=" text-[18px] lg:text-[24px] font-semibold uppercase">Login</h1>
+
+        <p className="text-neutral-600 text-[12px] md:text-[16px] font-light mt-3.5 m-2">
+          kindly provide your email to recieve the login   link.
+        </p>
+
+        <div className="w-full mt-4">
+          <div className="bg-[rgba(240,237,255,0.8)] flex items-center gap-2 text-[rgba(28,28,28,1)] px-4 py-[12px] lg:py-[17px] rounded-2xl">
+            <img
+              src="/email.png"
+              alt="Email icon"
+              className="w-[18px] aspect-square object-contain shrink-0 opacity-35"
+            />
+            <input
+              id="email" 
+              name="email"
+              placeholder="spiderman@example.com"
+              type="email"
+              onChange={(e) => setState(e.target.value)}
+              className="flex-1 mr-2 bg-transparent outline-none"
+              aria-label="email input"
+            />
+          </div>
         </div>
-        <h2 className="text-lg lg:text-2xl  font-semibold text-black text-center">Sign In</h2>
-        <div className="space-y-3">
-          <Label htmlFor="email" className="text-md text-black lg:text-xl font-medium">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            placeholder="spiderman@example.com"
-            required
-            type="email"
-            onChange={(e) => setState(e.target.value)}
-            className="w-full text-sm  p-3 rounded-lg bg-black text-white placeholder-white/60 border border-white/20 focus:border-white/40 focus:ring-white/40"
-          />
-        </div>
+
         <button
-          disabled={loading}
-          className="w-full flex items-center hover:bg-yellow-300 hover:text-black justify-center gap-2 bg-black py-2 lg:py-3 text-white text-sm lg:text-lg font-medium rounded-lg shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50"
-          type="submit"
-        >
-          {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Get Signin Link"}
-        </button>
-          {/* Sign in with Google Button */}
-          <h2 className="text-xl font-semibold text-black text-center">or </h2>
+  disabled={loading}
+  className="bg-white shadow-lg w-[187px] max-w-full font-semibold mt-6 px-[42px] py-[17px] rounded-2xl hover:bg-gray-50 transition-colors flex justify-center items-center"
+  type="submit"
+>
+  {loading ? (
+    <Loader2 className="animate-spin w-5 h-5" />
+  ) : (
+    <span>Login Now</span>
+  )}
+</button>
 
-      <button
-        onClick={() => signIn("google")}
-        className="w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-yellow-300 hover:text-black"
-      >
-        <div className=" lg:mx-5  ml-5 flex flex-row gap-x-3 lg:gap-x-5">
-       <svg width="40px" height="40px" viewBox="0 0 32 32" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><path d="M23.75,16A7.7446,7.7446,0,0,1,8.7177,18.6259L4.2849,22.1721A13.244,13.244,0,0,0,29.25,16" fill="#00ac47"/><path d="M23.75,16a7.7387,7.7387,0,0,1-3.2516,6.2987l4.3824,3.5059A13.2042,13.2042,0,0,0,29.25,16" fill="#4285f4"/><path d="M8.25,16a7.698,7.698,0,0,1,.4677-2.6259L4.2849,9.8279a13.177,13.177,0,0,0,0,12.3442l4.4328-3.5462A7.698,7.698,0,0,1,8.25,16Z" fill="#ffba00"/><polygon fill="#2ab2db" points="8.718 13.374 8.718 13.374 8.718 13.374 8.718 13.374"/><path d="M16,8.25a7.699,7.699,0,0,1,4.558,1.4958l4.06-3.7893A13.2152,13.2152,0,0,0,4.2849,9.8279l4.4328,3.5462A7.756,7.756,0,0,1,16,8.25Z" fill="#ea4435"/><polygon fill="#2ab2db" points="8.718 18.626 8.718 18.626 8.718 18.626 8.718 18.626"/><path d="M29.25,15v1L27,19.5H16.5V14H28.25A1,1,0,0,1,29.25,15Z" fill="#4285f4"/></svg>
-       <p className="text-sm lg:mx-5 mt-2 lg:mt-2 "> Sign in with Google </p>
+
+        <div className="mt-6 w-full flex flex-col items-center">
+        <div className="flex items-center w-full my-4">
+  {/* Left Line */}
+  <div className="flex-1 border-t border-[#F0EDFF]"></div>
+
+  {/* Text in the Middle */}
+  <div className="text-neutral-600 text-sm mx-4">
+    <span className="font-bold text-[rgba(28,28,28,1)]">Login</span> with Others
+  </div>
+
+  {/* Right Line */}
+  <div className="flex-1 border-t border-[#F0EDFF]"></div>
+</div>
+
+
+          <button
+            onClick={() => signIn("google")}
+            className="border w-full flex justify-center items-center text-[rgba(28,28,28,1)] text-[12px] px-[10px] lg:px-[70px] py-[10px]  lg:py-[11px] rounded-2xl border-[rgba(240,237,255,1)] border-solid hover:bg-gray-50 transition-colors"
+            aria-label="Login with Google"
+          >
+            <div className="flex items-center gap-2">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/9e14ec760a13409cba0be5c570ba1763/9d1ebc4b0d4b8e4fbccb9aeda5cbea14be49e44241abca7ec2649315085e1454"
+                alt="Google logo"
+                className="w-[24px] lg:w-[30px] mr-1 aspect-square object-contain shrink-0"
+              />
+              <div>
+                <span>Login with </span>
+                <span className="font-bold">Google</span>
+              </div>
+            </div>
+          </button>
         </div>
-      </button>
-
-		<GlowEffect
-        colors={['#ffffff', '#fff37d', '#ffffff', '#fff37d']}
-        mode='rotate'
-        blur='medium'
-		className="absolute  inset-0 -z-10"
-      />
-		
       </form>
-
-	  
     </div>
+
   );
 };
 
 export default SignIn;
+
+

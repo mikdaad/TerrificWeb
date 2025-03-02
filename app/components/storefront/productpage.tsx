@@ -40,7 +40,7 @@ export default function ProductPage({ data }: { data: any }) {
       {/* Product Details */}
       <div>
         <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">{data.name}</h1>
-        <p className="text-xl mt-2 text-gray-900">₹{data.originalprice}</p>
+        <p className="text-xl mt-2 text-gray-900">₹{data.discountprice}</p>
         
         {/* Star Rating */}
         <div className="mt-3 flex items-center gap-1">
