@@ -41,7 +41,7 @@ export function ProductCard({ item, className }: ProductCardProps) {
     
        
 <article className="max-w-[324px] rounded-[2px_2px_2px_2px] m-1">
-<div className="shadow-[0px_8px_24px_0px_rgba(149,157,165,0.20)] bg-[#242424] w-full rounded-xl relative">
+<div className="shadow-[0px_8px_24px_0px_rgba(149,157,165,0.20)] lg:shadow-[0px_0px_20px_4px_rgba(255,255,255,0.7)] bg-[#242424] w-full rounded-xl relative">
 
 <Link href={`/product/${item.id}`}>
 

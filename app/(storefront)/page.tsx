@@ -12,7 +12,7 @@ import { BottomNav } from "../components/buildercomponents/home/BottomNav";
 import Image from "next/image";
 import Link from "next/link";
 import SortFilter from "../components/storefront/sortfilter";
-import CountdownTimer from "../components/home/timer";
+import { CountdownTimer } from "../components/home/timer";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import UserCart from"../components/storefront/usercart"; 
@@ -153,15 +153,21 @@ const focusSearchInput = () => {
   }
 };
 
+const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + 5);
+  targetDate.setHours(targetDate.getHours() + 12);
+  targetDate.setMinutes(targetDate.getMinutes() + 5);
+  targetDate.setSeconds(targetDate.getSeconds() + 22);
+
 
 
   return (
 
     
-    <div className="pb-20 mt-2 p-1 font-glancyr">
+    <div className="pb-20 p-1 font-glancyr bg-[#1a1818]">
      
       {/* Header */}
-      <header className="p-2 flex items-center justify-between relative">
+      <header className="p-2 mt-2 flex items-center justify-between relative">
      
   {/* Left Section: Time */}
   <Link href="/dashboard">
@@ -253,10 +259,11 @@ const focusSearchInput = () => {
       {/* Deals Section */}
       <section className="space-y-0">
         <div>
-        <div className="flex m-2 items-center justify-between text-white  bg-[#4392F9] rounded-lg p-2">
-          <div >
-            <h2 className="text-md font-thin">Deal of the Day</h2>
-            <CountdownTimer/>
+        <div className="m-2 items-center justify-between text-white   rounded-lg p-2 flex flex-row">
+        <h2 className="text-md font-semibold">Flash Sale</h2>
+         <div >
+            
+            <CountdownTimer targetDate={targetDate}/>
             
           </div>
           <Button onClick={()=> setSelectedstatus("Dealoftheday")}  variant="ghost" size="sm">
@@ -300,12 +307,14 @@ const focusSearchInput = () => {
 
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
+         {/* glow 
       <GlowEffect
                     colors={['#ffffff', '#FFF9A6', '#ffffff', '#ffffff']}
                     mode='flowHorizontal'
                     blur='soft'
                 className="absolute  inset-0 -z-10"
                   />
+                  */}
   
 
     </div>

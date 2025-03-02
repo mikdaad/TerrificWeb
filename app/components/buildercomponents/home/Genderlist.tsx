@@ -27,7 +27,7 @@ export function Genderlist({ categories,onCategorySelect }: CategoryListProps ) 
       height={40}
             loading="lazy"
           />
-          <span className="text-xs font-medium">{category.title}</span>
+          <span className="text-xs font-medium text-white">{category.title}</span>
         </div>
         </button>
       ))}

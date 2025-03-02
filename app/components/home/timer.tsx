@@ -1,46 +1,54 @@
-"use client";
+import React, { useState, useEffect } from "react";
+import { CountdownUnit } from "../ui/CountdownUnit";
 
-import { useState, useEffect } from "react";
-import { Timer } from "lucide-react";
+interface CountdownTimerProps {
+  targetDate: Date;
+  className?: string;
+}
 
-export default function CountdownTimer() {
-  const [remainingTime, setRemainingTime] = useState("Loading...");
-  const [isMounted, setIsMounted] = useState(false);
+export const CountdownTimer: React.FC<CountdownTimerProps> = ({
+  targetDate,
+  className = "",
+}) => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
-    setIsMounted(true); // Prevent hydration mismatch by waiting for client-side render
+    const calculateTimeLeft = () => {
+      const difference = targetDate.getTime() - new Date().getTime();
 
-    const calculateRemainingTime = () => {
-      const targetTime = new Date().setHours(24, 0, 0, 0); // Example: Reset at midnight
-      const now = new Date().getTime();
-      const diff = targetTime - now;
-
-      if (diff > 0) {
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        setRemainingTime(`${hours}h ${minutes}m ${seconds}s`);
-      } else {
-        setRemainingTime("00h 00m 00s");
+      if (difference <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
       }
+
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      });
     };
 
-    // Update every second
-    const interval = setInterval(calculateRemainingTime, 1000);
-    calculateRemainingTime(); // Initial call
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
 
-    return () => clearInterval(interval); // Cleanup
-  }, []);
-
-  // Prevent hydration error by rendering only on the client
-  if (!isMounted) return null;
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   return (
-    <div className="flex items-center gap-2 text-xs font-thin font-glancyr">
-      <Timer className="h-4 w-4" />
-      
-      <span className="font-thin font-glancyr gap-x-1" >{remainingTime} remaining</span>
-     
-    </div>
+    <section
+      className={`flex  items-stretch text-sm gap-[10px_10px] lg:gap-[20px_23px] text-white whitespace-nowrap rounded-[0px_0px_0px_0px] ${className}`}
+      aria-label="Countdown Timer"
+    >
+      <CountdownUnit value={timeLeft.days} label="Days" />
+      <CountdownUnit value={timeLeft.hours} label="Hours" />
+      <CountdownUnit value={timeLeft.minutes} label="Minutes" />
+      <CountdownUnit value={timeLeft.seconds} label="Seconds" />
+    </section>
   );
-}
+};

@@ -50,9 +50,11 @@ export function Banner() {
   }
 
   return (
-    <div className="relative w-full mx-auto">
+    <div className="relative w-full mx-auto ">
       <div
-        className="relative bg-primary rounded-lg p-6 text-white bg-cover bg-center transition-all duration-500"
+       className="relative bg-primary rounded-lg p-6 text-white bg-cover bg-center transition-all duration-500 
+             shadow-[0px_0px_20px_4px_rgba(255,255,255,0.3)]"
+        
         style={{
           backgroundImage: `linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, #000000 69.15%), url('${banners[activeIndex].imageString}')`,
         }}
@@ -65,14 +67,7 @@ export function Banner() {
             Shop Now <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
-        <GlowEffect
-        colors={['#ffffff', '#add8e6', '#ffffff', '#ffffff']}
-        mode='colorShift'
-        blur='soft'
-        duration={3}
-        scale={1.08}
-        	className="absolute  inset-0 -z-10"
-      />
+     
       </div>
       
 
@@ -84,7 +79,7 @@ export function Banner() {
             key={index}
             onClick={() => setActiveIndex(index)}
             className={`h-2 w-2 rounded-full transition-all duration-300 ${
-              activeIndex === index ? "bg-black" : "bg-gray-400 opacity-50"
+              activeIndex === index ? "bg-white" : "bg-gray-400 opacity-50"
             }`}
           />
         ))}
