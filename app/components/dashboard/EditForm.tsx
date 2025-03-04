@@ -52,7 +52,6 @@ interface iAppProps {
     isFeatured: boolean;
     gender: $Enums.Gender;
     sizes: String[];
-    reviews:number;
     stars:number;
     colors:string[];
 
