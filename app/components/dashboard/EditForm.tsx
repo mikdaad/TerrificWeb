@@ -180,17 +180,7 @@ export function EditForm({ data }: iAppProps) {
               <p className="text-red-500">{fields.originalprice.errors}</p>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <Label>reviews</Label>
-              <Input
-                key={fields.reviews.key}
-                name={fields.reviews.name}
-                defaultValue={data.reviews}
-                type="number"
-                placeholder=""
-              />
-              <p className="text-red-500">{fields.reviews.errors}</p>
-            </div>
+           
 
             <div className="flex flex-col gap-3">
               <Label>Stars</Label>
