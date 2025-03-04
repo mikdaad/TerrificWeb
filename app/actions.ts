@@ -135,8 +135,6 @@ export async function editProduct(prevState: any, formData: FormData) {
       isFeatured: submission.value.isFeatured === true ? true : false,
       sizes:sizes,
       colors:colors,
-      reviews:submission.value.reviews,
-
       images: flattenUrls,
       
     },
