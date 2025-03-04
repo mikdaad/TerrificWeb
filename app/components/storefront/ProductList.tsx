@@ -21,7 +21,6 @@ interface Product {
   category: Category;
   isFeatured: boolean;
   stars: number | { toNumber: () => number }; // Handle possible Prisma Decimal
-  reviews: number;
   status: string;
   createdAt: Date;
 }
@@ -101,7 +100,7 @@ useEffect(() => {
               stars: typeof product.stars === "object" && "toNumber" in product.stars
                 ? product.stars.toNumber()
                 : product.stars,
-              reviews: product.reviews,
+            
             }}
           />
            </motion.div>

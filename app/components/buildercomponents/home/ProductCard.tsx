@@ -25,7 +25,7 @@ interface ProductCardProps {
     discountprice: number;
     images: string[];
     stars: number;
-    reviews: number;
+  
   };
   className?: string;
 }

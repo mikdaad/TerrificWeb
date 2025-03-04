@@ -21,7 +21,6 @@ async function getData() {
           category: true,
           isFeatured: true,
           stars: true,
-          reviews: true,
           status: true,
           createdAt: true,
     },
