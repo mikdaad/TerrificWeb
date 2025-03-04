@@ -101,7 +101,7 @@ export default function ProductList({ gender, category, status }: ProductListPro
               images: product.images,
               originalprice: product.originalprice,
               stars: product.stars,
-              reviews: product.reviews,
+        
             }}
           />
         ))
