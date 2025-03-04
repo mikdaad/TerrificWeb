@@ -60,7 +60,6 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       category: submission.value.category,
       isFeatured: submission.value.isFeatured === true ? true : false,
       stars: submission.value.stars,
-      reviews: submission.value.reviews,
       status:submission.value.status,
       sizes: flattensizes,
 

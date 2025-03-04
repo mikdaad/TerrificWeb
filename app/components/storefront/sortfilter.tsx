@@ -28,7 +28,7 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
     {/* Sort Button with Popover */}
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-lg">
+        <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-yellow-400 shadow-sm">
           <ArrowUpDown className="h-4 w-4  font-thin opacity-90" />
           
         </Button>
@@ -58,7 +58,7 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
     {/* Filter Button with Popover */}
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-lg">
+          <Button variant="outline" size="sm" className="font-glancyr font-thin border-gray-300 shadow-yellow-400 shadow-sm">
             <div className="h-4 w-4 " >
             <svg width="18" height="18" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.7136 2.95736H5.05413C4.89571 2.95736 4.76782 2.82948 4.76782 2.67106C4.76782 2.51263 4.89571 2.38475 5.05413 2.38475H11.7136C11.872 2.38475 11.9999 2.51263 11.9999 2.67106C11.9999 2.82948 11.872 2.95736 11.7136 2.95736Z" fill="black"/>

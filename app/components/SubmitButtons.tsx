@@ -72,7 +72,7 @@ export function Addtocartbtn({ onAddToCart }: { onAddToCart: () => Promise<{ err
         ) : (
           <>
            <button
-      className="bg-white text-black font-bold font-glancyr mt-[15px] px-[9px] lg:px-[20px] py-2.5 text-[0.70rem] lg:text-xs rounded-[30px_0px_12px_0px] hover:bg-gray-100 transition-colors"
+      className="bg-white text-black font-bold font-glancyr mt-[15px] px-[4px] lg:px-[20px] py-2.5 text-[0.70rem] lg:text-xs rounded-[30px_0px_12px_0px] hover:bg-gray-100 transition-colors"
       aria-label="Add to cart"
     >
       Add To Cart

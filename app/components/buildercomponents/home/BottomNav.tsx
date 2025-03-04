@@ -58,23 +58,23 @@ useEffect(() => {
 
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
+    <div className="fixed bottom-0 left-0 right-0 bg-black border-t">
       <div className="relative">
       <button 
   className="absolute -top-6 left-1/2 -translate-x-1/2 
-             bg-white border border-gray-300 shadow-lg 
-             text-black p-4 rounded-full 
+             bg-black border border-gray-500 
+             text-white p-4 rounded-full 
              transition-all duration-200 ease-in-out 
-             hover:shadow-xl hover:bg-gray-100 
+             hover:shadow-xl hover:bg-gray-900 
              active:shadow-md active:scale-90 
-             focus:ring-2 focus:ring-gray-400"
+             focus:ring-2 focus:ring-gray-400  shadow-md shadow-white"
   onClick={() => router.push("/bag")}
 >
-  <ShoppingCart className="h-6 w-6 text-black" />
+  <ShoppingCart className="h-6 w-6 text-white" />
     {/* Cart Item Count Badge */}
     {cartTotal > 0 && (
           <span className="absolute -top-0 mt-1 mr-2
-                            text-yellow-600 text-xs font-weight-300 
+                            text-yellow-300 text-xs font-weight-300
                            px-1 py-0.5 rounded-full 
                           ">
             {cartTotal}
@@ -90,7 +90,7 @@ useEffect(() => {
             key={index}
             className={cn(
               "flex flex-col items-center gap-1 p-2 rounded-md transition",
-              active === item.label ? "bg-gray-100" : "hover:bg-gray-100"
+              active === item.label ? "bg-gray-900" : "hover:bg-gray-700"
             )}
             onClick={() => {
               setActive(item.label);
@@ -101,8 +101,8 @@ useEffect(() => {
               }
             }}
           >
-            <item.icon className="h-5 w-5" />
-            <span className="text-xs">{item.label}</span>
+            <item.icon className="h-5 w-5 text-white" />
+            <span className="text-xs text-white">{item.label}</span>
           </button>
         ))}
       </div>

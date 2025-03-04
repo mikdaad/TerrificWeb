@@ -228,17 +228,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               <p className="text-red-500">{fields.stars.errors}</p>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <Label>reviews</Label>
-              <Input
-                key={fields.reviews.key}
-                name={fields.reviews.name}
-                defaultValue={fields.reviews.initialValue}
-                type="number"
-                placeholder=""
-              />
-              <p className="text-red-500">{fields.reviews.errors}</p>
-            </div>
+           
 
             <div className="flex flex-col gap-3">
               <Label>Featured Product</Label>
@@ -263,8 +253,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 <SelectContent>
                   <SelectItem value="Men">Men</SelectItem>
                   <SelectItem value="Women">Women</SelectItem>
+                  <SelectItem value="Teens">Teens</SelectItem>
                   <SelectItem value="Kids">Kids</SelectItem>
                   <SelectItem value="Unisex">Unisex</SelectItem>
+                  
                 </SelectContent>
               </Select>
               <p className="text-red-500">{fields.gender.errors}</p>

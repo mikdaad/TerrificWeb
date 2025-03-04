@@ -28,6 +28,7 @@ const genders = [
   { image: "/categories/kid.png", title: "Kids" },
   { image: "/categories/men.png", title: "Men" },
   { image: "/categories/women.png", title: "Women" },
+  { image: "/categories/teens.png", title: "Teens" },
 ];
 
 
@@ -198,13 +199,14 @@ const targetDate = new Date();
 </header>
 
 {/* Search Bar */}
-<div className="p-0 mt-5 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full">
+<div className="p-0 mt-5 mr-0 ml-1 grid grid-cols-[1fr_auto] gap-2 items-center w-full ">
   {/* Search Input */}
   <div className="relative w-full mt-2 font-thin">
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
 
     <Input
-      className="pl-10 pr-10 w-full h-10 rounded-lg text-sm border font-thin border-gray-300 shadow-md focus:ring-2 focus:ring-black transition-all"
+      className="pl-10 pr-10 w-full h-10 rounded-lg text-sm border font-thin border-gray-300 focus:ring-2 focus:ring-black transition-all shadow-yellow-300 shadow-sm
+      "
       placeholder="Search any Product..."
       ref={searchInputRef}
       type="text"
@@ -283,7 +285,7 @@ const targetDate = new Date();
 
       {/* Trending Section */}
       <section className=" space-y-0">
-        <div className="flex items-center m-2 text-white justify-between bg-[#4392F9] rounded-lg p-2">
+        <div className="flex items-center m-2 text-white justify-between rounded-lg p-2">
        
           <div >
             <h2 className="text-md font-thin  ">Trending Products</h2>

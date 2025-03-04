@@ -100,7 +100,6 @@ model Product {
   category    Category
   isFeatured  Boolean       @default(false)
   stars       Int
-  reviews     Int
   status      Status
   sizes       String[]
   colors      String[]
@@ -194,6 +193,7 @@ model discount {
 enum Gender {
   Men
   Women
+  Teens
   Kids
   Unisex
   
