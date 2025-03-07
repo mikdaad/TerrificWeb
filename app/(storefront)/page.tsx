@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import UserCart from"../components/storefront/usercart"; 
 import { GlowEffect } from "../components/ui/Gloweffect";
+import Footer from "../components/ui/footer";
 
 
 const categories = [
@@ -306,6 +307,7 @@ const targetDate = new Date();
 
       {/* New Arrivals */}
       <SingleBanner setSelectedStatus={setSelectedstatus}/>
+      <Footer/>
 
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />
