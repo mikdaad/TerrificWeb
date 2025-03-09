@@ -32,20 +32,21 @@ export async function Hero() {
   const data = await getData();
 
   return (
-    <div className="relative">
-      <div>
+    <div className="">
+      <div className="relative">
       {/* Image Carousel */}
       <Carousel className="relative z-20">
-        <CarouselContent className="flex">
+        <CarouselContent className="flex ">
           {data.map((item: Banner, index: number) => (
             <CarouselItem
               key={item.id}
-              className="sm:basis-1/1 md:basis-1/2 lg:basis-1/3 flex flex-col items-center"
+              className=" sm:basis-1/1 md:basis-1/2 lg:basis-1/6 flex flex-col items-center"
             >
               {/* Image Display */}
-              <div className="relative w-[220px] h-[250px] lg:w-[270px] lg:h-[250px] flex items-center justify-center">
-                {/* Product Image */}
-                <div className="relative w-[140px] h-[140px] lg:w-[150px] lg:h-[150px] z-10">
+              <div className="relative w-[140px] h-[140px] lg:w-[150px] lg:h-[150px] z-10 left-96">
+                
+              {/* Product Image */}
+                <div className="relative w-[140px] h-[140px] lg:w-[85px] lg:h-[85px] z-10">
                   <Image
                     alt="Product Image"
                     src={item.imageString}
@@ -56,7 +57,7 @@ export async function Hero() {
 
                 {/* Display Name & Pricing Only for the First Image */}
                 {index === 0 && (
-                  <div className="absolute bottom-0 w-full bg-white rounded-2xl shadow-lg px-4 py-3 flex flex-col items-center">
+                  <div className="absolute top-2 w-full bg-white rounded-2xl shadow-lg px-4 py-3 flex flex-col items-center">
                     <h1 className="text-md lg:text-lg font-semibold text-black">
                       {item.title}
                     </h1>
@@ -77,12 +78,12 @@ export async function Hero() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        
       </Carousel>
     </div>
-    <div className="absolute mt-5 top-10 right-32">
+    <div className="absolute top-2 right-2">
     <svg width="466" height="7" viewBox="0 0 466 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+    
     <circle cx="2.93854" cy="2.93292" r="2.32144" transform="rotate(-18.2968 2.93854 2.93292)" fill="white"/>
     <circle cx="12.7265" cy="2.95648" r="2.32144" transform="rotate(-18.2968 12.7265 2.95648)" fill="white"/>
     <circle cx="22.5146" cy="2.98004" r="2.32144" transform="rotate(-18.2968 22.5146 2.98004)" fill="white"/>

@@ -320,13 +320,13 @@ const targetDate = new Date();
       <section className="space-y-0">
         <div>
         <div className="m-2 items-center justify-between text-white   rounded-lg p-2 flex flex-row">
-        <h2 className="text-md font-semibold">Flash Sale</h2>
+        <h2 className="text-xs lg:text-md font-semibold">Flash Sale</h2>
          <div >
             
             <CountdownTimer targetDate={targetDate}/>
             
           </div>
-          <Button onClick={()=> setSelectedstatus("Dealoftheday")}  variant="ghost" size="sm">
+          <Button onClick={()=> setSelectedstatus("Dealoftheday")}  variant="ghost" size="default">
             View all
             <ChevronRight className="h-4 w-4" />
           </Button>
