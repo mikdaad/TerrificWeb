@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
 
                 <div className="max-w-full w-[193px] text-xs font-thin mt-3">
                   
-                  We have clothes that suits your style and which you're proud
+                  We have clothes that suits your style and which you are proud
                   to wear. From women to men.
                 </div>
                 <div className="mt-3">
