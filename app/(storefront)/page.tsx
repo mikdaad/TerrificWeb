@@ -4,6 +4,7 @@ import React,{useState,useEffect,useRef } from "react";
 import { Clock, Mic, Search, ChevronRight, Timer, Filter, ArrowUpDown, Router } from "lucide-react";
 import  ProductList  from "../components/storefront/ProductList";
 import  ProductList2  from "../components/storefront/Productlist2";
+import ProductList3 from "../components/storefront/productlist3";
 import { CategoryList } from "../components/buildercomponents/home/CategoryList";
 import { Genderlist } from "../components/buildercomponents/home/Genderlist";
 import { Banner } from "../components/buildercomponents/home/Banner";
@@ -18,6 +19,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import UserCart from"../components/storefront/usercart"; 
 import { GlowEffect } from "../components/ui/Gloweffect";
 import Footer from "../components/ui/footer";
+import { NewsletterSection } from "../components/storefront/newsletter";
 
 
 const categories = [
@@ -259,6 +261,61 @@ const targetDate = new Date();
         
       </section>
 
+       {/* Trending Section */}
+       <section className=" space-y-0">
+        <div className="flex items-center m-2 text-white justify-between rounded-lg p-2">
+       
+          <div >
+            <h2 className="text-md font-semibold  ">Brand of products</h2>
+            {/*<div className="flex items-center gap-2 text-sm">
+              <Clock className="h-4 w-4" />
+              <span className="text-xs"> Last Date {lastDate} </span>
+            </div>
+            */}
+          </div>
+          <Button  onClick={()=> setSelectedstatus("TrendingProduct")} variant="ghost" size="sm">
+            View all
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="">
+        <ProductList2 status="TrendingProduct"/>
+        </div>
+      </section>
+
+      {/* Banner */}
+      <section className="p-2">
+        <Banner />
+       
+        
+      </section>
+
+
+ {/* Trending Section */}
+ <section className=" space-y-0">
+        <div className="flex items-center m-2 text-white justify-between rounded-lg p-2">
+       
+          <div >
+            <h2 className="text-md font-semibold  ">Brand of products</h2>
+            {/*<div className="flex items-center gap-2 text-sm">
+              <Clock className="h-4 w-4" />
+              <span className="text-xs"> Last Date {lastDate} </span>
+            </div>
+            */}
+          </div>
+          <Button  onClick={()=> setSelectedstatus("TrendingProduct2")} variant="ghost" size="sm">
+            View all
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="">
+        <ProductList2 status="TrendingProduct2"/>
+        </div>
+      </section>
+
+      
+      
+
       {/* Deals Section */}
       <section className="space-y-0">
         <div>
@@ -284,30 +341,36 @@ const targetDate = new Date();
         
       </section>
 
-      {/* Trending Section */}
-      <section className=" space-y-0">
+
+       {/* top selling Section */}
+       <section className=" space-y-0">
         <div className="flex items-center m-2 text-white justify-between rounded-lg p-2">
        
           <div >
-            <h2 className="text-md font-thin  ">Trending Products</h2>
-            <div className="flex items-center gap-2 text-sm">
+            <h2 className="text-md font-semibold  ">Top selling</h2>
+            {/*<div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
               <span className="text-xs"> Last Date {lastDate} </span>
             </div>
+            */}
           </div>
-          <Button  onClick={()=> setSelectedstatus("TrendingProduct")} variant="ghost" size="sm">
+          <Button  onClick={()=> setSelectedstatus("NewArrival")} variant="ghost" size="sm">
             View all
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
         <div className="">
-        <ProductList2 status="TrendingProduct"/>
+        <ProductList3 status="NewArrival"/>
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <SingleBanner setSelectedStatus={setSelectedstatus}/>
+
+      
+
+   
+      <NewsletterSection/>
       <Footer/>
+
 
       {/* Bottom Navigation */}
       <BottomNav onSearchClick={focusSearchInput} />

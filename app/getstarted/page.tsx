@@ -51,15 +51,39 @@ export default function IndexPage() {
     <div className="flex flex-col items-center  lg:items-start w-full lg:w-[100%] space-y-5 ">
   
       <h1 className="text-white font-glancyr font-medium text-sm lg:text-[1.25rem] mt-20">
-      <TextEffect preset='fade-in-blur' speedReveal={1.1} speedSegment={2.3}>
+      <TextRoll
+      className='text-xl text-white dark:text-white'
+      variants={{
+        enter: {
+          initial: { rotateX: 0, filter: 'blur(0px)' },
+          animate: { rotateX: 90, filter: 'blur(2px)' },
+        },
+        exit: {
+          initial: { rotateX: 90, filter: 'blur(2px)' },
+          animate: { rotateX: 0, filter: 'blur(0px)' },
+        },
+      }}
+    >
         W E L C O M E &nbsp; T O &nbsp; T E R R I F I C
-        </TextEffect>
+        </TextRoll>
       </h1>
      
       <h1 className="text-white font-glancyr font-weight-300 text-3xl lg:text-[2.45rem]">
-      <TextEffect preset='fade-in-blur' speedReveal={1.1} speedSegment={0.3}>
+      <TextRoll
+      className='text-xl text-white dark:text-white'
+      variants={{
+        enter: {
+          initial: { rotateX: 0, filter: 'blur(0px)' },
+          animate: { rotateX: 90, filter: 'blur(2px)' },
+        },
+        exit: {
+          initial: { rotateX: 90, filter: 'blur(2px)' },
+          animate: { rotateX: 0, filter: 'blur(0px)' },
+        },
+      }}
+    >
         WHERE MODERN ELEGANCE
-        </TextEffect>
+        </TextRoll>
       </h1>
    
   
@@ -133,7 +157,7 @@ export default function IndexPage() {
   
  
     
-    {/* <div className="relative hidden lg:block ">
+  <div className="relative hidden lg:block ">
     
     <Hero  />
       
@@ -142,7 +166,8 @@ export default function IndexPage() {
   
   
     </div>
-    */}
+   
+  
     </div>
   );
 }

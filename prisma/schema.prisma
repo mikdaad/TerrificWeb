@@ -207,6 +207,7 @@ enum Category {
 enum Status {
   Dealoftheday
   TrendingProduct
+  TrendingProduct2
   NewArrival
   None
 }

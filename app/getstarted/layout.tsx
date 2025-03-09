@@ -26,7 +26,7 @@ export default function StoreFrontLayout({
     style={{ backgroundImage: 'url("/background.jpg")' }} // ✅ Correct syntax
   >
    
-    {/* SVG Overlay */}
+    {/* SVG Overlay 
     <svg
       className="hidden lg:block absolute top-0 left-0 w-full h-full pointer-events-none"
       xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@ export default function StoreFrontLayout({
         strokeWidth="2"
       />
     </svg>
-  
+  */}
     {/* Dark Overlay */}
     <div className="bg-black bg-opacity-50 min-h-screen">
       <Navbar />

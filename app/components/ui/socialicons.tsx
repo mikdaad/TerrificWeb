@@ -29,7 +29,7 @@ const SocialIcons: React.FC = () => {
       {socialIcons.map((icon, index) => (
         <a
           key={index}
-          href="#"
+          href="/"
           aria-label={icon.alt}
           className="transition-transform hover:scale-110"
         >

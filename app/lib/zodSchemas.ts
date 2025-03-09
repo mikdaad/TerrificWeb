@@ -10,7 +10,7 @@ export const productSchema = z.object({
   category: z.enum(["Fashion", "Luxury"]),
   isFeatured: z.boolean().optional(),
   stars:  z.number().min(1),
-  status: z.enum(["Dealoftheday", "TrendingProduct", "NewArrival","None"]),
+  status: z.enum(["Dealoftheday", "TrendingProduct", "TrendingProduct2", "NewArrival","None"]),
   sizes:z.array(z.string()).min(1, "At least one size is required"),
   colors:z.array(z.string()).min(1, "At least one color is required"),
 

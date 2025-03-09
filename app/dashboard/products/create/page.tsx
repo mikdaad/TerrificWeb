@@ -291,9 +291,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                   <SelectValue placeholder="Select Status of product" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Dealoftheday">Deal of  the day</SelectItem>
-                  <SelectItem value="TrendingProduct">Trending Product</SelectItem>
-                  <SelectItem value="NewArrival">New Arrival</SelectItem>
+                  <SelectItem value="Dealoftheday">Flash Sale</SelectItem>
+                  <SelectItem value="NewArrival">Top Selling</SelectItem>
+                  <SelectItem value="TrendingProduct">Brand of products</SelectItem>
+                  <SelectItem value="TrendingProduct2">Brand of products 2</SelectItem>
                   <SelectItem value="None">None</SelectItem>
                 </SelectContent>
               </Select>

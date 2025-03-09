@@ -12,7 +12,7 @@ import {
 import { CldImage } from "next-cloudinary";
 import { Heart } from "lucide-react";
 import { addItem, addToWishlist } from "../../../actions";
-import PriceDisplay from "../../storefront/pricedisplay";
+import PriceDisplay2 from "../../storefront/pricedisplay2";
 import { Addtocartbtn,Addtowishlistbtn } from "../../SubmitButtons";
 
 
@@ -40,8 +40,8 @@ export function ProductCard({ item, className }: ProductCardProps) {
   return (
     
        
-<article className="max-w-[200px] lg:max-w-[324px] rounded-[2px_2px_2px_2px] m-1 mb-2">
-<div className="shadow-[0px_0px_20px_4px_rgba(255,255,255,0.2)] lg:shadow-[0px_0px_20px_4px_rgba(255,255,255,0.5)] bg-[#242424] w-full rounded-xl relative">
+<article className="max-w-[140px] lg:max-w-[324px] rounded-[2px_2px_2px_2px] m-1 mb-2">
+<div className="shadow-[0px_0px_20px_4px_rgba(255,255,255,0.2)] lg:shadow-[0px_0px_20px_4px_rgba(255,255,255,0.3)] bg-white w-full rounded-xl relative">
 
 <Link href={`/product/${item.id}`}>
 
@@ -89,20 +89,20 @@ export function ProductCard({ item, className }: ProductCardProps) {
       ))}
     </div>
     <div className="flex">
-    <h3 className="text-white text-md mt-2 font-medium leading-none">
+    <h3 className="text-black text-md mt-2 font-medium leading-none">
       {item.name}
     </h3>
-    <Addtowishlistbtn onAddToWishlist={addProductToWishlist}/>
+    {/*<Addtowishlistbtn onAddToWishlist={addProductToWishlist}/>*/}
     </div>
 
    
    
     <div className="flex w-full lg:gap-5  justify-between mt-2.5">
-      <PriceDisplay
+      <PriceDisplay2
         originalPrice={item.originalprice}
         discountedPrice={item.discountprice}
       />
-      <Addtocartbtn  onAddToCart={addProductToShoppingCart} />
+     {/* <Addtocartbtn  onAddToCart={addProductToShoppingCart} /> */}
     </div>
   </div>
 </div>
