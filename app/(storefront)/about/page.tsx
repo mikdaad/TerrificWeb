@@ -14,10 +14,10 @@ const Page = () => {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Privacy Policy</h2>
         <p>
-  This Privacy Policy describes how TERRIFIC and its affiliates (collectively
-  "TERRIFIC, we, our, us") collect, use, share, protect or otherwise process
+  This Privacy Policy describes how TERRIFIC and its affiliates collectively
+  TERRIFIC, we, our, us  collect, use, share, protect or otherwise process
   your information/personal data through our website
-  https://terrific.fit/ (referred to as Platform). Please note that you may be
+  https://terrific.fit/ - referred to as Platform. Please note that you may be
   able to browse certain sections of the Platform without registering with us.
   We do not offer any product/service under this Platform outside India and your
   personal data will primarily be stored and processed in India. By visiting
@@ -39,9 +39,9 @@ const Page = () => {
   information shared as proof of identity or address. Some of the sensitive
   personal data may be collected with your consent, such as your bank account or
   credit or debit card or other payment instrument information or biometric
-  information such as your facial features or physiological information (in
+  information such as your facial features or physiological information in
   order to enable use of certain features when opted for, available on the
-  Platform) etc., all of the above being in accordance with applicable law(s).
+  Platform  etc., all of the above being in accordance with applicable laws.
   You always have the option to not provide information, by choosing not to use
   a particular service or feature on the Platform. We may track your behaviour,
   preferences, and other information that you choose to provide on our Platform.
