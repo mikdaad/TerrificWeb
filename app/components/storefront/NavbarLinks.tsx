@@ -8,12 +8,12 @@ export const navbarLinks = [
   {
     id: 0,
     name: "HOME",
-    href: "/",
+    href: "/getstarted",
   },
   {
     id: 1,
     name: "ABOUT US",
-    href: "/",
+    href: "/about",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const navbarLinks = [
   {
     id: 3,
     name: "CONTACT",
-    href: "",
+    href: "/about",
   },
   
 ];
@@ -31,26 +31,28 @@ export const navbarLinks = [
 export function NavbarLinks() {
   const location = usePathname();
   return (
-    <div className=" hidden md:flex justify-end items-center gap-x-10  mr-8 mt-0">
-      <div className="w-64">
+    <div className="hidden md:flex justify-end items-center gap-x-10 mr-8 mt-0">
+      <div className="w-64"></div>
 
-      </div>
-  {navbarLinks.map((item) => (
-    <Link
-      href={item.href}
-      key={item.id}
-      className={cn(
-        location === item.href
-          ? "text-white bg-opacity-100 border-b-2 border-white font-semibold text-[0.9rem]"
-          : "text-white hover:bg-white hover:bg-opacity-25 text-[0.9rem]",
-        "group p-2 font-medium rounded-md transition duration-200"
-      )}
-      
-    >
-      {item.name}
-    </Link>
-  ))}
-</div>
-
+      {navbarLinks.map((item) => (
+        <Link
+          href={item.href}
+          key={item.id}
+          className={cn(
+            "relative group p-2 font-medium rounded-md transition duration-200 text-white text-[0.9rem]",
+            location === item.href
+              ? "font-semibold border-white"
+              : "hover:bg-white hover:bg-opacity-25"
+          )}
+        >
+          {item.name}
+          
+          {/* Underline for active link */}
+          {location === item.href && (
+            <div className="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-[59px] h-[4px] bg-[#EED359] rounded-[40px]"></div>
+          )}
+        </Link>
+      ))}
+    </div>
   );
 }

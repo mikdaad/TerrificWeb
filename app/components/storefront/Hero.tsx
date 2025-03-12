@@ -57,7 +57,10 @@ export async function Hero() {
 
                 {/* Display Name & Pricing Only for the First Image */}
                 {index === 0 && (
-                  <div className="absolute top-2 w-full bg-white rounded-2xl shadow-lg px-4 py-3 flex flex-col items-center">
+                  <div className="absolute top-10 right-1 w-full bg-white rounded-3xl shadow-lg mx-8 my-2 py-3 flex flex-col items-center">
+                    <div className="flex-row">
+                      <div className="h-5 w-5"> </div>
+                    <div> 
                     <h1 className="text-md lg:text-lg font-semibold text-black">
                       {item.title}
                     </h1>
@@ -72,6 +75,8 @@ export async function Hero() {
                         </p>
                       )}
                     </div>
+                    </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -81,7 +86,7 @@ export async function Hero() {
         
       </Carousel>
     </div>
-    <div className="absolute top-2 right-2">
+    <div className="absolute bottom-[9.38rem] right-2">
     <svg width="466" height="7" viewBox="0 0 466 7" fill="none" xmlns="http://www.w3.org/2000/svg">
     
     <circle cx="2.93854" cy="2.93292" r="2.32144" transform="rotate(-18.2968 2.93854 2.93292)" fill="white"/>
@@ -89,8 +94,8 @@ export async function Hero() {
     <circle cx="22.5146" cy="2.98004" r="2.32144" transform="rotate(-18.2968 22.5146 2.98004)" fill="white"/>
     <circle cx="32.3026" cy="3.00372" r="2.32144" transform="rotate(-18.2968 32.3026 3.00372)" fill="white"/>
     <circle cx="42.0906" cy="3.02728" r="2.32144" transform="rotate(-18.2968 42.0906 3.02728)" fill="white"/>
-    <circle cx="51.8786" cy="3.05084" r="2.32144" transform="rotate(-18.2968 51.8786 3.05084)" fill="white"/>
-    <circle cx="61.6666" cy="3.0744" r="2.32144" transform="rotate(-18.2968 61.6666 3.0744)" fill="white"/>
+    <circle cx="51.8786" cy="3.05084" r="2.32144" transform="rotate(-18.2968 51.8786 3.05084)" fill="#F2B8A2"/>
+    <circle cx="61.6666" cy="3.0744" r="2.32144" transform="rotate(-18.2968 61.6666 3.0744)" fill="#F2B8A2"/>
     <circle cx="71.4546" cy="3.09796" r="2.32144" transform="rotate(-18.2968 71.4546 3.09796)" fill="white"/>
     <circle cx="81.2426" cy="3.12164" r="2.32144" transform="rotate(-18.2968 81.2426 3.12164)" fill="white"/>
     <circle cx="91.0306" cy="3.1452" r="2.32144" transform="rotate(-18.2968 91.0306 3.1452)" fill="white"/>
@@ -101,34 +106,35 @@ export async function Hero() {
     <circle cx="139.971" cy="3.26312" r="2.32144" transform="rotate(-18.2968 139.971 3.26312)" fill="white"/>
     <circle cx="149.759" cy="3.2868" r="2.32144" transform="rotate(-18.2968 149.759 3.2868)" fill="white"/>
     <circle cx="159.547" cy="3.31036" r="2.32144" transform="rotate(-18.2968 159.547 3.31036)" fill="white"/>
-    <circle cx="169.335" cy="3.33392" r="2.32144" transform="rotate(-18.2968 169.335 3.33392)" fill="white"/>
-    <circle cx="179.123" cy="3.35748" r="2.32144" transform="rotate(-18.2968 179.123 3.35748)" fill="white"/>
-    <circle cx="188.911" cy="3.38116" r="2.32144" transform="rotate(-18.2968 188.911 3.38116)" fill="white"/>
-    <circle cx="198.699" cy="3.40472" r="2.32144" transform="rotate(-18.2968 198.699 3.40472)" fill="white"/>
-    <circle cx="208.487" cy="3.42828" r="2.32144" transform="rotate(-18.2968 208.487 3.42828)" fill="white"/>
-    <circle cx="218.275" cy="3.45196" r="2.32144" transform="rotate(-18.2968 218.275 3.45196)" fill="white"/>
+    <circle cx="169.335" cy="3.33392" r="2.32144" transform="rotate(-18.2968 169.335 3.33392)" fill="#A2000D"/>
+    <circle cx="179.123" cy="3.35748" r="2.32144" transform="rotate(-18.2968 179.123 3.35748)" fill="#A2000D"/>
+    <circle cx="188.911" cy="3.38116" r="2.32144" transform="rotate(-18.2968 188.911 3.38116)" fill="#A2000D"/>
+    <circle cx="198.699" cy="3.40472" r="2.32144" transform="rotate(-18.2968 198.699 3.40472)" fill="#A2000D"/>
+    <circle cx="208.487" cy="3.42828" r="2.32144" transform="rotate(-18.2968 208.487 3.42828)" fill="#A2000D"/>
+    <circle cx="218.275" cy="3.45196" r="2.32144" transform="rotate(-18.2968 218.275 3.45196)" fill="#A2000D"/>
     <circle cx="228.063" cy="3.47552" r="2.32144" transform="rotate(-18.2968 228.063 3.47552)" fill="white"/>
     <circle cx="237.851" cy="3.49908" r="2.32144" transform="rotate(-18.2968 237.851 3.49908)" fill="white"/>
     <circle cx="247.639" cy="3.52276" r="2.32144" transform="rotate(-18.2968 247.639 3.52276)" fill="white"/>
     <circle cx="257.427" cy="3.54632" r="2.32144" transform="rotate(-18.2968 257.427 3.54632)" fill="white"/>
     <circle cx="267.215" cy="3.56988" r="2.32144" transform="rotate(-18.2968 267.215 3.56988)" fill="white"/>
+
+    <circle cx="277.0" cy="3.6" r="2.32144" transform="rotate(-18.2968 277.0 3.6)" fill="white"/>
+<circle cx="286.8" cy="3.63" r="2.32144" transform="rotate(-18.2968 286.8 3.63)" fill="white"/>
+<circle cx="296.6" cy="3.66" r="2.32144" transform="rotate(-18.2968 296.6 3.66)" fill="white"/>
+
+
+    
     <circle cx="306.367" cy="3.66424" r="2.32144" transform="rotate(-18.2968 306.367 3.66424)" fill="white"/>
     <circle cx="316.155" cy="3.68793" r="2.32144" transform="rotate(-18.2968 316.155 3.68793)" fill="white"/>
-    <circle cx="325.943" cy="3.71149" r="2.32144" transform="rotate(-18.2968 325.943 3.71149)" fill="white"/>
-    <circle cx="335.731" cy="3.73504" r="2.32144" transform="rotate(-18.2968 335.731 3.73504)" fill="white"/>
-    <circle cx="345.519" cy="3.7586" r="2.32144" transform="rotate(-18.2968 345.519 3.7586)" fill="white"/>
-    <circle cx="355.307" cy="3.78229" r="2.32144" transform="rotate(-18.2968 355.307 3.78229)" fill="white"/>
+    <circle cx="325.943" cy="3.71149" r="2.32144" transform="rotate(-18.2968 325.943 3.71149)" fill="#EFAFBC"/>
+    <circle cx="335.731" cy="3.73504" r="2.32144" transform="rotate(-18.2968 335.731 3.73504)" fill="#EFAFBC"/>
+    <circle cx="345.519" cy="3.7586" r="2.32144" transform="rotate(-18.2968 345.519 3.7586)" fill="#EFAFBC"/>
+    <circle cx="355.307" cy="3.78229" r="2.32144" transform="rotate(-18.2968 355.307 3.78229)" fill="#EFAFBC"/>
     <circle cx="365.095" cy="3.80585" r="2.32144" transform="rotate(-18.2968 365.095 3.80585)" fill="white"/>
     <circle cx="374.883" cy="3.82941" r="2.32144" transform="rotate(-18.2968 374.883 3.82941)" fill="white"/>
     <circle cx="384.671" cy="3.85309" r="2.32144" transform="rotate(-18.2968 384.671 3.85309)" fill="white"/>
     <circle cx="394.459" cy="3.87665" r="2.32144" transform="rotate(-18.2968 394.459 3.87665)" fill="white"/>
-    <circle cx="404.247" cy="3.90021" r="2.32144" transform="rotate(-18.2968 404.247 3.90021)" fill="white"/>
-    <circle cx="414.035" cy="3.92377" r="2.32144" transform="rotate(-18.2968 414.035 3.92377)" fill="white"/>
-    <circle cx="423.823" cy="3.94745" r="2.32144" transform="rotate(-18.2968 423.823 3.94745)" fill="white"/>
-    <circle cx="433.611" cy="3.97101" r="2.32144" transform="rotate(-18.2968 433.611 3.97101)" fill="white"/>
-    <circle cx="443.399" cy="3.99457" r="2.32144" transform="rotate(-18.2968 443.399 3.99457)" fill="white"/>
-    <circle cx="453.187" cy="4.01813" r="2.32144" transform="rotate(-18.2968 453.187 4.01813)" fill="white"/>
-    <circle cx="462.975" cy="4.04169" r="2.32144" transform="rotate(-18.2968 462.975 4.04169)" fill="white"/>
+
     </svg>
     
     </div>

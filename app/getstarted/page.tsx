@@ -70,7 +70,7 @@ export default function IndexPage() {
      
       <h1 className="text-white font-glancyr font-weight-300 text-3xl lg:text-[2.45rem]">
       <TextRoll
-      className='text-xl text-white dark:text-white'
+      className='text-4xl text-white dark:text-white'
       variants={{
         enter: {
           initial: { rotateX: 0, filter: 'blur(0px)' },
@@ -89,7 +89,7 @@ export default function IndexPage() {
   
       <h1 className="text-white font-glancyr font-bold text-xl lg:text-4xl">
       <TextRoll
-      className='text-xl text-white dark:text-white'
+      className='text-4xl text-white dark:text-white'
       variants={{
         enter: {
           initial: { rotateX: 0, filter: 'blur(0px)' },
@@ -105,7 +105,7 @@ export default function IndexPage() {
         </TextRoll>
         <span className="text-[#EED359] font-bold">
         <TextRoll
-      className='text-xl text-[#EED359] dark:text-[#EED359]'
+      className='text-4xl text-[#EED359] dark:text-[#EED359]'
       variants={{
         enter: {
           initial: { rotateX: 0, filter: 'blur(0px)' },
@@ -137,16 +137,33 @@ export default function IndexPage() {
         
       </div>
 
-        {/* Mobile Button */}
-        <div className="hidden lg:block w-full justify-center  mb-20">
-        <Button onClick={handleClick}  className="bg-white text-black p-3 mt-10 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-[15%]">
-        <Link href="/">
-        {loading ? "Loading..." : "Buy Now"} 
-          </Link>
-        </Button>
-        
-      </div>
-  
+      {/* Mobile Button */}
+<div className="hidden lg:block w-full justify-center mb-20">
+  <Link href="/">
+    <Button
+      onClick={handleClick}
+      className="bg-white text-black p-3 mt-10 hover:bg-white/90 px-8 font-glancyr py-4 text-lg rounded-full w-[15%] flex items-center justify-center gap-2"
+    >
+      {loading ? "Loading..." : "Buy Now"}
+      <svg
+        width="11"
+        height="16"
+        viewBox="0 0 11 16"
+        fill="black"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2 2L9 8L2 14"
+          stroke="black"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </Button>
+  </Link>
+</div>
+
     </div>
   
     {/* Right Side - Hero Image */}
@@ -160,7 +177,7 @@ export default function IndexPage() {
   <div className="flex-col relative hidden lg:block ">
 
   
-      <div className="absolute flex flex-row gap-12 mt-4 top-32">
+      <div className="absolute flex flex-row gap-10 mt-4 top-20 left-20">
 
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_15_270)">
@@ -186,7 +203,10 @@ export default function IndexPage() {
 </svg>
 
       </div>
-    <Hero  />
+      <div className="ml-96">
+      <Hero  />
+      </div>
+   
 
     </div>
     
