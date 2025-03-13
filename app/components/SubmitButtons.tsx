@@ -156,14 +156,14 @@ export function ShoppingBagButton({ onAddToCart }: { onAddToCart: () => Promise<
       const response = await onAddToCart();
 
       if (!response) {
-        toast.success(response|| "Added to Cart!");
+        toast.success(response|| "Added to Cart!", { autoClose:2200 });
       } else if (response.error) {
-        toast.success(response.message || "Added to Cart!");
+        toast.success(response.message || "Added to Cart!", { autoClose:2200 });
       } else if (response.success) {
-        toast.success(response.message || "Added to Cart!");
+        toast.success(response.message || "Added to Cart!", { autoClose:2200 });
       }
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong!", { autoClose:2200 });
     }
     setLoading(false);
   };
@@ -203,11 +203,11 @@ export function WishlistButton({ onAddToWishlist }: { onAddToWishlist: () => Pro
         setErrorMessage(response.error);
         toast.error(response.error); // Show error toast
       } else if (response.success) {
-        toast.success(response.message || "Added to Wishlist!"); // Show success toast
+        toast.success(response.message    || "Added to Wishlist!", { autoClose:2200 }); // Show success toast
       }
     } catch (error) {
       setErrorMessage("Something went wrong!");
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong!", { autoClose:2200 });
     }
 
     setLoading(false);
