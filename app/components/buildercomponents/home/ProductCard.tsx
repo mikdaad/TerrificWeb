@@ -35,7 +35,7 @@ interface ProductCardProps {
 export function ProductCard({ item, className }: ProductCardProps) {
   const addProductToShoppingCart = () => addItem(item.id, "", "");
   const addProductToWishlist = () => addToWishlist(item.id, "", "");
-  const discount = ((item.originalprice - item.discountprice) / item.originalprice) * 100;
+
   
   return (
     

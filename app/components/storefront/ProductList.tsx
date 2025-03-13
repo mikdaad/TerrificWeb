@@ -57,37 +57,11 @@ useEffect(() => {
 }, [pathname]);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-8">
       
       {products.length > 0 ? (
         products.map((product) => (
-          <InView
-          key={product.id}
-          viewOptions={{ once: false, margin: '0px 0px -250px 0px' }}
-          variants={{
-            hidden: {
-              opacity: 1,
-            },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.09,
-              },
-            },
-          }}
-        >
-          <motion.div
-          variants={{
-            hidden: { opacity: 1, scale: 0.8, filter: 'blur(1px)' },
-            visible: {
-              opacity: 1,
-              scale: 1,
-              filter: 'blur(0px)',
-            },
-          }}
-          key={product.id}
-          className='mb-4'
-        >
+         
           <ProductCard
             key={product.id}
             item={{
@@ -103,8 +77,7 @@ useEffect(() => {
             
             }}
           />
-           </motion.div>
-           </InView>
+          
         ))
       ) : (
         <div className="flex justify-center items-center">

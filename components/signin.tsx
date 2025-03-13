@@ -29,10 +29,10 @@ const SignIn: React.FC = () => {
         onSubmit={handleSubmit}
         className="bg-[rgba(217,217,217,1)] flex w-full flex-col items-center px-[25px] py-14 rounded-[32px_32px_0px_0px]"
       >
-        <h1 className=" text-[18px] lg:text-[24px] font-semibold uppercase">Login</h1>
+        <h1 className=" text-[18px] lg:text-[24px] font-semibold uppercase">Signin</h1>
 
         <p className="text-neutral-600 text-[12px] md:text-[16px] font-light mt-3.5 m-2">
-          kindly provide your email to recieve the login   link.
+          kindly provide your email to recieve the signin   link.
         </p>
 
         <div className="w-full mt-4">
@@ -45,7 +45,7 @@ const SignIn: React.FC = () => {
             <input
               id="email" 
               name="email"
-              placeholder="spiderman@example.com"
+              placeholder="yourmail@example.com"
               type="email"
               onChange={(e) => setState(e.target.value)}
               className="flex-1 mr-2 bg-transparent outline-none"
@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
   {loading ? (
     <Loader2 className="animate-spin w-5 h-5" />
   ) : (
-    <span>Login Now</span>
+    <span>Signin Now</span>
   )}
 </button>
 
