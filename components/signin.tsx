@@ -74,7 +74,7 @@ const SignIn: React.FC = () => {
 
   {/* Text in the Middle */}
   <div className="text-neutral-600 text-sm mx-4">
-    <span className="font-bold text-[rgba(28,28,28,1)]">Login</span> with Others
+    <span className="font-bold text-[rgba(28,28,28,1)]">Signin</span> with Others
   </div>
 
   {/* Right Line */}
@@ -94,7 +94,7 @@ const SignIn: React.FC = () => {
                 className="w-[24px] lg:w-[30px] mr-1 aspect-square object-contain shrink-0"
               />
               <div>
-                <span>Login with </span>
+                <span>Signin with </span>
                 <span className="font-bold">Google</span>
               </div>
             </div>
