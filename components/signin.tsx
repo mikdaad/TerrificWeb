@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
         <h1 className=" text-[18px] lg:text-[24px] font-semibold uppercase">Signin</h1>
 
         <p className="text-neutral-600 text-[12px] md:text-[16px] font-light mt-3.5 m-2">
-          kindly provide your email to recieve the signin   link.
+          kindly provide your email to recieve the signin  link.
         </p>
 
         <div className="w-full mt-4">

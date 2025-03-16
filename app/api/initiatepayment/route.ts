@@ -32,9 +32,9 @@ export async function POST(req: NextRequest) {
       merchantTransactionId: transactionId,
       merchantUserId: userId,
       amount: amount * 100, // Convert to paisa
-      redirectUrl: `https://terrific-web.vercel.app/api/payment/callback/${transactionId}`,
+      redirectUrl: `https://terrific.fit/api/payment/callback/${transactionId}`,
       redirectMode: "REDIRECT",
-      callbackUrl: `https://terrific-web.vercel.app/api/payment/callback/${transactionId}`,
+      callbackUrl: `https://terrific.fit/api/payment/callback/${transactionId}`,
       mobileNumber,
       paymentInstrument: {
         type: "PAY_PAGE",
