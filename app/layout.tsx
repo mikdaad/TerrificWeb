@@ -7,7 +7,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { getServerSession } from "next-auth";
 import { options } from "../lib/auth";
 import Provider from "../components/provider";
-import ClientRedirect from "./components/clientredirect";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +32,7 @@ export default async function RootLayout({
       <Provider session={session}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         </Provider>
-        <ClientRedirect />
+      
         {children}
       </body>
     </html>

@@ -63,9 +63,10 @@ export function Banner() {
           <h2 className="text-2xl font-bold">{banners[activeIndex].title}</h2>
           <p className="text-lg">{banners[activeIndex].description}</p>
           <p className="text-sm opacity-90">{banners[activeIndex].subtext}</p>
-          <Button variant="secondary" className="mt-4">
+          {/*<Button variant="secondary" className="mt-4">
             Shop Now <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
+          */}
         </div>
      
       </div>

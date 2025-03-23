@@ -23,12 +23,12 @@ export const FooterContactInfo: React.FC = () => {
         </h3>
         <div className="leading-6 mt-[13px]">Address:</div>
         <div className="text-[rgba(200,200,200,1)] font-normal leading-[22px] self-stretch mt-1">
-          Bangalore <br />
-          Karnataka, India, 769006
+          Mangalore <br />
+          Karnataka, India
         </div>
         <div className="leading-6 mt-[21px]">Phone:</div>
         <div className="text-[rgba(200,200,200,1)] font-normal leading-loose mt-[13px]">
-          +91-123456789{" "}
+          +91-7349771177{" "}
         </div>
       </div>
     </div>

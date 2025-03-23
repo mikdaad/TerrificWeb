@@ -76,7 +76,8 @@ const SortFilter: React.FC<SortFilterProps> = ({ onSortSelect, onFilterSelect })
         </PopoverTrigger>
         <PopoverContent className="w-40">
           <div className="flex flex-col font-glancyr">
-          {["Men", "Women", "Kids", "Unisex"].map((filterOption) => (
+            {/*["Men", "Women", "Kids", "Unisex"]*/}
+          {["Men", "Women"].map((filterOption) => (
   <Button
     key={filterOption}
     onClick={() => handleFilterSelect(filterOption)} // Removed .toLowerCase()

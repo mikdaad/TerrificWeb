@@ -3,6 +3,7 @@ import SocialIcons from "./socialicons";
 import { FooterColumn } from "./footercolumn";
 import { FooterContactInfo } from "./footercontactinfo";
 import Image from "next/image";
+import Link from "next/link";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-[#242424] py-12 px-6">
@@ -51,14 +52,19 @@ const Footer: React.FC = () => {
               title="Company"
               className="w-[24%] ml-5 mt-2 max-md:w-full max-md:ml-0"
             >
-              About <br />
+              <Link href="/about">About 
+              </Link><br />
               <br />
-              Works <br />
+              <Link href="/privacypolicy">privacy and policy 
+              </Link><br />
+              <br />
+            {/*}  Works <br />
               <br />
               Career{" "}
+              */}
             </FooterColumn>
 
-            <div className="w-[31%] ml-5 mt-2  max-md:w-full max-md:ml-0">
+            {/*<div className="w-[31%] ml-5 mt-2  max-md:w-full max-md:ml-0">
               <div className="max-md:mt-10">
                 <div className="text-white text-base font-semibold leading-none tracking-[3px] uppercase">
                   Help
@@ -77,10 +83,11 @@ const Footer: React.FC = () => {
                 </div>
               </div>
             </div>
+            */}
           </div>
         </div>
 
-        <FooterColumn title="FAQ" className="mt-2">
+      {/*  <FooterColumn title="FAQ" className="mt-2">
           Account
           <br />
           <br />
@@ -92,6 +99,7 @@ const Footer: React.FC = () => {
           <br />
           Payments
         </FooterColumn>
+        */}
 
         <FooterContactInfo />
       </div>

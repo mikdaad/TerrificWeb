@@ -23,15 +23,15 @@ import { NewsletterSection } from "../components/storefront/newsletter";
 
 
 const categories = [
-  { image: "/categories/luxury.png", title: "Luxury" },
+  //{ image: "/categories/luxury.png", title: "Luxury" },
   { image: "/categories/fashion.png", title: "Fashion" },
 ];
 
 const genders = [
-  { image: "/categories/kid.png", title: "Kids" },
+ // { image: "/categories/kid.png", title: "Kids" },
   { image: "/categories/men.png", title: "Men" },
   { image: "/categories/women.png", title: "Women" },
-  { image: "/categories/teens.png", title: "Teens" },
+  //{ image: "/categories/teens.png", title: "Teens" },
 ];
 
 
@@ -316,7 +316,7 @@ const targetDate = new Date();
       
       
 
-      {/* Deals Section */}
+      {/* Deals Section 
       <section className="space-y-0">
         <div>
         <div className="m-2 items-center justify-between text-white   rounded-lg p-2 flex flex-row">
@@ -341,18 +341,18 @@ const targetDate = new Date();
         
       </section>
 
-
-       {/* top selling Section */}
+*/}
+       {/* top selling Section 
        <section className=" space-y-0">
         <div className="flex items-center m-2 text-white justify-between rounded-lg p-2">
        
           <div >
             <h2 className="text-md font-semibold  ">Top selling</h2>
-            {/*<div className="flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
               <span className="text-xs"> Last Date {lastDate} </span>
             </div>
-            */}
+            
           </div>
           <Button  onClick={()=> setSelectedstatus("NewArrival")} variant="ghost" size="sm">
             View all
@@ -364,7 +364,7 @@ const targetDate = new Date();
         </div>
       </section>
 
-
+*/}
       
 
    
