@@ -128,9 +128,9 @@ export function Addtowishlistbtn({ onAddToWishlist }: { onAddToWishlist: () => P
           <>
              
     <Heart 
-      size={40} 
+      size={28} 
       //className={`${isInWishlist ? 'fill-red-500 text-red-500' : 'text-gray-700'}`}
-      className="absolute  right-4 p-2 rounded-full transition-colors top-1 text-red-500"
+      className=" rounded-full m-2 transition-colors top-1 text-red-500"
     />
           </>
         )}

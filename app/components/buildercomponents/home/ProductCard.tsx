@@ -89,10 +89,12 @@ export function ProductCard({ item, className }: ProductCardProps) {
       ))}
     </div>
     <div className="flex">
+      <div className="flex flex-row  justify-between items-center w-full">
     <h3 className="text-white text-md mt-2 font-medium leading-none">
       {item.name}
     </h3>
     <Addtowishlistbtn onAddToWishlist={addProductToWishlist}/>
+    </div>
     </div>
 
    
