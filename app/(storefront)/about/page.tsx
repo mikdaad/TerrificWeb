@@ -11,16 +11,15 @@ const Page = () => {
         Welcome to Terrific, your one-stop destination for premium products and seamless shopping experiences.
       </p>
       
-       {/* Embed Instagram Profile */}
-       <div className="border rounded-lg overflow-hidden">
-        <iframe
-          src="https://www.instagram.com/terrific.tr/"
-          width="100%"
-          height="600"
-          style={{ border: "none" }}
-          allowFullScreen
-        ></iframe>
-      </div>
+      <div className="text-center">
+  <blockquote
+    className="instagram-media"
+    data-instgrm-permalink="https://www.instagram.com/p/DC6sGVYyDjX/"
+    data-instgrm-version="14"
+  ></blockquote>
+  <script async src="//www.instagram.com/embed.js"></script>
+</div>
+
 
       {/* Instagram Button Link */}
       <div className="text-center mt-4">
