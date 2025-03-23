@@ -30,6 +30,10 @@ export const FooterContactInfo: React.FC = () => {
         <div className="text-[rgba(200,200,200,1)] font-normal leading-loose mt-[13px]">
           +91-7349771177{" "}
         </div>
+        <div className="leading-6 mt-[21px]">Email-Id:</div>
+        <div className="text-[rgba(200,200,200,1)] font-normal leading-loose mt-[13px]">
+        terrificmaile@gmail.com{" "}
+        </div>
       </div>
     </div>
   );
